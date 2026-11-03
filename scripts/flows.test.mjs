@@ -42,7 +42,7 @@ test('Every local HTML asset, module import, CSS asset and anchor resolves', asy
   assert.equal(ids.length, new Set(ids).size, 'Duplicate HTML IDs');
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   for (const match of html.matchAll(/(?:src|href|poster)="([^"]+)"/g)) {
-    const url = match[1];
+    const url = match[1].split('?')[0];
     if (url.startsWith('#')) assert.ok(ids.includes(url.slice(1)), `Missing anchor ${url}`);
     if (url.startsWith('/')) assert.ok((await stat(path.join(root, url))).isFile(), `Missing asset ${url}`);
   }

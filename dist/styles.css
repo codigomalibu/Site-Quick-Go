@@ -35,3 +35,7 @@ dialog{border:0;padding:44px;background:var(--linen);color:var(--ink);max-width:
 
 /* Per-path catalogue animations are managed by WAAPI, rather than a generic SVG rotation. */
 [data-animated-icon] svg{overflow:visible}.step:hover .step-drawing svg{transform:none}.scroll-cue>[data-animated-icon]{animation:none}.motion-paused [data-animated-icon] svg{transform:none}
+
+/* Editorial cleanup: clearer hierarchy and fewer ornamental labels. */
+.hero-content{padding-top:max(205px,24svh)}.hero h1{font-size:clamp(80px,7.4vw,118px);line-height:.96}.hero-line:last-child{background:none;-webkit-text-fill-color:var(--citrus);animation:hero-rise 1.2s var(--ease) both}.hero-description{line-height:1.8;max-width:410px}.hero-actions{margin-top:32px}.hero-aurora{opacity:.22}.hero-bottom{justify-content:space-between}.promise-strip{padding-block:22px}.promise-strip>span{animation:none}.promise-strip .spark{opacity:.7}.intro-photo-wrap .photo-caption{display:none}.intro-heading h2{max-width:530px}.section-top h2 em,.reveal.visible h2 em{animation:none}.button{border-radius:4px}.button:before{display:none}.star-border:after{display:none}.live-play,.round-play{animation:none}.booking-signature{display:none}.eyebrow{letter-spacing:.12em}.moment-card h3{font-size:34px}.moment-card .eyebrow{display:none}.footer-top p{font-size:47px}
+@media(max-width:640px){.hero-content{padding-top:175px}.hero h1{font-size:clamp(68px,15.5vw,90px)}.hero-description{font-size:13px}.moment-card h3{font-size:35px}.footer-top p{font-size:35px}}
