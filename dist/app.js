@@ -357,11 +357,6 @@ mountIcons();
 new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) { record.target.innerHTML = icons.heart; animateCatalogueIcon(record.target.querySelector('svg'),'heart'); } }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
 startAurora(document.querySelector('#hero-aurora'), { paused: motionPaused });
 if (matchMedia('(pointer:fine)').matches) {
-  hero.addEventListener('pointermove',event => {
-    if(motionPaused) return;
-    hero.style.setProperty('--orb-x',`${(event.clientX / innerWidth - .5)*35}px`);
-    hero.style.setProperty('--orb-y',`${(event.clientY / innerHeight - .5)*25}px`);
-  },{passive:true});
   document.querySelectorAll('.drink-card').forEach(card => {
     card.addEventListener('pointermove',event => {
       if(motionPaused)return;
