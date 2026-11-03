@@ -1,4 +1,4 @@
-import { icons } from './icons.js';
+import { icons, animateCatalogueIcon } from './icons.js';
 import { config } from './config.js';
 import { drinks, categoryNames, validFavorites, buildBrief, contactUrl } from './data.js';
 import { startAurora } from './effects.js';
@@ -347,14 +347,14 @@ startAurora($('#aurora'), { paused: motionPaused });
 // SVG geometry retrieved from the icon collection in the supplied catalogue.
 const icon = name => `<span class="ui-icon">${icons[name] || icons.sparkles}</span>`;
 function mountIcons() {
-  document.querySelectorAll('.favorite').forEach(el => el.innerHTML = icons.heart);
-  document.querySelectorAll('.play-small,.round-play,.live-play').forEach(el => el.innerHTML = icons.play);
-  document.querySelectorAll('.step-drawing').forEach((el,index) => el.innerHTML = icons[['sparkles','zap','heart'][index]]);
-  document.querySelectorAll('.spark').forEach(el => el.innerHTML = icon('sparkles'));
-  document.querySelector('.scroll-cue>span').innerHTML = icon('arrow-down-01');
+  document.querySelectorAll('.favorite').forEach(el => { el.innerHTML = icons.heart; el.dataset.animatedIcon = 'heart'; });
+  document.querySelectorAll('.play-small,.round-play,.live-play').forEach(el => { el.innerHTML = icons.play; el.dataset.animatedIcon = 'play'; });
+  document.querySelectorAll('.step-drawing').forEach((el,index) => { const name=['sparkles','zap','heart'][index]; el.innerHTML = icons[name]; el.dataset.animatedIcon = name; });
+  document.querySelectorAll('.spark').forEach(el => { el.innerHTML = icon('sparkles'); el.dataset.animatedIcon = 'sparkles'; });
+  document.querySelector('.scroll-cue>span').innerHTML = icon('arrow-down-01'); document.querySelector('.scroll-cue>span').dataset.animatedIcon = 'arrow-down-01';
 }
 mountIcons();
-new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) record.target.innerHTML = icons.heart; }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
+new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) { record.target.innerHTML = icons.heart; animateCatalogueIcon(record.target.querySelector('svg'),'heart'); } }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
 startAurora(document.querySelector('#hero-aurora'), { paused: motionPaused });
 if (matchMedia('(pointer:fine)').matches) {
   hero.addEventListener('pointermove',event => {
@@ -370,3 +370,18 @@ if (matchMedia('(pointer:fine)').matches) {
     card.addEventListener('pointerleave',()=>{card.style.setProperty('--card-ry','0deg');card.style.setProperty('--card-rx','0deg');});
   });
 }
+
+const iconObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+  const el=entry.target;
+  if(entry.isIntersecting) animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon,{loop:el.dataset.animatedIcon!=='heart'});
+  else el.querySelector('svg')?.getAnimations({subtree:true}).forEach(animation=>animation.cancel());
+}),{threshold:.25});
+document.querySelectorAll('[data-animated-icon]').forEach(el=>{
+  iconObserver.observe(el);
+  const trigger=el.closest('button,a,.step') || el;
+  for(const event of ['pointerenter','focusin','click']) trigger.addEventListener(event,()=>animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon));
+});
+window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data-animated-icon]').forEach(el=>{
+  if(event.detail.paused) el.querySelector('svg')?.getAnimations({subtree:true}).forEach(animation=>animation.cancel());
+  else { const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon,{loop:el.dataset.animatedIcon!=='heart'}); }
+}));

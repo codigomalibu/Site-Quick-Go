@@ -80,3 +80,5 @@ Pendências de lançamento: número comercial confirmado, aprovação da carta e
 
 ## Revisão de direção visual
 A marca foi generalizada para Quick GO, removendo as referências regionais da página e do formulário. Hero com Aurora WebGL visível, esfera líquida com órbitas, tipografia com luz em movimento, profundidade nos cards e ícones SVG obtidos no catálogo indicado. O endereço da prévia é preservado para manter os links existentes.
+
+Ícones animados: keyframes de Sparkles, Play, Heart, Zap e ArrowDown01 obtidos do catálogo fornecido e portados para Web Animations API. Animações por elemento, ativação na área visível, hover/foco/clique e respeito à pausa de movimento.

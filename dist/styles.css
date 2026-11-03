@@ -32,3 +32,6 @@ dialog{border:0;padding:44px;background:var(--linen);color:var(--ink);max-width:
 @media(max-width:900px){.liquid-orb{width:47vw;right:-10%;top:30%;opacity:.7}.hero h1{font-size:105px}}
 @media(max-width:640px){.hero h1{font-size:clamp(70px,16vw,96px)}.liquid-orb{width:75vw;right:-28%;top:25%;opacity:.65}.liquid-orb>span{display:none}.hero-aurora{opacity:.6}.hero-media{left:0}.hero-shade{background:linear-gradient(90deg,#14272ce8,#14272c55),linear-gradient(0deg,#14272c,transparent 90%)}.step-drawing svg{width:45px;height:45px}.hero-content{padding-top:190px}}
 @media(prefers-reduced-motion:reduce){.liquid-orb,.hero-aurora{display:none}.drink-image{transform:none}.hero-line:last-child{-webkit-text-fill-color:var(--citrus);background:none}}
+
+/* Per-path catalogue animations are managed by WAAPI, rather than a generic SVG rotation. */
+[data-animated-icon] svg{overflow:visible}.step:hover .step-drawing svg{transform:none}.scroll-cue>[data-animated-icon]{animation:none}.motion-paused [data-animated-icon] svg{transform:none}
