@@ -343,7 +343,6 @@ function mountIcons() {
   document.querySelectorAll('.play-small,.round-play,.live-play').forEach(el => { el.innerHTML = icons.play; el.dataset.animatedIcon = 'play'; });
   document.querySelectorAll('.step-drawing').forEach((el,index) => { const name=['sparkles','zap','heart'][index]; el.innerHTML = icons[name]; el.dataset.animatedIcon = name; });
   document.querySelectorAll('.spark').forEach(el => { el.innerHTML = icon('sparkles'); el.dataset.animatedIcon = 'sparkles'; });
-  document.querySelector('.scroll-cue>span').innerHTML = icon('arrow-down-01'); document.querySelector('.scroll-cue>span').dataset.animatedIcon = 'arrow-down-01';
 }
 mountIcons();
 new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) { record.target.innerHTML = icons.heart; animateCatalogueIcon(record.target.querySelector('svg'),'heart'); } }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
