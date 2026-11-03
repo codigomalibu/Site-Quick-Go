@@ -13,7 +13,7 @@
 .machine-stage{grid-column:2;grid-row:1/4;width:118%;max-width:none;height:clamp(590px,80svh,950px);margin-top:-55px;margin-left:-18%;align-self:center}
 .machine-stage model-viewer{width:100%;height:100%;background:transparent}
 .machine-halo{width:70%;height:70%;top:15%;background:radial-gradient(ellipse,#97bdc51f,transparent 65%);filter:blur(30px)}
-.machine-controls{bottom:22px;left:78%;width:auto;display:flex;justify-content:center}
+.machine-controls{bottom:22px;left:calc(78% + 28px);width:auto;display:flex;justify-content:center}
 .machine-controls .cup-toggle{display:grid;place-items:center;width:46px;height:46px;border:1px solid #e3ede14a;border-radius:50%;padding:8px;background:#092c31aa;color:#e5ebe6;backdrop-filter:blur(12px);transition:background .25s,border-color .25s,transform .25s}
 .machine-controls .cup-toggle svg{width:29px;height:29px;transition:transform .25s}
 .machine-controls .cup-toggle:hover{background:#355a5f;border-color:#d8c09a;transform:translateY(-2px)}
