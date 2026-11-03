@@ -30,12 +30,19 @@ def texture(im):
     offset=len(blob);blob.extend(raw);views.append({'buffer':0,'byteOffset':offset,'byteLength':len(raw)})
     images.append({'bufferView':len(views)-1,'mimeType':'image/png'})
     textures.append({'source':len(images)-1,'sampler':0});return len(textures)-1
-def mesh(name,verts,faces,material,uv=None):
+def mesh(name,verts,faces,material,uv=None,smooth=False):
     verts=np.array(verts,dtype=float);faces=np.array(faces,dtype=int).reshape(-1,3)
     # Separate triangles keep crisp casework and predictable normals.
     points=verts[faces].reshape(-1,3);norm=[]
     for face in verts[faces]:
         normal=np.cross(face[1]-face[0],face[2]-face[0]);normal/=max(np.linalg.norm(normal),1e-9);norm.extend([normal]*3)
+    if smooth:
+        averaged=np.zeros_like(verts)
+        for face in faces:
+            normal=np.cross(verts[face[1]]-verts[face[0]],verts[face[2]]-verts[face[0]])
+            for vertex in face:averaged[vertex]+=normal
+        averaged/=np.maximum(np.linalg.norm(averaged,axis=1,keepdims=True),1e-9)
+        norm=averaged[faces].reshape(-1,3)
     attributes={'POSITION':data(points,'VEC3'),'NORMAL':data(norm,'VEC3')}
     if uv is not None:attributes['TEXCOORD_0']=data(np.array(uv)[faces].reshape(-1,2),'VEC2')
     primitive={'attributes':attributes,'indices':data(np.arange(len(points)),'SCALAR',5125),'material':material}
@@ -108,16 +115,24 @@ rounded('Base plinth',.625,.018,.35,.025,[0,-.757,0],glass)
 for x in [-.24,.24]:
     for z in [-.12,.12]:box('Rubber foot',[.045,.013,.045],[x,-.773,z],glass)
 
-def lathe(name,profile,center,material,segments=96):
+def lathe(name,profile,center,material,segments=96,smooth=False,fluted=False,textured=False):
     v=[]
     for radius,y in profile:
-        for a in np.linspace(0,2*math.pi,segments,endpoint=False):v.append([center[0]+radius*math.cos(a),center[1]+y,center[2]+radius*math.sin(a)])
+        for a in np.linspace(0,2*math.pi,segments,endpoint=False):
+            r=radius
+            if fluted and .018<y<.24:r-=.0018*(1+math.cos(a*24))
+            wobble=.0015*math.sin(y*85) if name=='Pouring stream' else 0
+            v.append([center[0]+r*math.cos(a)+wobble,center[1]+y,center[2]+r*math.sin(a)])
     f=[]
     for row in range(len(profile)-1):
         for i in range(segments):
             j=(i+1)%segments;a=row*segments+i;b=row*segments+j;c=(row+1)*segments+j;d=(row+1)*segments+i
             f.extend([[a,b,c],[a,c,d]])
-    mesh(name,v,[list(reversed(t)) for t in f],material)
+    uv=None
+    if textured:
+        low=min(y for r,y in profile);high=max(y for r,y in profile)
+        uv=[[i/segments,1-(y-low)/(high-low)] for r,y in profile for i in range(segments)]
+    mesh(name,v,[list(reversed(t)) for t in f],material,uv,smooth)
 
 ceramic=mat('White dispensing head',[.88,.87,.82,1],.25,.2)
 warm=mat('Warm nozzle light',[1,.68,.38,1],0,.3,[1,.35,.08])
@@ -128,20 +143,71 @@ lathe('Dispensing tip',[(0,0),(.017,0),(.012,-.015),(0,-.015)],[0,-.123,.025],ce
 
 # The tumbler and pouring drink are separate meshes inside the open tunnel.
 # Transparency keeps the background visible through the glass during rotation.
-clear=mat('Clear faceted tumbler',[.82,.94,1,.14],.1,.08)
+clear=mat('Clear faceted tumbler',[.94,.98,1,.075],0,.035)
 materials[clear]['alphaMode']='BLEND'
 materials[clear]['doubleSided']=True
-orange=mat('Coral orange cocktail',[.7,.055,.006,1],0,.32)
-foam=mat('Cocktail foam',[.95,.26,.12,1],0,.8)
-rim=mat('Glass rim reflections',[.7,.83,.86,.32],.2,.12);materials[rim]['alphaMode']='BLEND'
-lathe('Faceted tumbler',[(0,0),(.111,0),(.119,.012),(.136,.305),(.132,.31),(.127,.305),(.111,.025),(0,.025)],[0,-.655,.025],clear,48)
-lathe('Tumbler rim',[(.128,0),(.136,0),(.136,.003),(.128,.003)],[0,-.348,.025],rim)
-lathe('Orange drink',[(0,0),(.11,0),(.12,.209),(0,.209)],[0,-.627,.025],orange)
-lathe('Foam surface',[(0,0),(.121,0),(.121,.01),(0,.01)],[0,-.418,.025],foam)
-lathe('Pouring stream',[(0,0),(.006,0),(.009,.04),(.006,.12),(.007,.22),(.01,.28),(0,.28)],[0,-.418,.025],orange,24)
-for n in range(20):
-    a=2*math.pi*n/20
-    lathe('Glass vertical cut',[(0,0),(.002,0),(.002,.285),(0,.285)],[.118*math.cos(a),-.645,.025+.118*math.sin(a)],rim,8)
+# A subtle depth gradient and suspended microbubbles keep the liquid from
+# reading as a flat, opaque plastic cylinder. Artwork is procedural and seeded.
+rng=np.random.default_rng(7)
+drink_art=Image.new('RGB',(512,512));pixels=np.zeros((512,512,3),dtype=np.uint8)
+for y in range(512):
+    depth=y/511
+    for x in range(512):
+        glow=.93+.07*math.cos(x/512*2*math.pi)
+        noise=rng.normal(0,1.3)
+        pixels[y,x]=np.clip(np.array([255-32*depth,108-63*depth,37-21*depth])*glow+noise,0,255)
+drink_art=Image.fromarray(pixels);d=ImageDraw.Draw(drink_art)
+for i in range(350):
+    x=int(rng.integers(512));y=int(rng.integers(512));r=float(rng.uniform(.2,1.1))
+    d.ellipse((x-r,y-r,x+r,y+r),outline=(255,155,79),width=1)
+orange=mat('Coral orange cocktail',[1,1,1,1],0,.23,texture=texture(drink_art))
+foam=mat('Cocktail foam',[1,.32,.12,1],0,.6)
+rim=mat('Glass rim reflections',[.95,.99,1,.34],.06,.045);materials[rim]['alphaMode']='BLEND'
+lathe('Faceted tumbler',[(0,0),(.101,0),(.112,.004),(.119,.017),(.12,.035),(.124,.11),(.13,.23),(.136,.302),(.135,.308),(.132,.31),(.129,.307),(.129,.3),(.124,.23),(.115,.04),(.108,.024),(0,.024)],[0,-.655,.025],clear,192,True,True)
+lathe('Rolled glass lip',[(.131,0),(.134,.001),(.136,.003),(.135,.005),(.132,.006),(.129,.004),(.129,.002),(.131,0)],[0,-.351,.025],rim,128,True)
+lathe('Heavy crystal base',[(0,0),(.105,0),(.115,.004),(.118,.01),(.117,.017),(.108,.02),(0,.02)],[0,-.655,.025],rim,128,True)
+lathe('Orange drink',[(0,0),(.103,0),(.111,.008),(.115,.09),(.121,.202),(.122,.213),(.12,.216),(.11,.212),(0,.21)],[0,-.627,.025],orange,128,True,textured=True)
+# A thin irregular foam ring and individual bubbles replace the solid foam lid.
+lathe('Foam meniscus',[(.113,0),(.121,.001),(.121,.003),(.116,.004),(.113,0)],[0,-.414,.025],foam,128,True)
+lathe('Pouring stream',[(0,0),(.006,0),(.009,.025),(.005,.08),(.006,.14),(.0045,.2),(.007,.25),(.009,.28),(0,.28)],[0,-.418,.025],orange,32,True,textured=True)
+
+def spheres(name,items,material):
+    v=[];f=[]
+    for x,y,z,r in items:
+        start=len(v);rows=6;cols=10
+        for row in range(rows+1):
+            phi=math.pi*row/rows
+            for col in range(cols):
+                a=2*math.pi*col/cols
+                v.append([x+r*math.sin(phi)*math.cos(a),y+r*math.cos(phi),z+r*math.sin(phi)*math.sin(a)])
+        for row in range(rows):
+            for col in range(cols):
+                a=start+row*cols+col;b=start+row*cols+(col+1)%cols;c=b+cols;dd=a+cols
+                f.extend([[a,c,b],[a,dd,c]])
+    mesh(name,v,f,material,smooth=True)
+
+bubbles=[]
+for n in range(150):
+    a=rng.uniform(0,2*math.pi);r=rng.uniform(.075,.119);size=rng.uniform(.0006,.0024)
+    bubbles.append((r*math.cos(a),-.413+rng.uniform(-.001,.001),.025+r*math.sin(a),size))
+spheres('Fine foam bubbles',bubbles,foam)
+drops=[]
+for n in range(14):
+    a=rng.uniform(0,2*math.pi);r=rng.uniform(.015,.064)
+    drops.append((r*math.cos(a),-.405+rng.uniform(.004,.05),.025+r*math.sin(a),rng.uniform(.001,.003)))
+spheres('Pour splash droplets',drops,orange)
+
+# Thin splash crown at the impact point, with an uneven fluid edge.
+v=[];f=[]
+for row in range(3):
+    for n in range(64):
+        a=2*math.pi*n/64;r=[.008,.024,.037][row]
+        h=[-.002,.004,.003+.014*max(0,math.sin(a*7))**8][row]
+        v.append([r*math.cos(a),-.416+h,.025+r*math.sin(a)])
+for row in range(2):
+    for n in range(64):
+        a=row*64+n;b=row*64+(n+1)%64;f.extend([[a,b,b+64],[a,b+64,a+64]])
+mesh('Fluid splash crown',v,f,orange,smooth=True)
 
 gltf={'asset':{'version':'2.0','generator':'Quick GO reference-based product visualization'},'extensionsUsed':['KHR_materials_specular','KHR_materials_unlit'],'scene':0,'scenes':[{'nodes':list(range(len(nodes)))}],'nodes':nodes,'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
 j=json.dumps(gltf,separators=(',',':')).encode();j+=b' '*((-len(j))%4);blob+=b'\x00'*((-len(blob))%4)

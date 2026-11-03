@@ -102,3 +102,10 @@ A revisão visual da implementação foi feita com o cenário de navegador REA p
 O hero foi ajustado à composição de `Seu brinde, servido em segundos.png`: texto à esquerda, produto à direita, tela clara com marca central, dispenser branco e copo com drink coral. `dist/reference-hero.css` concentra este ajuste responsivo. A reconstrução possui 45 meshes; laterais e traseira continuam inferidas, pois a referência mostra apenas um ângulo. Não é um modelo CAD ou uma reprodução fotográfica exata.
 
 O gabinete foi refeito como um aro extrudado com abertura contínua na área de serviço. Não há parede traseira fechando o dispenser. O controle “Retirar copo” oculta vidro, líquido e jato para inspecionar a passagem. O teste do GLB lança quatro raios através do vão e verifica que nenhum triângulo do gabinete o bloqueia. Giro, remoção e reposição do copo foram exercitados em navegador REA, com versões desktop e celular, sem erros de página.
+
+
+## Refinamento do copo e controles
+
+Na versão `glass-3`, a barra de setas e textos foi substituída por um único botão circular SVG para retirar/recolocar o copo. Rótulo acessível, tooltip, símbolo de estado e `aria-pressed` acompanham a ação. O giro continua por arraste e teclado nativo.
+
+A geometria do gabinete foi preservada. Somente copo e drink receberam nova modelagem: vidro suavizado com estrias, borda arredondada, base espessa, líquido com gradiente e microbolhas, espuma fina, respingos e jato irregular. O arquivo GLB tem cerca de 3,5 MB.

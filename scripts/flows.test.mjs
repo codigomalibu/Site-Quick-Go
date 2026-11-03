@@ -57,7 +57,7 @@ test('Every local HTML asset, module import, CSS asset and anchor resolves', asy
 test('Interactive product uses a complete GLB model with orbit controls and a poster', async () => {
   const html = await readFile(path.join(root, 'index.html'), 'utf8');
   assert.ok(html.includes('camera-controls disable-zoom disable-pan'));
-  for (const id of ['machine-viewer','rotate-left','rotate-right','reset-machine']) assert.ok(html.includes(`id="${id}"`));
+  for (const id of ['machine-viewer','toggle-cup']) assert.ok(html.includes(`id="${id}"`));
   const bytes = await readFile(path.join(root, 'assets/quickgo-machine.glb'));
   assert.equal(bytes.subarray(0,4).toString(), 'glTF');
   assert.equal(bytes.readUInt32LE(4), 2);

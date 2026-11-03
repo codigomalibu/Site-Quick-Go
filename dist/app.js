@@ -378,19 +378,8 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
   else { const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon,{loop:el.dataset.animatedIcon!=='heart'}); }
 }));
 
-// Product controls: real orbit changes on the Quick GO GLB scene.
-let machineAngle = 20;
-function rotateMachine(delta) {
-  machineViewer.removeAttribute('auto-rotate');
-  const orbit = machineViewer.getCameraOrbit?.();
-  machineAngle = (orbit ? orbit.theta * 180 / Math.PI : machineAngle) + delta;
-  machineViewer.cameraOrbit = `${machineAngle}deg 82deg 3.1m`;
-  $('#machine-status').textContent = `Máquina girada para ${Math.round(machineAngle)} graus.`;
-}
-$('#rotate-left').addEventListener('click', () => rotateMachine(-35));
-$('#rotate-right').addEventListener('click', () => rotateMachine(35));
-$('#reset-machine').addEventListener('click', () => { machineAngle=20; machineViewer.cameraOrbit='20deg 82deg 3.1m'; $('#machine-status').textContent='Visualização na posição inicial.'; });
-machineViewer.addEventListener('load', () => { machineViewer.dataset.ready='true'; $('#machine-status').textContent='Máquina 3D pronta. Arraste para girar ou use os botões.'; });
+// Product controls: direct drag and native keyboard orbit remain on the viewer.
+machineViewer.addEventListener('load', () => { machineViewer.dataset.ready='true'; $('#machine-status').textContent='Máquina 3D pronta. Arraste para girar. Use o ícone de copo para retirar ou recolocar o drink.'; });
 machineViewer.addEventListener('error', () => { $('#machine-status').textContent='Visualização 3D indisponível neste navegador. A imagem da máquina continua visível.'; });
 machineViewer.addEventListener('pointerdown', () => machineViewer.removeAttribute('auto-rotate'));
 
@@ -408,7 +397,10 @@ $('#toggle-cup').addEventListener('click', () => {
     material.setAlphaMode(cupRemoved ? 'MASK' : original.mode);
     material.pbrMetallicRoughness.setBaseColorFactor(cupRemoved ? [0,0,0,0] : original.color);
   }
-  $('#toggle-cup').textContent = cupRemoved ? 'Colocar copo' : 'Retirar copo';
+  const cupLabel = cupRemoved ? 'Colocar copo' : 'Retirar copo';
+  $('#toggle-cup').setAttribute('aria-label', cupLabel);
+  $('#toggle-cup').setAttribute('title', cupLabel);
+  $('.cup-state-mark').setAttribute('d', cupRemoved ? 'M23 3h6m-3-3v6' : 'M23 3h6');
   $('#toggle-cup').setAttribute('aria-pressed', String(cupRemoved));
   $('#machine-status').textContent = cupRemoved ? 'Copo retirado. O dispenser é aberto de um lado ao outro. Arraste para conferir.' : 'Copo recolocado.';
 });
