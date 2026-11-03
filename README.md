@@ -109,3 +109,8 @@ O gabinete foi refeito como um aro extrudado com abertura contínua na área de 
 Na versão `glass-3`, a barra de setas e textos foi substituída por um único botão circular SVG para retirar/recolocar o copo. Rótulo acessível, tooltip, símbolo de estado e `aria-pressed` acompanham a ação. O giro continua por arraste e teclado nativo.
 
 A geometria do gabinete foi preservada. Somente copo e drink receberam nova modelagem: vidro suavizado com estrias, borda arredondada, base espessa, líquido com gradiente e microbolhas, espuma fina, respingos e jato irregular. O arquivo GLB tem cerca de 3,5 MB.
+
+
+## Copo fornecido pelo usuário
+
+A versão `photo-7` substitui o copo procedural pela imagem transparente `cocktail-reference.png`, fornecida pelo usuário. A arte original é incorporada ao GLB em duas superfícies curvas opostas, com rótulo de material próprio e retirada pelo mesmo botão. Trata-se de uma representação fotográfica com profundidade limitada, não de uma reconstrução volumétrica do vidro. Gabinete, tela, bico e interação da máquina são preservados.

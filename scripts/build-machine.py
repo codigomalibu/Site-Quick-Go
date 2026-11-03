@@ -245,6 +245,31 @@ ice_cube('Ice stone 1',[-.057,-.402,.070],.066,[.15,.38,-.18])
 ice_cube('Ice stone 2',[.058,-.399,.060],.064,[-.24,-.28,.26])
 ice_cube('Ice stone 3',[.001,-.395,-.037],.070,[.18,.62,.13])
 
+# Replace the procedural tumbler with the user's supplied transparent artwork.
+# Two curved, opposing surfaces give the exact photographed glass a little
+# depth while keeping it attached to the rotating machine in the same scene.
+cup_names={'Clear faceted tumbler','Glass rim reflections','Coral orange cocktail','Cocktail foam','Translucent ice'}
+meshes[:]=[m for m in meshes if materials[m['primitives'][0]['material']]['name'] not in cup_names]
+nodes[:]=[{'name':m['name'],'mesh':i} for i,m in enumerate(meshes)]
+photo=Image.open(OUT/'cocktail-reference.png').convert('RGBA')
+left,top,right,bottom=photo.getchannel('A').point(lambda a:255 if a>200 else 0).getbbox()
+left-=8;right+=8;top-=8;bottom+=8
+photomat=mat('Supplied cocktail photograph',[1,1,1,1],0,1,texture=texture(photo))
+materials[photomat].update(alphaMode='BLEND',doubleSided=False,extensions={'KHR_materials_unlit':{}})
+width=.265;height=width*(bottom-top)/(right-left)
+for back in [False,True]:
+    v=[];uv=[];f=[];segments=40
+    for row in range(2):
+        for n in range(segments+1):
+            t=n/segments;x=(t-.5)*width
+            depth=.048*math.sin(t*math.pi)
+            v.append([x,-.655+row*height,.025+(-depth if back else depth)])
+            uv.append([(left+t*(right-left))/photo.width,(bottom-row*(bottom-top))/photo.height])
+    for n in range(segments):
+        a=n;b=n+1;c=b+segments+1;d=a+segments+1;f.extend([[a,b,c],[a,c,d]])
+    if back:f=[list(reversed(t)) for t in f]
+    mesh('Reference cocktail '+('rear' if back else 'front'),v,f,photomat,uv,smooth=True)
+
 gltf={'asset':{'version':'2.0','generator':'Quick GO reference-based product visualization'},'extensionsUsed':['KHR_materials_specular','KHR_materials_unlit'],'scene':0,'scenes':[{'nodes':list(range(len(nodes)))}],'nodes':nodes,'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
 j=json.dumps(gltf,separators=(',',':')).encode();j+=b' '*((-len(j))%4);blob+=b'\x00'*((-len(blob))%4)
 glb=struct.pack('<4sII',b'glTF',2,12+8+len(j)+8+len(blob))+struct.pack('<I4s',len(j),b'JSON')+j+struct.pack('<I4s',len(blob),b'BIN\x00')+blob
