@@ -209,6 +209,42 @@ for row in range(2):
         a=row*64+n;b=row*64+(n+1)%64;f.extend([[a,b,b+64],[a,b+64,a+64]])
 mesh('Fluid splash crown',v,f,orange,smooth=True)
 
+ice=mat('Translucent ice',[.78,.91,1,.68],0,.12)
+materials[ice]['alphaMode']='BLEND'
+materials[ice]['extensions']={'KHR_materials_specular':{'specularFactor':1}}
+
+def ice_cube(name,center,size,angles):
+    # Rounded edges catch the environment light; each stone floats partly
+    # below the liquid surface, which naturally occludes the submerged faces.
+    half=size/2;bevel=.008;v=[];f=[];steps=8
+    ax,ay,az=angles
+    rx=np.array([[1,0,0],[0,math.cos(ax),-math.sin(ax)],[0,math.sin(ax),math.cos(ax)]])
+    ry=np.array([[math.cos(ay),0,math.sin(ay)],[0,1,0],[-math.sin(ay),0,math.cos(ay)]])
+    rz=np.array([[math.cos(az),-math.sin(az),0],[math.sin(az),math.cos(az),0],[0,0,1]])
+    rotation=rz@ry@rx
+    for axis in range(3):
+        for sign in [-1,1]:
+            start=len(v);other=[i for i in range(3) if i!=axis]
+            for row in range(steps+1):
+                for col in range(steps+1):
+                    p=np.zeros(3);p[axis]=sign*half;p[other[0]]=-half+size*col/steps;p[other[1]]=-half+size*row/steps
+                    core=np.clip(p,-half+bevel,half-bevel);delta=p-core
+                    point=core+bevel*delta/np.linalg.norm(delta)
+                    v.append(rotation@point+center)
+            for row in range(steps):
+                for col in range(steps):
+                    a=start+row*(steps+1)+col;b=a+1;c=b+steps+1;d=a+steps+1
+                    triangles=[[a,b,c],[a,c,d]]
+                    normal=np.cross(np.array(v[b])-v[a],np.array(v[c])-v[a])
+                    outward=rotation[:,axis]*sign
+                    if np.dot(normal,outward)<0:triangles=[list(reversed(t)) for t in triangles]
+                    f.extend(triangles)
+    mesh(name,v,f,ice,smooth=True)
+
+ice_cube('Ice stone 1',[-.057,-.402,.070],.066,[.15,.38,-.18])
+ice_cube('Ice stone 2',[.058,-.399,.060],.064,[-.24,-.28,.26])
+ice_cube('Ice stone 3',[.001,-.395,-.037],.070,[.18,.62,.13])
+
 gltf={'asset':{'version':'2.0','generator':'Quick GO reference-based product visualization'},'extensionsUsed':['KHR_materials_specular','KHR_materials_unlit'],'scene':0,'scenes':[{'nodes':list(range(len(nodes)))}],'nodes':nodes,'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
 j=json.dumps(gltf,separators=(',',':')).encode();j+=b' '*((-len(j))%4);blob+=b'\x00'*((-len(blob))%4)
 glb=struct.pack('<4sII',b'glTF',2,12+8+len(j)+8+len(blob))+struct.pack('<I4s',len(j),b'JSON')+j+struct.pack('<I4s',len(blob),b'BIN\x00')+blob

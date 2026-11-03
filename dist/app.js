@@ -379,7 +379,7 @@ machineViewer.addEventListener('pointerdown', () => machineViewer.removeAttribut
 
 // Hide only the glass and drink to let visitors inspect the physical through-opening.
 let cupRemoved = false;
-const cupMaterials = new Set(['Clear faceted tumbler', 'Glass rim reflections', 'Coral orange cocktail', 'Cocktail foam']);
+const cupMaterials = new Set(['Clear faceted tumbler', 'Glass rim reflections', 'Coral orange cocktail', 'Cocktail foam', 'Translucent ice']);
 const originalCupMaterials = new Map();
 $('#toggle-cup').addEventListener('click', () => {
   if (!machineViewer.model) return;

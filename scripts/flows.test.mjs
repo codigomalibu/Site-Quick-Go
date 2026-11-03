@@ -71,7 +71,7 @@ test('Interactive product uses a complete GLB model with orbit controls and a po
   // Rays through the empty serving bay must not hit any housing triangles.
   // Check the actual exported geometry, rather than only mesh names.
   const binStart = 28 + length;
-  const excluded = new Set(['Clear faceted tumbler','Glass rim reflections','Coral orange cocktail','Cocktail foam']);
+  const excluded = new Set(['Clear faceted tumbler','Glass rim reflections','Coral orange cocktail','Cocktail foam', 'Translucent ice']);
   for (const [x,y] of [[0,-.35],[0,-.55],[.15,-.35],[-.15,-.35]]) {
     for (const mesh of gltf.meshes) for (const primitive of mesh.primitives) {
       if (excluded.has(gltf.materials[primitive.material].name)) continue;
