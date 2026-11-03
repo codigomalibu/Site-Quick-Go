@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Private preview. The HTML explicitly uses noindex,follow.
+# Generate the production sitemap when connecting the final domain.
