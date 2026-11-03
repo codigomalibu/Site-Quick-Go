@@ -119,3 +119,14 @@ A versão `photo-7` substitui o copo procedural pela imagem transparente `cockta
 ## Copo 360 fornecido em GLB
 
 A versão `cup-8` integra o arquivo `quickgo_copo_360.glb` do ZIP enviado pelo usuário na mesma cena da máquina. Copo, gelo, bebida, espuma e condensação são geometria volumétrica; a representação fotográfica anterior saiu da cena. O modelo original permanece em `dist/assets/quickgo-cup-360.glb`. Vidro e gelo usam transparência alpha no viewer existente para evitar o efeito leitoso da passagem de transmissão em superfícies aninhadas. O botão retira todos os seis materiais do copo, e o gabinete continua com passagem aberta.
+
+
+## Máquina completa — reconstrução das oito vistas
+
+A versão `complete-10` troca a hero por uma cena Three.js 0.187.0, com um novo GLB (`quickgo-machine-complete.glb`) e geometria própria. O arquivo tem um único nó raiz com gabinete, detalhes de serviço, tela, marcas, dispenser, copo aberto de vidro, gelo, espuma e líquido. Não há painéis fotográficos no modelo. As imagens de oito ângulos são referências; não constituem escaneamento ou CAD de fábrica. A imagem frontal é usada somente como fallback estático durante o carregamento ou em falha de WebGL.
+
+`scripts/build-machine-premium.py` gera o GLB; `scripts/machine-scene.js` contém iluminação PBR, ambiente PMREM, vidro com Fresnel e gelo refrativo, controles por mouse/toque/teclado e fluxo com deformação no shader e respingos. `npm run build:machine` reconstrói estes dois artefatos. A camada transparente externa evita a limitação de refração entre múltiplas superfícies transmissivas do rasterizador. A apresentação é uma reconstrução visual, não uma reprodução fotográfica exata.
+
+A rotação automática é suave, sem limites angulares; volta após soltar o arraste. Setas de teclado giram e espaço pausa, sem controles visuais adicionais. O movimento respeita redução de movimento e pausa fora da tela ou com a aba oculta. A resolução de renderização é limitada no celular. A hero mantém texto à esquerda e máquina à direita no desktop, e empilha os elementos no celular. Todas as seções a partir de `#experiencia` foram comparadas byte a byte e preservadas.
+
+Verificação: nove testes de lógica/arquivos/GLB/HTTP passaram, incluindo passagem física no dispenser e hierarquia única do conjunto. Navegador real em 1280×720, 714×668 e 390×844 verificou rotação automática, mouse, arraste por toque, mais de 360 graus, teclado, fluxo e ausência de overflow/erros. Evidências locais fora do repositório em `../review/complete-machine/`. REA foi usado para vistas frontal e traseira; Playwright Core com Chrome instalado verificou o arraste real, pois o contrato de cenário REA não oferece essa ação. Safari/iOS físico e desempenho em aparelhos de entrada não foram medidos.

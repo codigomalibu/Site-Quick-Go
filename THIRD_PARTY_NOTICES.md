@@ -18,7 +18,7 @@ Instrument Serif and DM Sans are provided under the SIL Open Font License. Licen
 
 ## Model viewer
 
-The product presentation uses Google model-viewer 3.3.0, the same viewer family identified in the supplied Coffee-Tech reference. The bundled viewer retains its source notices. Its Apache 2.0 license is included in `dist/licenses/model-viewer.txt`.
+The previous product presentation used Google model-viewer 3.3.0, the same viewer family identified in the supplied Coffee-Tech reference. The bundled viewer retains its source notices. Its Apache 2.0 license is included in `dist/licenses/model-viewer.txt`.
 
 The Quick GO GLB is a newly authored visual reconstruction from the user's supplied machine photographs. It is not the Coffee-Tech model, a manufacturer CAD file, or a manufacturing specification.
 
@@ -32,3 +32,8 @@ Logos, photography and source videos were supplied by the user. They remain subj
 
 ## Catalogue icons
 Animated icon SVG geometry was retrieved from the Animate UI / Hugeicons entries of the user-supplied Um só catalogue (sparkles, zap, heart, play, arrow-down-01). Motion is adapted to CSS. Source: https://animate-ui.com/docs/icons/hugeicons .
+
+
+## Current Three.js hero
+
+The complete-machine hero uses Three.js 0.187.0 and its GLTFLoader and RoomEnvironment addons under the MIT license, included in `dist/licenses/three.txt`. It no longer loads model-viewer or any previous cup viewer. esbuild bundles the scene for static hosting; Playwright Core is a development-only test dependency. The new GLB is authored from the user's eight visual references and contains full volumetric geometry with an open dispenser. The reference poster is user-supplied media and is not used to simulate rotation.

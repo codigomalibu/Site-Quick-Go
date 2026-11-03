@@ -196,20 +196,20 @@ $$('[data-taste]').forEach(button => button.addEventListener('click', () => {
 
 function playHero() {
   if (!machineViewer || motionPaused || document.hidden || $('#film-dialog').open) return;
-  machineViewer.setAttribute('auto-rotate', '');
+  window.dispatchEvent(new CustomEvent('quickgo:machine-motion', { detail: { paused: false } }));
 }
 function setMotion(paused) {
   motionPaused = paused;
   document.body.classList.toggle('motion-paused', paused);
-  if (paused) machineViewer?.removeAttribute('auto-rotate'); else if (hero.getBoundingClientRect().bottom > 0) playHero();
+  if (paused) window.dispatchEvent(new CustomEvent('quickgo:machine-motion', { detail: { paused: true } })); else if (hero.getBoundingClientRect().bottom > 0) playHero();
   window.dispatchEvent(new CustomEvent('quickgo:motion', { detail: { paused } }));
 }
 reduceMotion.addEventListener('change', event => setMotion(event.matches));
 new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) playHero(); else machineViewer?.removeAttribute('auto-rotate');
+  if (entries[0].isIntersecting) playHero(); else window.dispatchEvent(new CustomEvent('quickgo:machine-motion', { detail: { paused: true } }));
 }, { threshold: .05 }).observe(hero);
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) { machineViewer?.removeAttribute('auto-rotate'); $('#film-player').pause(); }
+  if (document.hidden) { window.dispatchEvent(new CustomEvent('quickgo:machine-motion', { detail: { paused: true } })); $('#film-player').pause(); }
   else if (hero.getBoundingClientRect().bottom > 0) playHero();
 });
 setMotion(motionPaused);
@@ -217,7 +217,7 @@ setMotion(motionPaused);
 $$('[data-film]').forEach(button => button.addEventListener('click', () => {
   const allowed = ['filme', 'evento-musica', 'evento-aniversario'];
   if (!allowed.includes(button.dataset.film)) return;
-  machineViewer?.removeAttribute('auto-rotate');
+  window.dispatchEvent(new CustomEvent('quickgo:machine-motion', { detail: { paused: true } }));
   $('#film-title').textContent = button.dataset.filmTitle;
   $('#film-player').src = `/assets/${button.dataset.film}.mp4`;
   openDialog($('#film-dialog'));
@@ -372,28 +372,3 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
   else { const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon,{loop:el.dataset.animatedIcon!=='heart'}); }
 }));
 
-// Product controls: direct drag and native keyboard orbit remain on the viewer.
-machineViewer.addEventListener('load', () => { machineViewer.dataset.ready='true'; $('#machine-status').textContent='Máquina 3D pronta. Arraste para girar. Use o ícone de copo para retirar ou recolocar o drink.'; });
-machineViewer.addEventListener('error', () => { $('#machine-status').textContent='Visualização 3D indisponível neste navegador. A imagem da máquina continua visível.'; });
-machineViewer.addEventListener('pointerdown', () => machineViewer.removeAttribute('auto-rotate'));
-
-// Hide only the glass and drink to let visitors inspect the physical through-opening.
-let cupRemoved = false;
-const originalCupMaterials = new Map();
-$('#toggle-cup').addEventListener('click', () => {
-  if (!machineViewer.model) return;
-  cupRemoved = !cupRemoved;
-  for (const material of machineViewer.model.materials) {
-    if (!material.name.startsWith('quickgo_')) continue;
-    if (!originalCupMaterials.has(material)) originalCupMaterials.set(material, { color: [...material.pbrMetallicRoughness.baseColorFactor], mode: material.getAlphaMode() });
-    const original = originalCupMaterials.get(material);
-    material.setAlphaMode(cupRemoved ? 'MASK' : original.mode);
-    material.pbrMetallicRoughness.setBaseColorFactor(cupRemoved ? [0,0,0,0] : original.color);
-  }
-  const cupLabel = cupRemoved ? 'Colocar copo' : 'Retirar copo';
-  $('#toggle-cup').setAttribute('aria-label', cupLabel);
-  $('#toggle-cup').setAttribute('title', cupLabel);
-  $('.cup-state-mark').setAttribute('d', cupRemoved ? 'M23 3h6m-3-3v6' : 'M23 3h6');
-  $('#toggle-cup').setAttribute('aria-pressed', String(cupRemoved));
-  $('#machine-status').textContent = cupRemoved ? 'Copo retirado. O dispenser é aberto de um lado ao outro. Arraste para conferir.' : 'Copo recolocado.';
-});

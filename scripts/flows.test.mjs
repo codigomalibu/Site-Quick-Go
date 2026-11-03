@@ -54,11 +54,13 @@ test('Every local HTML asset, module import, CSS asset and anchor resolves', asy
   for (const drink of Object.values(drinks)) assert.ok((await stat(path.join(root, 'assets', `${drink.image}.webp`))).isFile());
 });
 
-test('Interactive product uses a complete GLB model with orbit controls and a poster', async () => {
+test('Integrated Three.js machine has one root, volumetric glass and an open serving tunnel', async () => {
   const html = await readFile(path.join(root, 'index.html'), 'utf8');
-  assert.ok(html.includes('camera-controls disable-zoom disable-pan'));
-  for (const id of ['machine-viewer','toggle-cup']) assert.ok(html.includes(`id="${id}"`));
-  const bytes = await readFile(path.join(root, 'assets/quickgo-machine.glb'));
+  assert.ok(html.includes('/machine-scene.js'));
+  assert.ok(!html.includes('<model-viewer'));
+  assert.ok(!html.includes('id="toggle-cup"'));
+  for (const id of ['machine-viewer','machine-status']) assert.ok(html.includes(`id="${id}"`));
+  const bytes = await readFile(path.join(root, 'assets/quickgo-machine-complete.glb'));
   assert.equal(bytes.subarray(0,4).toString(), 'glTF');
   assert.equal(bytes.readUInt32LE(4), 2);
   assert.equal(bytes.readUInt32LE(8), bytes.length);
@@ -67,16 +69,19 @@ test('Interactive product uses a complete GLB model with orbit controls and a po
   assert.ok(gltf.meshes.length >= 19);
   assert.ok(gltf.images.length >= 2);
   for (const view of gltf.bufferViews) assert.ok(view.byteOffset + view.byteLength <= gltf.buffers[0].byteLength);
-  assert.ok(gltf.nodes.some(node=>node.name === 'Drink menu'));
-  assert.ok(gltf.nodes.some(node=>node.name === 'Supplied Quick GO 360 cup'));
-  assert.ok(gltf.nodes.some(node=>node.name === 'ice_left'));
+  assert.equal(gltf.scenes[0].nodes.length, 1);
+  const assembly = gltf.nodes[gltf.scenes[0].nodes[0]];
+  assert.equal(assembly.name, 'Quick GO complete dispensing machine');
+  assert.equal(assembly.children.length, gltf.meshes.length);
+  for (const name of ['Fluted crystal tumbler','Ice left','Flowing coral stream','Front touchscreen','Solid rear face with through opening']) assert.ok(gltf.nodes.some(node=>node.name === name));
+  assert.ok(gltf.materials.some(m=>m.extensions?.KHR_materials_transmission));
   assert.ok(!gltf.nodes.some(node=>node.name.startsWith('Reference cocktail')));
   // Rays through the empty serving bay must not hit any housing triangles.
   // Check the actual exported geometry, rather than only mesh names.
   const binStart = 28 + length;
   for (const [x,y] of [[0,-.35],[0,-.55],[.15,-.35],[-.15,-.35]]) {
     for (const mesh of gltf.meshes) for (const primitive of mesh.primitives) {
-      if (gltf.materials[primitive.material].name.startsWith('quickgo_')) continue;
+      if (['Rolled crystal highlights','Crystal tumbler','Coral cocktail','Delicate peach foam','Clear melting ice','Suspended cocktail microbubbles'].includes(gltf.materials[primitive.material].name)) continue;
       const accessor = gltf.accessors[primitive.attributes.POSITION];
       const view = gltf.bufferViews[accessor.bufferView];
       const start = binStart + (view.byteOffset || 0) + (accessor.byteOffset || 0);

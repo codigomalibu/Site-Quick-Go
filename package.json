@@ -5,6 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "check": "node --check dist/app.js && node --check dist/data.js && node --check dist/effects.js && node --test scripts/flows.test.mjs"
+    "check": "node --check dist/app.js && node --check dist/data.js && node --check dist/effects.js && node --test scripts/flows.test.mjs",
+    "build:machine": "python scripts/build-machine-premium.py && esbuild scripts/machine-scene.js --bundle --format=esm --minify --outfile=dist/machine-scene.js --legal-comments=eof"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "playwright-core": "1.64.1"
   }
 }
