@@ -114,3 +114,8 @@ A geometria do gabinete foi preservada. Somente copo e drink receberam nova mode
 ## Copo fornecido pelo usuário
 
 A versão `photo-7` substitui o copo procedural pela imagem transparente `cocktail-reference.png`, fornecida pelo usuário. A arte original é incorporada ao GLB em duas superfícies curvas opostas, com rótulo de material próprio e retirada pelo mesmo botão. Trata-se de uma representação fotográfica com profundidade limitada, não de uma reconstrução volumétrica do vidro. Gabinete, tela, bico e interação da máquina são preservados.
+
+
+## Copo 360 fornecido em GLB
+
+A versão `cup-8` integra o arquivo `quickgo_copo_360.glb` do ZIP enviado pelo usuário na mesma cena da máquina. Copo, gelo, bebida, espuma e condensação são geometria volumétrica; a representação fotográfica anterior saiu da cena. O modelo original permanece em `dist/assets/quickgo-cup-360.glb`. Vidro e gelo usam transparência alpha no viewer existente para evitar o efeito leitoso da passagem de transmissão em superfícies aninhadas. O botão retira todos os seis materiais do copo, e o gabinete continua com passagem aberta.

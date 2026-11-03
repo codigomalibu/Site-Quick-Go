@@ -141,136 +141,48 @@ lathe('Round white dispenser',[(0,-.045),(.06,-.045),(.063,-.039),(.063,0),(0,0)
 lathe('Warm dispensing light',[(.065,0),(.073,0),(.073,.002),(.065,.002)],[0,-.083,.025],warm)
 lathe('Dispensing tip',[(0,0),(.017,0),(.012,-.015),(0,-.015)],[0,-.123,.025],ceramic)
 
-# The tumbler and pouring drink are separate meshes inside the open tunnel.
-# Transparency keeps the background visible through the glass during rotation.
-clear=mat('Clear faceted tumbler',[.94,.98,1,.075],0,.035)
-materials[clear]['alphaMode']='BLEND'
-materials[clear]['doubleSided']=True
-# A subtle depth gradient and suspended microbubbles keep the liquid from
-# reading as a flat, opaque plastic cylinder. Artwork is procedural and seeded.
-rng=np.random.default_rng(7)
-drink_art=Image.new('RGB',(512,512));pixels=np.zeros((512,512,3),dtype=np.uint8)
-for y in range(512):
-    depth=y/511
-    for x in range(512):
-        glow=.93+.07*math.cos(x/512*2*math.pi)
-        noise=rng.normal(0,1.3)
-        pixels[y,x]=np.clip(np.array([255-32*depth,108-63*depth,37-21*depth])*glow+noise,0,255)
-drink_art=Image.fromarray(pixels);d=ImageDraw.Draw(drink_art)
-for i in range(350):
-    x=int(rng.integers(512));y=int(rng.integers(512));r=float(rng.uniform(.2,1.1))
-    d.ellipse((x-r,y-r,x+r,y+r),outline=(255,155,79),width=1)
-orange=mat('Coral orange cocktail',[1,1,1,1],0,.23,texture=texture(drink_art))
-foam=mat('Cocktail foam',[1,.32,.12,1],0,.6)
-rim=mat('Glass rim reflections',[.95,.99,1,.34],.06,.045);materials[rim]['alphaMode']='BLEND'
-lathe('Faceted tumbler',[(0,0),(.101,0),(.112,.004),(.119,.017),(.12,.035),(.124,.11),(.13,.23),(.136,.302),(.135,.308),(.132,.31),(.129,.307),(.129,.3),(.124,.23),(.115,.04),(.108,.024),(0,.024)],[0,-.655,.025],clear,192,True,True)
-lathe('Rolled glass lip',[(.131,0),(.134,.001),(.136,.003),(.135,.005),(.132,.006),(.129,.004),(.129,.002),(.131,0)],[0,-.351,.025],rim,128,True)
-lathe('Heavy crystal base',[(0,0),(.105,0),(.115,.004),(.118,.01),(.117,.017),(.108,.02),(0,.02)],[0,-.655,.025],rim,128,True)
-lathe('Orange drink',[(0,0),(.103,0),(.111,.008),(.115,.09),(.121,.202),(.122,.213),(.12,.216),(.11,.212),(0,.21)],[0,-.627,.025],orange,128,True,textured=True)
-# A thin irregular foam ring and individual bubbles replace the solid foam lid.
-lathe('Foam meniscus',[(.113,0),(.121,.001),(.121,.003),(.116,.004),(.113,0)],[0,-.414,.025],foam,128,True)
-lathe('Pouring stream',[(0,0),(.006,0),(.009,.025),(.005,.08),(.006,.14),(.0045,.2),(.007,.25),(.009,.28),(0,.28)],[0,-.418,.025],orange,32,True,textured=True)
+# Import the actual volumetric cup supplied by the user. Its materials and
+# geometry stay intact, and its scene root places it on the serving platform.
+source=(OUT/'quickgo-cup-360.glb').read_bytes()
+source_json_size=struct.unpack_from('<I',source,12)[0]
+cup=json.loads(source[20:20+source_json_size])
+source_bin=source[28+source_json_size:]
+while len(blob)%4:blob.append(0)
+byte_offset=len(blob);view_offset=len(views);accessor_offset=len(accessors)
+material_offset=len(materials);mesh_offset=len(meshes);node_offset=len(nodes)
+blob.extend(source_bin)
+for view in cup['bufferViews']:
+    view['byteOffset']=view.get('byteOffset',0)+byte_offset
+    views.append(view)
+for accessor in cup['accessors']:
+    accessor['bufferView']+=view_offset
+    accessors.append(accessor)
+for material in cup['materials']:
+    # The existing viewer's transmission pass washes nested glass shells out.
+    # Use alpha glass here so the supplied liquid remains visible on mobile.
+    if material['name'] in ['quickgo_vidro_cristal','quickgo_gelo_cristal']:
+        material['extensions']={}
+        material['alphaMode']='BLEND'
+        material['pbrMetallicRoughness']['baseColorFactor'][3]=.10 if material['name']=='quickgo_vidro_cristal' else .55
+    if material['name']=='quickgo_drink_coral':
+        material['extensions']={}
+    materials.append(material)
+for item in cup['meshes']:
+    for primitive in item['primitives']:
+        primitive['attributes']={key:index+accessor_offset for key,index in primitive['attributes'].items()}
+        if 'indices' in primitive:primitive['indices']+=accessor_offset
+        if 'material' in primitive:primitive['material']+=material_offset
+    meshes.append(item)
+for node in cup['nodes']:
+    if 'mesh' in node:node['mesh']+=mesh_offset
+    if 'children' in node:node['children']=[i+node_offset for i in node['children']]
+    nodes.append(node)
+cup_root=len(nodes)
+nodes.append({'name':'Supplied Quick GO 360 cup','translation':[0,-.4764,.025],
+              'scale':[.19,.19,.19],'children':[i+node_offset for i in cup['scenes'][cup.get('scene',0)]['nodes']]})
+scene_roots=list(range(node_offset))+[cup_root]
 
-def spheres(name,items,material):
-    v=[];f=[]
-    for x,y,z,r in items:
-        start=len(v);rows=6;cols=10
-        for row in range(rows+1):
-            phi=math.pi*row/rows
-            for col in range(cols):
-                a=2*math.pi*col/cols
-                v.append([x+r*math.sin(phi)*math.cos(a),y+r*math.cos(phi),z+r*math.sin(phi)*math.sin(a)])
-        for row in range(rows):
-            for col in range(cols):
-                a=start+row*cols+col;b=start+row*cols+(col+1)%cols;c=b+cols;dd=a+cols
-                f.extend([[a,c,b],[a,dd,c]])
-    mesh(name,v,f,material,smooth=True)
-
-bubbles=[]
-for n in range(150):
-    a=rng.uniform(0,2*math.pi);r=rng.uniform(.075,.119);size=rng.uniform(.0006,.0024)
-    bubbles.append((r*math.cos(a),-.413+rng.uniform(-.001,.001),.025+r*math.sin(a),size))
-spheres('Fine foam bubbles',bubbles,foam)
-drops=[]
-for n in range(14):
-    a=rng.uniform(0,2*math.pi);r=rng.uniform(.015,.064)
-    drops.append((r*math.cos(a),-.405+rng.uniform(.004,.05),.025+r*math.sin(a),rng.uniform(.001,.003)))
-spheres('Pour splash droplets',drops,orange)
-
-# Thin splash crown at the impact point, with an uneven fluid edge.
-v=[];f=[]
-for row in range(3):
-    for n in range(64):
-        a=2*math.pi*n/64;r=[.008,.024,.037][row]
-        h=[-.002,.004,.003+.014*max(0,math.sin(a*7))**8][row]
-        v.append([r*math.cos(a),-.416+h,.025+r*math.sin(a)])
-for row in range(2):
-    for n in range(64):
-        a=row*64+n;b=row*64+(n+1)%64;f.extend([[a,b,b+64],[a,b+64,a+64]])
-mesh('Fluid splash crown',v,f,orange,smooth=True)
-
-ice=mat('Translucent ice',[.78,.91,1,.68],0,.12)
-materials[ice]['alphaMode']='BLEND'
-materials[ice]['extensions']={'KHR_materials_specular':{'specularFactor':1}}
-
-def ice_cube(name,center,size,angles):
-    # Rounded edges catch the environment light; each stone floats partly
-    # below the liquid surface, which naturally occludes the submerged faces.
-    half=size/2;bevel=.008;v=[];f=[];steps=8
-    ax,ay,az=angles
-    rx=np.array([[1,0,0],[0,math.cos(ax),-math.sin(ax)],[0,math.sin(ax),math.cos(ax)]])
-    ry=np.array([[math.cos(ay),0,math.sin(ay)],[0,1,0],[-math.sin(ay),0,math.cos(ay)]])
-    rz=np.array([[math.cos(az),-math.sin(az),0],[math.sin(az),math.cos(az),0],[0,0,1]])
-    rotation=rz@ry@rx
-    for axis in range(3):
-        for sign in [-1,1]:
-            start=len(v);other=[i for i in range(3) if i!=axis]
-            for row in range(steps+1):
-                for col in range(steps+1):
-                    p=np.zeros(3);p[axis]=sign*half;p[other[0]]=-half+size*col/steps;p[other[1]]=-half+size*row/steps
-                    core=np.clip(p,-half+bevel,half-bevel);delta=p-core
-                    point=core+bevel*delta/np.linalg.norm(delta)
-                    v.append(rotation@point+center)
-            for row in range(steps):
-                for col in range(steps):
-                    a=start+row*(steps+1)+col;b=a+1;c=b+steps+1;d=a+steps+1
-                    triangles=[[a,b,c],[a,c,d]]
-                    normal=np.cross(np.array(v[b])-v[a],np.array(v[c])-v[a])
-                    outward=rotation[:,axis]*sign
-                    if np.dot(normal,outward)<0:triangles=[list(reversed(t)) for t in triangles]
-                    f.extend(triangles)
-    mesh(name,v,f,ice,smooth=True)
-
-ice_cube('Ice stone 1',[-.057,-.402,.070],.066,[.15,.38,-.18])
-ice_cube('Ice stone 2',[.058,-.399,.060],.064,[-.24,-.28,.26])
-ice_cube('Ice stone 3',[.001,-.395,-.037],.070,[.18,.62,.13])
-
-# Replace the procedural tumbler with the user's supplied transparent artwork.
-# Two curved, opposing surfaces give the exact photographed glass a little
-# depth while keeping it attached to the rotating machine in the same scene.
-cup_names={'Clear faceted tumbler','Glass rim reflections','Coral orange cocktail','Cocktail foam','Translucent ice'}
-meshes[:]=[m for m in meshes if materials[m['primitives'][0]['material']]['name'] not in cup_names]
-nodes[:]=[{'name':m['name'],'mesh':i} for i,m in enumerate(meshes)]
-photo=Image.open(OUT/'cocktail-reference.png').convert('RGBA')
-left,top,right,bottom=photo.getchannel('A').point(lambda a:255 if a>200 else 0).getbbox()
-left-=8;right+=8;top-=8;bottom+=8
-photomat=mat('Supplied cocktail photograph',[1,1,1,1],0,1,texture=texture(photo))
-materials[photomat].update(alphaMode='BLEND',doubleSided=False,extensions={'KHR_materials_unlit':{}})
-width=.265;height=width*(bottom-top)/(right-left)
-for back in [False,True]:
-    v=[];uv=[];f=[];segments=40
-    for row in range(2):
-        for n in range(segments+1):
-            t=n/segments;x=(t-.5)*width
-            depth=.048*math.sin(t*math.pi)
-            v.append([x,-.655+row*height,.025+(-depth if back else depth)])
-            uv.append([(left+t*(right-left))/photo.width,(bottom-row*(bottom-top))/photo.height])
-    for n in range(segments):
-        a=n;b=n+1;c=b+segments+1;d=a+segments+1;f.extend([[a,b,c],[a,c,d]])
-    if back:f=[list(reversed(t)) for t in f]
-    mesh('Reference cocktail '+('rear' if back else 'front'),v,f,photomat,uv,smooth=True)
-
-gltf={'asset':{'version':'2.0','generator':'Quick GO reference-based product visualization'},'extensionsUsed':['KHR_materials_specular','KHR_materials_unlit'],'scene':0,'scenes':[{'nodes':list(range(len(nodes)))}],'nodes':nodes,'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
+gltf={'asset':{'version':'2.0','generator':'Quick GO reference-based product visualization'},'extensionsUsed':list(dict.fromkeys(['KHR_materials_specular','KHR_materials_unlit']+cup.get('extensionsUsed',[]))),'scene':0,'scenes':[{'nodes':scene_roots}],'nodes':nodes,'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
 j=json.dumps(gltf,separators=(',',':')).encode();j+=b' '*((-len(j))%4);blob+=b'\x00'*((-len(blob))%4)
 glb=struct.pack('<4sII',b'glTF',2,12+8+len(j)+8+len(blob))+struct.pack('<I4s',len(j),b'JSON')+j+struct.pack('<I4s',len(blob),b'BIN\x00')+blob
 (OUT/'quickgo-machine.glb').write_bytes(glb)

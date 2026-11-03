@@ -379,13 +379,12 @@ machineViewer.addEventListener('pointerdown', () => machineViewer.removeAttribut
 
 // Hide only the glass and drink to let visitors inspect the physical through-opening.
 let cupRemoved = false;
-const cupMaterials = new Set(['Clear faceted tumbler', 'Glass rim reflections', 'Coral orange cocktail', 'Cocktail foam', 'Translucent ice', 'Supplied cocktail photograph']);
 const originalCupMaterials = new Map();
 $('#toggle-cup').addEventListener('click', () => {
   if (!machineViewer.model) return;
   cupRemoved = !cupRemoved;
   for (const material of machineViewer.model.materials) {
-    if (!cupMaterials.has(material.name)) continue;
+    if (!material.name.startsWith('quickgo_')) continue;
     if (!originalCupMaterials.has(material)) originalCupMaterials.set(material, { color: [...material.pbrMetallicRoughness.baseColorFactor], mode: material.getAlphaMode() });
     const original = originalCupMaterials.get(material);
     material.setAlphaMode(cupRemoved ? 'MASK' : original.mode);

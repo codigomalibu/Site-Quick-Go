@@ -68,13 +68,15 @@ test('Interactive product uses a complete GLB model with orbit controls and a po
   assert.ok(gltf.images.length >= 2);
   for (const view of gltf.bufferViews) assert.ok(view.byteOffset + view.byteLength <= gltf.buffers[0].byteLength);
   assert.ok(gltf.nodes.some(node=>node.name === 'Drink menu'));
+  assert.ok(gltf.nodes.some(node=>node.name === 'Supplied Quick GO 360 cup'));
+  assert.ok(gltf.nodes.some(node=>node.name === 'ice_left'));
+  assert.ok(!gltf.nodes.some(node=>node.name.startsWith('Reference cocktail')));
   // Rays through the empty serving bay must not hit any housing triangles.
   // Check the actual exported geometry, rather than only mesh names.
   const binStart = 28 + length;
-  const excluded = new Set(['Clear faceted tumbler','Glass rim reflections','Coral orange cocktail','Cocktail foam', 'Translucent ice', 'Supplied cocktail photograph']);
   for (const [x,y] of [[0,-.35],[0,-.55],[.15,-.35],[-.15,-.35]]) {
     for (const mesh of gltf.meshes) for (const primitive of mesh.primitives) {
-      if (excluded.has(gltf.materials[primitive.material].name)) continue;
+      if (gltf.materials[primitive.material].name.startsWith('quickgo_')) continue;
       const accessor = gltf.accessors[primitive.attributes.POSITION];
       const view = gltf.bufferViews[accessor.bufferView];
       const start = binStart + (view.byteOffset || 0) + (accessor.byteOffset || 0);
