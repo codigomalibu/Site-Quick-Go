@@ -84,3 +84,14 @@ A marca foi generalizada para Quick GO, removendo as referências regionais da p
 Ícones animados: keyframes de Sparkles, Play, Heart, Zap e ArrowDown01 obtidos do catálogo fornecido e portados para Web Animations API. Animações por elemento, ativação na área visível, hover/foco/clique e respeito à pausa de movimento.
 
 Revisão editorial: removidos o convite secundário “Sinta a experiência”, o rótulo acima do título e slogans repetidos. Textos de serviço, preços sob consulta e formulário ficaram mais diretos. Ícones animados, vídeo e carta interativa foram mantidos.
+
+
+## Direção Coffee-Tech e produto 3D
+
+A versão atual segue a composição de produto da referência Coffee-Tech: navegação superior, título central amplo, equipamento 3D em destaque, introdução em duas colunas, carta como catálogo, explicação em linhas e registros reais de eventos. A paleta e o conteúdo continuam Quick GO. O contato e o formulário seguem na mesma página.
+
+`dist/product-design.css` é o novo sistema visual; o stylesheet antigo permanece como histórico e não é carregado. `dist/assets/quickgo-machine.glb` é uma reconstrução visual nova com 32 meshes, baseada nas fotos fornecidas. O modelo pode ser girado por arraste, botões ou teclado pelos controles nativos do viewer. Não é CAD oficial. `scripts/build-machine.py` gera o arquivo GLB a partir da geometria e das texturas de interface autoradas.
+
+A análise REA dos scripts fornecidos pela referência foi estática, sem executar seu bootstrap. Evidência principal: `ev_8557711ba87be8ad5ca09ed232a91188479c1cab24af03c0ee60f5e44ab8fe11`. O código da referência revelou model-viewer, atributos de câmera, carregamento progressivo e seções. As limitações da análise estão no registro REA.
+
+A revisão visual da implementação foi feita com o cenário de navegador REA pedido pelo usuário. Capturas em `../review/coffee-tech/qa/`: desktop 1280×720, celular 390×844 e giro do equipamento. O modelo carregou, o botão de giro mudou o ângulo para 11 graus e os cenários terminaram sem erros de página. Os navegadores temporários foram encerrados pelo provider. Não foi feita uma auditoria integral de acessibilidade ou de Core Web Vitals.

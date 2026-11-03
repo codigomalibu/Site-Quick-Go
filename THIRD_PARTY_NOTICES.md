@@ -16,6 +16,16 @@ The shader is integrated into this Quick GO website, not offered as a separate c
 
 Instrument Serif and DM Sans are provided under the SIL Open Font License. License files accompany the bundled fonts in `dist/licenses/`.
 
+## Model viewer
+
+The product presentation uses Google model-viewer 3.3.0, the same viewer family identified in the supplied Coffee-Tech reference. The bundled viewer retains its source notices. Its Apache 2.0 license is included in `dist/licenses/model-viewer.txt`.
+
+The Quick GO GLB is a newly authored visual reconstruction from the user's supplied machine photographs. It is not the Coffee-Tech model, a manufacturer CAD file, or a manufacturing specification.
+
+## Reference structure
+
+Coffee-Tech (`https://www.coffee-tech.com/`) was inspected as the user-requested layout and interaction reference. Its brand assets, roaster model, testimonials, contact details, tracking and application scripts are not included in this website. The implementation uses Quick GO content and newly authored layout code.
+
 ## Quick GO media
 
 Logos, photography and source videos were supplied by the user. They remain subject to the rights of their respective owners. Only a curated selection is included in the site. Internal source documents are excluded.

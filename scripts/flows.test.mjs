@@ -46,12 +46,28 @@ test('Every local HTML asset, module import, CSS asset and anchor resolves', asy
     if (url.startsWith('#')) assert.ok(ids.includes(url.slice(1)), `Missing anchor ${url}`);
     if (url.startsWith('/')) assert.ok((await stat(path.join(root, url))).isFile(), `Missing asset ${url}`);
   }
-  for (const file of ['styles.css', 'app.js', 'effects.js']) {
+  for (const file of ['product-design.css', 'app.js', 'effects.js']) {
     const content = await readFile(path.join(root, file), 'utf8');
     const refs = file.endsWith('.css') ? [...content.matchAll(/url\(['"]?(\/[^'")]+)['"]?\)/g)].map(m => m[1]) : [...content.matchAll(/from ['"]\.\/([^'"]+)['"]/g)].map(m => m[1]);
     for (const ref of refs) assert.ok((await stat(path.join(root, ref))).isFile(), `Missing dependency ${ref}`);
   }
   for (const drink of Object.values(drinks)) assert.ok((await stat(path.join(root, 'assets', `${drink.image}.webp`))).isFile());
+});
+
+test('Interactive product uses a complete GLB model with orbit controls and a poster', async () => {
+  const html = await readFile(path.join(root, 'index.html'), 'utf8');
+  assert.ok(html.includes('camera-controls disable-zoom disable-pan'));
+  for (const id of ['machine-viewer','rotate-left','rotate-right','reset-machine']) assert.ok(html.includes(`id="${id}"`));
+  const bytes = await readFile(path.join(root, 'assets/quickgo-machine.glb'));
+  assert.equal(bytes.subarray(0,4).toString(), 'glTF');
+  assert.equal(bytes.readUInt32LE(4), 2);
+  assert.equal(bytes.readUInt32LE(8), bytes.length);
+  const length = bytes.readUInt32LE(12);
+  const gltf = JSON.parse(bytes.subarray(20,20+length).toString());
+  assert.ok(gltf.meshes.length >= 20);
+  assert.ok(gltf.images.length >= 2);
+  for (const view of gltf.bufferViews) assert.ok(view.byteOffset + view.byteLength <= gltf.buffers[0].byteLength);
+  assert.ok(gltf.nodes.some(node=>node.name === 'Drink menu'));
 });
 test('Preview metadata is truthful, structured data parses and media has dimensions', async () => {
   const html = await readFile(path.join(root, 'index.html'), 'utf8');

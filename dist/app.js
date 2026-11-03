@@ -7,7 +7,7 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const hero = $('.hero');
-const heroVideo = $('#hero-video');
+const machineViewer = $('#machine-viewer');
 const toastElement = $('#toast');
 const favorites = new Set();
 let savedSelection = false;
@@ -195,29 +195,26 @@ $$('[data-taste]').forEach(button => button.addEventListener('click', () => {
 }));
 
 function playHero() {
-  if (motionPaused || document.hidden || $('#film-dialog').open) return;
-  if (!heroVideo.src) { heroVideo.src = heroVideo.dataset.src; heroVideo.load(); }
-  heroVideo.play().catch(() => { $('.hero-media').classList.remove('is-playing'); });
+  if (!machineViewer || motionPaused || document.hidden || $('#film-dialog').open) return;
+  machineViewer.setAttribute('auto-rotate', '');
 }
-heroVideo.addEventListener('playing', () => $('.hero-media').classList.add('is-playing'));
-heroVideo.addEventListener('error', () => $('.hero-media').classList.remove('is-playing'));
 function setMotion(paused) {
   motionPaused = paused;
   document.body.classList.toggle('motion-paused', paused);
   $('#motion-toggle').setAttribute('aria-pressed', String(paused));
-  $('#motion-toggle').setAttribute('aria-label', paused ? 'Ativar animações e vídeo' : 'Pausar animações e vídeo');
+  $('#motion-toggle').setAttribute('aria-label', paused ? 'Ativar animações' : 'Pausar animações');
   $('.motion-label').textContent = paused ? 'Ativar movimento' : 'Pausar movimento';
   $('#motion-toggle > span:first-child').textContent = paused ? '▷' : 'Ⅱ';
-  if (paused) heroVideo.pause(); else if (hero.getBoundingClientRect().bottom > 0) playHero();
+  if (paused) machineViewer?.removeAttribute('auto-rotate'); else if (hero.getBoundingClientRect().bottom > 0) playHero();
   window.dispatchEvent(new CustomEvent('quickgo:motion', { detail: { paused } }));
 }
 $('#motion-toggle').addEventListener('click', () => setMotion(!motionPaused));
 reduceMotion.addEventListener('change', event => setMotion(event.matches));
 new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) playHero(); else heroVideo.pause();
+  if (entries[0].isIntersecting) playHero(); else machineViewer?.removeAttribute('auto-rotate');
 }, { threshold: .05 }).observe(hero);
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) { heroVideo.pause(); $('#film-player').pause(); }
+  if (document.hidden) { machineViewer?.removeAttribute('auto-rotate'); $('#film-player').pause(); }
   else if (hero.getBoundingClientRect().bottom > 0) playHero();
 });
 setMotion(motionPaused);
@@ -225,7 +222,7 @@ setMotion(motionPaused);
 $$('[data-film]').forEach(button => button.addEventListener('click', () => {
   const allowed = ['filme', 'evento-musica', 'evento-aniversario'];
   if (!allowed.includes(button.dataset.film)) return;
-  heroVideo.pause();
+  machineViewer?.removeAttribute('auto-rotate');
   $('#film-title').textContent = button.dataset.filmTitle;
   $('#film-player').src = `/assets/${button.dataset.film}.mp4`;
   openDialog($('#film-dialog'));
@@ -355,7 +352,7 @@ function mountIcons() {
 }
 mountIcons();
 new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) { record.target.innerHTML = icons.heart; animateCatalogueIcon(record.target.querySelector('svg'),'heart'); } }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
-startAurora(document.querySelector('#hero-aurora'), { paused: motionPaused });
+
 if (matchMedia('(pointer:fine)').matches) {
   document.querySelectorAll('.drink-card').forEach(card => {
     card.addEventListener('pointermove',event => {
@@ -380,3 +377,19 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
   if(event.detail.paused) el.querySelector('svg')?.getAnimations({subtree:true}).forEach(animation=>animation.cancel());
   else { const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon,{loop:el.dataset.animatedIcon!=='heart'}); }
 }));
+
+// Product controls: real orbit changes on the Quick GO GLB scene.
+let machineAngle = -24;
+function rotateMachine(delta) {
+  machineViewer.removeAttribute('auto-rotate');
+  const orbit = machineViewer.getCameraOrbit?.();
+  machineAngle = (orbit ? orbit.theta * 180 / Math.PI : machineAngle) + delta;
+  machineViewer.cameraOrbit = `${machineAngle}deg 78deg 3.1m`;
+  $('#machine-status').textContent = `Máquina girada para ${Math.round(machineAngle)} graus.`;
+}
+$('#rotate-left').addEventListener('click', () => rotateMachine(-35));
+$('#rotate-right').addEventListener('click', () => rotateMachine(35));
+$('#reset-machine').addEventListener('click', () => { machineAngle=-24; machineViewer.cameraOrbit='-24deg 78deg 3.1m'; $('#machine-status').textContent='Visualização na posição inicial.'; });
+machineViewer.addEventListener('load', () => { machineViewer.dataset.ready='true'; $('#machine-status').textContent='Máquina 3D pronta. Arraste para girar ou use os botões.'; });
+machineViewer.addEventListener('error', () => { $('#machine-status').textContent='Visualização 3D indisponível neste navegador. A imagem da máquina continua visível.'; });
+machineViewer.addEventListener('pointerdown', () => machineViewer.removeAttribute('auto-rotate'));
