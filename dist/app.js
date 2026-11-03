@@ -201,14 +201,9 @@ function playHero() {
 function setMotion(paused) {
   motionPaused = paused;
   document.body.classList.toggle('motion-paused', paused);
-  $('#motion-toggle').setAttribute('aria-pressed', String(paused));
-  $('#motion-toggle').setAttribute('aria-label', paused ? 'Ativar animações' : 'Pausar animações');
-  $('.motion-label').textContent = paused ? 'Ativar movimento' : 'Pausar movimento';
-  $('#motion-toggle > span:first-child').textContent = paused ? '▷' : 'Ⅱ';
   if (paused) machineViewer?.removeAttribute('auto-rotate'); else if (hero.getBoundingClientRect().bottom > 0) playHero();
   window.dispatchEvent(new CustomEvent('quickgo:motion', { detail: { paused } }));
 }
-$('#motion-toggle').addEventListener('click', () => setMotion(!motionPaused));
 reduceMotion.addEventListener('change', event => setMotion(event.matches));
 new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) playHero(); else machineViewer?.removeAttribute('auto-rotate');
