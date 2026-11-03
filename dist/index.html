@@ -22,10 +22,11 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/sans-0.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="/assets/machine-poster.svg" as="image" fetchpriority="high">
-  <link rel="stylesheet" href="/product-design.css?v=product-1">
+  <link rel="stylesheet" href="/product-design.css?v=reference-2">
+  <link rel="stylesheet" href="/reference-hero.css?v=reference-2">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://quickgodrinksbh.com.br/#organization","name":"Quick GO Drinks","url":"https://quickgodrinksbh.com.br/","description":"Bar expresso e compacto para eventos sociais, corporativos e ativações de marca."},{"@type":"WebSite","@id":"https://quickgo-drinks.vercel.app/#website","name":"Quick GO","url":"https://quickgo-drinks.vercel.app/","inLanguage":"pt-BR","publisher":{"@id":"https://quickgodrinksbh.com.br/#organization"}}]}</script>
   <script type="module" src="/assets/model-viewer.min.js"></script>
-  <script type="module" src="/app.js?v=product-1"></script>
+  <script type="module" src="/app.js?v=reference-2"></script>
 </head>
 <body>
   <noscript><p style="padding:16px;background:#f1ede4;color:#22343b">Para montar seu pedido e explorar os filtros, ative o JavaScript. <a href="https://quickgoorcamentos.com/">Acessar o canal atual de orçamentos</a>.</p></noscript>
@@ -43,14 +44,15 @@
   <main id="conteudo">
     <section class="hero" id="inicio" aria-labelledby="hero-title">
       <div class="hero-content container">
-        <h1 id="hero-title"><span>A festa é sua.</span><span>O brinde,<br> com a gente.</span></h1>
+        <h1 id="hero-title"><span>A festa é sua.</span><span>O brinde, com<br> a gente.</span></h1>
         <div class="machine-stage" id="machine-stage">
           <div class="machine-halo" aria-hidden="true"></div>
-          <model-viewer id="machine-viewer" src="/assets/quickgo-machine.glb" poster="/assets/machine-poster.svg" alt="Visualização 3D da máquina de drinks Quick GO. Arraste para girar e conhecer os lados." camera-controls disable-zoom disable-pan touch-action="pan-y" camera-orbit="-24deg 78deg 3.1m" min-camera-orbit="auto 55deg 3.1m" max-camera-orbit="auto 95deg 3.1m" field-of-view="31deg" shadow-intensity="1.2" shadow-softness="1" exposure="1" environment-image="neutral" interaction-prompt="none" loading="eager" reveal="auto"></model-viewer>
-          <span class="machine-label">QUICK GO<br><small>BAR EXPRESSO</small></span>
-          <div class="machine-controls"><button id="rotate-left" aria-label="Girar máquina para a esquerda">←</button><span>Arraste para girar</span><button id="rotate-right" aria-label="Girar máquina para a direita">→</button><button id="reset-machine" aria-label="Voltar à posição inicial">↺</button></div>
+          <model-viewer id="machine-viewer" src="/assets/quickgo-machine.glb?v=reference-2" poster="/assets/machine-poster.svg" alt="Visualização 3D da máquina de drinks Quick GO. Arraste para girar e conhecer os lados." camera-controls disable-zoom disable-pan touch-action="pan-y" camera-orbit="20deg 82deg 3.1m" auto-rotate-delay="5000" rotation-per-second="12deg" min-camera-orbit="auto 55deg 3.1m" max-camera-orbit="auto 95deg 3.1m" field-of-view="31deg" shadow-intensity="1.2" shadow-softness="1" exposure="1" environment-image="neutral" interaction-prompt="none" loading="eager" reveal="auto"></model-viewer>
+          
+          <div class="machine-controls"><button id="rotate-left" aria-label="Girar máquina para a esquerda">←</button><span>Arraste para girar</span><button id="rotate-right" aria-label="Girar máquina para a direita">→</button><button id="reset-machine" aria-label="Voltar à posição inicial">↺</button><button id="toggle-cup" class="cup-toggle" aria-pressed="false">Retirar copo</button></div>
           <span id="machine-status" class="sr-only" role="status" aria-live="polite">Carregando visualização 3D.</span>
         </div>
+        <div class="hero-signature">QUICK GO<small>BAR EXPRESSO</small></div>
         <div class="hero-product-copy"><p>Bar de drinks para casamentos, festas e eventos.<br>Escolha na tela. Sirva em segundos.</p><a class="button button-light" href="#orcamento">Quero no meu evento <span class="button-icon" aria-hidden="true">↗</span></a></div>
       </div>
       <div class="hero-bottom container"><a href="#experiencia" class="scroll-cue"><span aria-hidden="true">↓</span> Conheça a Quick GO</a><button id="motion-toggle" class="motion-toggle" aria-label="Pausar animações" aria-pressed="false"><span aria-hidden="true">Ⅱ</span><span class="motion-label">Pausar movimento</span></button></div>

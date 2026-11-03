@@ -68,6 +68,27 @@ test('Interactive product uses a complete GLB model with orbit controls and a po
   assert.ok(gltf.images.length >= 2);
   for (const view of gltf.bufferViews) assert.ok(view.byteOffset + view.byteLength <= gltf.buffers[0].byteLength);
   assert.ok(gltf.nodes.some(node=>node.name === 'Drink menu'));
+  // Rays through the empty serving bay must not hit any housing triangles.
+  // Check the actual exported geometry, rather than only mesh names.
+  const binStart = 28 + length;
+  const excluded = new Set(['Clear faceted tumbler','Glass rim reflections','Coral orange cocktail','Cocktail foam']);
+  for (const [x,y] of [[0,-.35],[0,-.55],[.15,-.35],[-.15,-.35]]) {
+    for (const mesh of gltf.meshes) for (const primitive of mesh.primitives) {
+      if (excluded.has(gltf.materials[primitive.material].name)) continue;
+      const accessor = gltf.accessors[primitive.attributes.POSITION];
+      const view = gltf.bufferViews[accessor.bufferView];
+      const start = binStart + (view.byteOffset || 0) + (accessor.byteOffset || 0);
+      for (let i=0;i<accessor.count;i+=3) {
+        const p = [0,1,2].map(n => [bytes.readFloatLE(start+(i+n)*12),bytes.readFloatLE(start+(i+n)*12+4)]);
+        const [a,b,c]=p;
+        const den=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1]);
+        if (Math.abs(den)<1e-9) continue;
+        const u=((b[1]-c[1])*(x-c[0])+(c[0]-b[0])*(y-c[1]))/den;
+        const v=((c[1]-a[1])*(x-c[0])+(a[0]-c[0])*(y-c[1]))/den;
+        assert.ok(!(u>1e-6 && v>1e-6 && u+v<1-1e-6), `Serving bay blocked at ${x},${y} by ${mesh.name}`);
+      }
+    }
+  }
 });
 test('Preview metadata is truthful, structured data parses and media has dimensions', async () => {
   const html = await readFile(path.join(root, 'index.html'), 'utf8');

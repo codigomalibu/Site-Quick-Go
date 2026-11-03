@@ -379,17 +379,36 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
 }));
 
 // Product controls: real orbit changes on the Quick GO GLB scene.
-let machineAngle = -24;
+let machineAngle = 20;
 function rotateMachine(delta) {
   machineViewer.removeAttribute('auto-rotate');
   const orbit = machineViewer.getCameraOrbit?.();
   machineAngle = (orbit ? orbit.theta * 180 / Math.PI : machineAngle) + delta;
-  machineViewer.cameraOrbit = `${machineAngle}deg 78deg 3.1m`;
+  machineViewer.cameraOrbit = `${machineAngle}deg 82deg 3.1m`;
   $('#machine-status').textContent = `Máquina girada para ${Math.round(machineAngle)} graus.`;
 }
 $('#rotate-left').addEventListener('click', () => rotateMachine(-35));
 $('#rotate-right').addEventListener('click', () => rotateMachine(35));
-$('#reset-machine').addEventListener('click', () => { machineAngle=-24; machineViewer.cameraOrbit='-24deg 78deg 3.1m'; $('#machine-status').textContent='Visualização na posição inicial.'; });
+$('#reset-machine').addEventListener('click', () => { machineAngle=20; machineViewer.cameraOrbit='20deg 82deg 3.1m'; $('#machine-status').textContent='Visualização na posição inicial.'; });
 machineViewer.addEventListener('load', () => { machineViewer.dataset.ready='true'; $('#machine-status').textContent='Máquina 3D pronta. Arraste para girar ou use os botões.'; });
 machineViewer.addEventListener('error', () => { $('#machine-status').textContent='Visualização 3D indisponível neste navegador. A imagem da máquina continua visível.'; });
 machineViewer.addEventListener('pointerdown', () => machineViewer.removeAttribute('auto-rotate'));
+
+// Hide only the glass and drink to let visitors inspect the physical through-opening.
+let cupRemoved = false;
+const cupMaterials = new Set(['Clear faceted tumbler', 'Glass rim reflections', 'Coral orange cocktail', 'Cocktail foam']);
+const originalCupMaterials = new Map();
+$('#toggle-cup').addEventListener('click', () => {
+  if (!machineViewer.model) return;
+  cupRemoved = !cupRemoved;
+  for (const material of machineViewer.model.materials) {
+    if (!cupMaterials.has(material.name)) continue;
+    if (!originalCupMaterials.has(material)) originalCupMaterials.set(material, { color: [...material.pbrMetallicRoughness.baseColorFactor], mode: material.getAlphaMode() });
+    const original = originalCupMaterials.get(material);
+    material.setAlphaMode(cupRemoved ? 'MASK' : original.mode);
+    material.pbrMetallicRoughness.setBaseColorFactor(cupRemoved ? [0,0,0,0] : original.color);
+  }
+  $('#toggle-cup').textContent = cupRemoved ? 'Colocar copo' : 'Retirar copo';
+  $('#toggle-cup').setAttribute('aria-pressed', String(cupRemoved));
+  $('#machine-status').textContent = cupRemoved ? 'Copo retirado. O dispenser é aberto de um lado ao outro. Arraste para conferir.' : 'Copo recolocado.';
+});

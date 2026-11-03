@@ -95,3 +95,10 @@ A versão atual segue a composição de produto da referência Coffee-Tech: nave
 A análise REA dos scripts fornecidos pela referência foi estática, sem executar seu bootstrap. Evidência principal: `ev_8557711ba87be8ad5ca09ed232a91188479c1cab24af03c0ee60f5e44ab8fe11`. O código da referência revelou model-viewer, atributos de câmera, carregamento progressivo e seções. As limitações da análise estão no registro REA.
 
 A revisão visual da implementação foi feita com o cenário de navegador REA pedido pelo usuário. Capturas em `../review/coffee-tech/qa/`: desktop 1280×720, celular 390×844 e giro do equipamento. O modelo carregou, o botão de giro mudou o ângulo para 11 graus e os cenários terminaram sem erros de página. Os navegadores temporários foram encerrados pelo provider. Não foi feita uma auditoria integral de acessibilidade ou de Core Web Vitals.
+
+
+## Referência enviada pelo usuário — novembro de 2026
+
+O hero foi ajustado à composição de `Seu brinde, servido em segundos.png`: texto à esquerda, produto à direita, tela clara com marca central, dispenser branco e copo com drink coral. `dist/reference-hero.css` concentra este ajuste responsivo. A reconstrução possui 45 meshes; laterais e traseira continuam inferidas, pois a referência mostra apenas um ângulo. Não é um modelo CAD ou uma reprodução fotográfica exata.
+
+O gabinete foi refeito como um aro extrudado com abertura contínua na área de serviço. Não há parede traseira fechando o dispenser. O controle “Retirar copo” oculta vidro, líquido e jato para inspecionar a passagem. O teste do GLB lança quatro raios através do vão e verifica que nenhum triângulo do gabinete o bloqueia. Giro, remoção e reposição do copo foram exercitados em navegador REA, com versões desktop e celular, sem erros de página.
