@@ -26,7 +26,7 @@ export function buildBrief(values, favorites = []) {
   if (!Number.isInteger(guestCount) || guestCount < 5 || guestCount > 10000) throw new Error('Informe entre 5 e 10.000 convidados.');
   if (!clean(values.name) || !clean(values.event) || !clean(values.city)) throw new Error('Complete os dados do seu evento.');
   const lines = [
-    'MEU EVENTO · QUICK GO BELO HORIZONTE', '',
+    'MEU EVENTO · QUICK GO', '',
     `Nome: ${clean(values.name)}`,
     `Ocasião: ${clean(values.event)}`,
     `Data: ${values.dateFlexible ? 'A definir' : formatDate(values.date)}`,

@@ -1,3 +1,4 @@
+import { icons } from './icons.js';
 import { config } from './config.js';
 import { drinks, categoryNames, validFavorites, buildBrief, contactUrl } from './data.js';
 import { startAurora } from './effects.js';
@@ -342,3 +343,30 @@ const sections = new IntersectionObserver(entries => entries.forEach(entry => {
 $('#year').textContent = new Date().getFullYear();
 syncFavorites();
 startAurora($('#aurora'), { paused: motionPaused });
+
+// SVG geometry retrieved from the icon collection in the supplied catalogue.
+const icon = name => `<span class="ui-icon">${icons[name] || icons.sparkles}</span>`;
+function mountIcons() {
+  document.querySelectorAll('.favorite').forEach(el => el.innerHTML = icons.heart);
+  document.querySelectorAll('.play-small,.round-play,.live-play').forEach(el => el.innerHTML = icons.play);
+  document.querySelectorAll('.step-drawing').forEach((el,index) => el.innerHTML = icons[['sparkles','zap','heart'][index]]);
+  document.querySelectorAll('.spark').forEach(el => el.innerHTML = icon('sparkles'));
+  document.querySelector('.scroll-cue>span').innerHTML = icon('arrow-down-01');
+}
+mountIcons();
+new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) record.target.innerHTML = icons.heart; }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
+startAurora(document.querySelector('#hero-aurora'), { paused: motionPaused });
+if (matchMedia('(pointer:fine)').matches) {
+  hero.addEventListener('pointermove',event => {
+    if(motionPaused) return;
+    hero.style.setProperty('--orb-x',`${(event.clientX / innerWidth - .5)*35}px`);
+    hero.style.setProperty('--orb-y',`${(event.clientY / innerHeight - .5)*25}px`);
+  },{passive:true});
+  document.querySelectorAll('.drink-card').forEach(card => {
+    card.addEventListener('pointermove',event => {
+      if(motionPaused)return;
+      const r=card.getBoundingClientRect();card.style.setProperty('--card-ry',`${((event.clientX-r.left)/r.width-.5)*12}deg`);card.style.setProperty('--card-rx',`${(.5-(event.clientY-r.top)/r.height)*10}deg`);
+    },{passive:true});
+    card.addEventListener('pointerleave',()=>{card.style.setProperty('--card-ry','0deg');card.style.setProperty('--card-rx','0deg');});
+  });
+}

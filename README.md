@@ -1,4 +1,4 @@
-# Quick GO Belo Horizonte
+# Quick GO
 
 One page comercial em português, construída com os materiais fornecidos. Sem dependências de execução e sem etapa de build: o site está em `dist/`.
 
@@ -39,7 +39,7 @@ Enquanto o número não existe, o site mostra o resumo e usa o canal de orçamen
 
 ## Escopo e fontes
 
-Público: anfitriões, noivos, organizadores e empresas em Belo Horizonte e região. Conversão: preparar um pedido e iniciar atendimento comercial.
+Público: anfitriões, noivos, organizadores e empresas sem recorte regional definido. Conversão: preparar um pedido e iniciar atendimento comercial.
 
 Fontes consultadas:
 
@@ -77,3 +77,6 @@ Não há analytics de terceiros. Os eventos `quickgo:conversion` podem ser conec
 O uso de navegador local está desativado nas configurações do Work. Não foi possível executar revisão visual em navegador, teste manual por teclado, Lighthouse ou auditoria automatizada de acessibilidade neste ambiente. As regras responsivas foram implementadas, mas precisam de revisão visual no navegador antes de lançamento público.
 
 Pendências de lançamento: número comercial confirmado, aprovação da carta e de condições comerciais, revisão visual em celular/desktop e conexão do domínio desejado. Não foram criadas contas, autenticação, dashboards administrativos ou integrações externas sem finalidade comercial definida.
+
+## Revisão de direção visual
+A marca foi generalizada para Quick GO, removendo as referências regionais da página e do formulário. Hero com Aurora WebGL visível, esfera líquida com órbitas, tipografia com luz em movimento, profundidade nos cards e ícones SVG obtidos no catálogo indicado. O endereço da prévia é preservado para manter os links existentes.

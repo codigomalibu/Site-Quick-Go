@@ -79,7 +79,7 @@ test('The actual HTTP server serves the page, video ranges, HEAD and real 404 re
     });
     const page = await fetch(origin);
     assert.equal(page.status, 200);
-    assert.ok((await page.text()).includes('A festa é sua.'));
+    assert.ok((await page.text()).includes('Seu evento.'));
     const head = await fetch(`${origin}/app.js`, { method: 'HEAD' });
     assert.equal(head.status, 200);
     assert.ok(head.headers.get('content-type').includes('javascript'));

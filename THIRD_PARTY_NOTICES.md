@@ -19,3 +19,6 @@ Instrument Serif and DM Sans are provided under the SIL Open Font License. Licen
 ## Quick GO media
 
 Logos, photography and source videos were supplied by the user. They remain subject to the rights of their respective owners. Only a curated selection is included in the site. Internal source documents are excluded.
+
+## Catalogue icons
+Animated icon SVG geometry was retrieved from the Animate UI / Hugeicons entries of the user-supplied Um só catalogue (sparkles, zap, heart, play, arrow-down-01). Motion is adapted to CSS. Source: https://animate-ui.com/docs/icons/hugeicons .

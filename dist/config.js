@@ -1,5 +1,5 @@
 export const config = Object.freeze({
-  businessName: 'Quick GO Drinks Belo Horizonte',
+  businessName: 'Quick GO Drinks',
   whatsappNumber: null,
   currentQuoteUrl: 'https://quickgoorcamentos.com/',
   productionOrigin: 'https://quickgodrinksbh.com.br',
