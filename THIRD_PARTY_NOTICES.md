@@ -37,3 +37,8 @@ Animated icon SVG geometry was retrieved from the Animate UI / Hugeicons entries
 ## Current Three.js hero
 
 The complete-machine hero uses Three.js 0.187.0 and its GLTFLoader and RoomEnvironment addons under the MIT license, included in `dist/licenses/three.txt`. It no longer loads model-viewer or any previous cup viewer. esbuild bundles the scene for static hosting; Playwright Core is a development-only test dependency. The new GLB is authored from the user's eight visual references and contains full volumetric geometry with an open dispenser. The reference poster is user-supplied media and is not used to simulate rotation.
+
+
+## Supplied CardStack
+
+CardStack source was supplied by the user in `cardstack-07ba0d.zip`, with the archive notices retained in `dist/licenses/card-stack/`. The React implementation preserves its fan geometry, spring transitions, depth and drag interaction. Static native anchors replace `next/link`, and scoped CSS replaces Tailwind classes; a Next.js server is not needed. React, React DOM, Framer Motion and Lucide React are installed and bundled into the lazily loaded module; dependency licenses accompany the site. The stock car demo imagery and its outbound commercial links are not used.

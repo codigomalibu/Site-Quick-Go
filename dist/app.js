@@ -15,6 +15,8 @@ let motionPaused = reduceMotion.matches || Boolean(navigator.connection?.saveDat
 let toastTimer;
 let previousDialogFocus;
 let brief = '';
+let drinkStack = null;
+let activeDrinkFilter = 'all';
 
 try {
   const saved = localStorage.getItem(config.storageKey);
@@ -75,6 +77,7 @@ function syncFavorites() {
   if (savedSelection) {
     try { localStorage.setItem(config.storageKey, JSON.stringify([...favorites])); } catch { /* Selection remains available in memory. */ }
   }
+  drinkStack?.favorites([...favorites]);
   renderPlan();
 }
 
@@ -139,8 +142,7 @@ $('#clear-plan').addEventListener('click', () => {
 
 const drinkDialog = $('#drink-dialog');
 drinkDialog.setAttribute('aria-labelledby', 'detail-name');
-$$('[data-details]').forEach(button => button.addEventListener('click', () => {
-  const id = button.dataset.details;
+function showDrinkDetails(id) {
   const drink = drinks[id];
   $('#detail-image').src = `/assets/${drink.image}.webp`;
   $('#detail-image').alt = drink.name;
@@ -152,7 +154,8 @@ $$('[data-details]').forEach(button => button.addEventListener('click', () => {
   updateLabel();
   favorite.onclick = () => { toggleFavorite(id); updateLabel(); };
   openDialog(drinkDialog);
-}));
+}
+$$('[data-details]').forEach(button => button.addEventListener('click', () => showDrinkDetails(button.dataset.details)));
 
 const trackElement = $('#drinks-track');
 function filterDrinks(filter) {
@@ -162,6 +165,14 @@ function filterDrinks(filter) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-pressed', String(active));
   });
+  activeDrinkFilter = filter;
+  if (drinkStack) {
+    drinkStack.filter(filter);
+    const count = Object.values(drinks).filter(drink => filter === 'all' || drink.category === filter).length;
+    $('#drink-results').textContent = `${count} drinks na seleção ${filter === 'all' ? 'Todos os sabores' : categoryNames[filter].toLowerCase()}.`;
+    track('filter_drinks', { category: filter });
+    return;
+  }
   let count = 0;
   $$('.drink-card').forEach(card => {
     card.hidden = filter !== 'all' && card.dataset.category !== filter;
@@ -175,10 +186,16 @@ function filterDrinks(filter) {
 
 $$('.filter').forEach(button => button.addEventListener('click', () => filterDrinks(button.dataset.filter)));
 function updateCarousel() {
+  if (drinkStack) {
+    $('[data-carousel="prev"]').disabled = false;
+    $('[data-carousel="next"]').disabled = false;
+    return;
+  }
   $('[data-carousel="prev"]').disabled = trackElement.scrollLeft <= 2;
   $('[data-carousel="next"]').disabled = trackElement.scrollLeft + trackElement.clientWidth >= trackElement.scrollWidth - 2;
 }
 $$('[data-carousel]').forEach(button => button.addEventListener('click', () => {
+  if (drinkStack) { drinkStack[button.dataset.carousel](); return; }
   const card = $$('.drink-card').find(el => !el.hidden);
   const width = card ? card.getBoundingClientRect().width + 22 : trackElement.clientWidth;
   trackElement.scrollBy({ left: (button.dataset.carousel === 'next' ? 1 : -1) * width, behavior: motionPaused ? 'instant' : 'smooth' });
@@ -372,3 +389,48 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
   else { const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)animateCatalogueIcon(el.querySelector('svg'),el.dataset.animatedIcon,{loop:el.dataset.animatedIcon!=='heart'}); }
 }));
 
+
+// Mount the supplied React CardStack only as its section approaches the viewport.
+const stackItems = $$('.drink-card', trackElement).map(card => {
+  const id = card.dataset.drink;
+  return { id, title: drinks[id].name, description: drinks[id].profile, category: drinks[id].category,
+    imageSrc: `/assets/${drinks[id].image}.webp`, imageAlt: $('img', card).alt, tag: $('.drink-tag', card).textContent };
+});
+let stackLoading = false;
+async function loadDrinkStack() {
+  if (stackLoading) return;
+  stackLoading = true;
+  try {
+    const { mountDrinkStack } = await import('./drinks-stack.js?v=stack-12');
+    drinkStack = mountDrinkStack(trackElement, { items: stackItems, selected: [...favorites], onFavorite: toggleFavorite, onDetails: showDrinkDetails });
+    drinkStack.filter(activeDrinkFilter);
+    $('#drinks').dataset.stackActive = 'true';
+    trackElement.setAttribute('aria-label', 'Carta de drinks Quick GO com navegação por cards');
+  } catch { stackLoading = false; /* The original list remains usable when enhancement is unavailable. */ }
+}
+const stackLoader = new IntersectionObserver(entries => { if (entries[0].isIntersecting) { loadDrinkStack(); stackLoader.disconnect(); } }, { rootMargin: '600px' });
+stackLoader.observe(trackElement);
+
+// System URLs are supplied and validated by Quick GO before being made public.
+const systemList = $('#systems-list');
+for (const system of config.systems || []) {
+  if (!system || typeof system.label !== 'string' || typeof system.url !== 'string') continue;
+  let url;
+  try { url = new URL(system.url); } catch { continue; }
+  if (url.protocol !== 'https:' || url.username || url.password) continue;
+  const link = document.createElement('a'); link.className = 'system-link'; link.href = url.href;
+  const title = document.createElement('strong'); title.textContent = system.label;
+  const description = document.createElement('small'); description.textContent = system.description || 'Continuar para o sistema';
+  const arrow = document.createElement('span'); arrow.textContent = '↗'; arrow.setAttribute('aria-hidden', 'true');
+  link.append(title, description, arrow); systemList.append(link);
+}
+const hasSystems = systemList.children.length > 0;
+$('#systems-empty').hidden = hasSystems;
+$('#systems-description').textContent = hasSystems ? 'Escolha a plataforma para continuar no seu acesso.' : 'Uma central para os acessos da rede Quick GO.';
+$$('[data-open-systems]').forEach(button => button.addEventListener('click', () => {
+  closeMenu();
+  if (button.closest('#mobile-nav')) $('.header [data-open-systems]').focus({ preventScroll: true });
+  openDialog($('#systems-dialog'));
+}));
+
+$('#systems-quote').addEventListener('click', () => closeDialog($('#systems-dialog')));
