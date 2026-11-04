@@ -7,7 +7,7 @@
     "dev": "node scripts/serve.mjs",
     "check": "node --check dist/app.js && node --check dist/data.js && node --check dist/effects.js && node --test scripts/flows.test.mjs",
     "build:machine": "python scripts/build-machine-premium.py && esbuild scripts/machine-scene.js --bundle --format=esm --minify --outfile=dist/machine-scene.js --legal-comments=eof",
-    "build:cards": "esbuild scripts/drinks-stack.tsx --bundle --format=esm --minify --jsx=automatic --outfile=dist/drinks-stack.js --legal-comments=eof"
+    "build:cards": "esbuild scripts/drinks-carousel.tsx --bundle --format=esm --minify --jsx=automatic --outfile=dist/drinks-carousel.js --legal-comments=eof"
   },
   "dependencies": {
     "framer-motion": "14.9.1",

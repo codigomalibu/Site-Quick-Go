@@ -390,7 +390,7 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
 }));
 
 
-// Mount the supplied React CardStack only as its section approaches the viewport.
+// Mount the supplied Specials Linear Carousel only as its section approaches the viewport.
 const stackItems = $$('.drink-card', trackElement).map(card => {
   const id = card.dataset.drink;
   return { id, title: drinks[id].name, description: drinks[id].profile, category: drinks[id].category,
@@ -401,8 +401,8 @@ async function loadDrinkStack() {
   if (stackLoading) return;
   stackLoading = true;
   try {
-    const { mountDrinkStack } = await import('./drinks-stack.js?v=stack-12');
-    drinkStack = mountDrinkStack(trackElement, { items: stackItems, selected: [...favorites], onFavorite: toggleFavorite, onDetails: showDrinkDetails });
+    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=linear-13');
+    drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, selected: [...favorites], onFavorite: toggleFavorite, onDetails: showDrinkDetails });
     drinkStack.filter(activeDrinkFilter);
     $('#drinks').dataset.stackActive = 'true';
     trackElement.setAttribute('aria-label', 'Carta de drinks Quick GO com navegação por cards');

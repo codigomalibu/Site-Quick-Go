@@ -147,3 +147,12 @@ A versão `stack-12` integra o CardStack React fornecido pelo usuário na carta 
 O botão “Acessar os sistemas” abre uma janela nativa acessível, com retorno de foco ao fechar. Os endereços ainda serão informados pelo usuário: configure `systems` em `dist/config.js` com objetos `{ label, description, url }`. Apenas URLs HTTPS sem credenciais são exibidas. Enquanto a lista estiver vazia, o site informa que os acessos aguardam validação; não há login ou integração inventada. O sistema personalizado de orçamento será integrado após definição dos requisitos.
 
 Validação em Chrome desktop, tablet e celular: filtros, curadoria, favoritos, detalhes, setas, mouse, toque, avanço automático, redução de movimento, central de sistemas, Escape/retorno de foco e URLs inválidas. Sem erros de página ou overflow horizontal nos cenários verificados.
+
+
+## Specials Linear Carousel
+
+A versão `linear-13` substitui a apresentação CardStack pelo Specials Linear Carousel reconstruído de forma editável a partir do HTML compilado fornecido pelo usuário. `scripts/components/ui/specials-linear-carousel.tsx` usa cards em uma faixa horizontal, entrada suave, arraste por mouse e rolagem nativa com inércia no toque. `scripts/drinks-carousel.tsx` preserva a integração com favoritos, detalhes, filtros e curadoria. `npm run build:cards` gera `dist/drinks-carousel.js`. O módulo antigo do CardStack deixa de ser carregado.
+
+Apenas o card mais próximo do centro recebe cor integral e escala de destaque; os demais ficam em escala de cinza. Scroll snap, botões, pontos e setas de teclado centralizam o item escolhido. A lista completa inicia em Capadócia para mostrar um vizinho de cada lado. Filtros iniciam no primeiro resultado. O avanço automático fica desativado nesta apresentação. A central de sistemas permanece aguardando URLs validadas.
+
+Verificado em desktop 1280×900, celular 390×844 e tablet 714×668: card central alinhado, exatamente um card em cores, demais com grayscale(1), troca de destaque por setas/arraste, favoritos e detalhes sincronizados, filtros e central de sistemas. Nenhum erro de página ou overflow horizontal nos cenários testados.

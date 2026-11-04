@@ -42,3 +42,8 @@ The complete-machine hero uses Three.js 0.187.0 and its GLTFLoader and RoomEnvir
 ## Supplied CardStack
 
 CardStack source was supplied by the user in `cardstack-07ba0d.zip`, with the archive notices retained in `dist/licenses/card-stack/`. The React implementation preserves its fan geometry, spring transitions, depth and drag interaction. Static native anchors replace `next/link`, and scoped CSS replaces Tailwind classes; a Next.js server is not needed. React, React DOM, Framer Motion and Lucide React are installed and bundled into the lazily loaded module; dependency licenses accompany the site. The stock car demo imagery and its outbound commercial links are not used.
+
+
+## Specials Linear Carousel reference
+
+The user supplied an executable compiled Specials Linear Carousel demo in a pasted HTML attachment. Its horizontal composition, rounded cards, entrance transitions and drag interactions informed the editable React implementation. The final carousel uses the user's Quick GO images and adds centered selection with monochrome inactive cards. The compiled demo, stock landscape imagery, embedded asset-rewriting scripts and playground messaging code are not redistributed or executed by the production site. React, Motion and Lucide notices remain included above.
