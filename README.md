@@ -11,6 +11,14 @@ npm run check
 
 Preview local: `http://127.0.0.1:4173`.
 
+## Repositório e publicação
+
+Repositório: https://github.com/codigomalibu/Site-Quick-Go
+
+O site pronto está em `dist/`, incluindo os arquivos JavaScript empacotados e o modelo GLB. O `vercel.json` na raiz permite publicar diretamente essa pasta, sem instalar dependências ou executar build no Vercel. Para alterar e reconstruir a cena Three.js, execute `npm ci` e `npm run build:machine`; a geração do GLB requer Python com NumPy e Pillow.
+
+Os arquivos originais de mídia e os ZIPs de referência não fazem parte deste repositório. A pasta de dependências `node_modules` e a pasta local `vercel-release` são ignoradas. O vínculo GitHub–Vercel para deploy automático é uma configuração separada da publicação dos arquivos no GitHub.
+
 ## Experiência entregue
 
 - Hero com montagem de 16 segundos feita com quatro vídeos do acervo, poster imediato e pausa de movimento.

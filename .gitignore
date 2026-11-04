@@ -2,6 +2,10 @@ node_modules/
 .sites-runtime/
 *.log
 coverage/
+.env
+.env.*
+!.env.example
+__pycache__/
 
 .vercel/
 vercel-release/
