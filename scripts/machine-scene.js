@@ -230,6 +230,6 @@ async function start() {
 }
 start().catch(error => {
   host.dataset.failed = 'true';
-  status.textContent = 'Não foi possível carregar o 3D neste navegador. A imagem de apresentação permanece disponível.';
+  status.textContent = 'Não foi possível carregar o 3D neste navegador. Recarregue a página para tentar novamente.';
   console.error('Quick GO 3D:', error);
 });
