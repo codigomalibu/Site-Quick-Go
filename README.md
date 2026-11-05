@@ -156,3 +156,10 @@ A versão `linear-13` substitui a apresentação CardStack pelo Specials Linear 
 Apenas o card mais próximo do centro recebe cor integral e escala de destaque; os demais ficam em escala de cinza. Scroll snap, botões, pontos e setas de teclado centralizam o item escolhido. A lista completa inicia em Capadócia para mostrar um vizinho de cada lado. Filtros iniciam no primeiro resultado. O avanço automático fica desativado nesta apresentação. A central de sistemas permanece aguardando URLs validadas.
 
 Verificado em desktop 1280×900, celular 390×844 e tablet 714×668: card central alinhado, exatamente um card em cores, demais com grayscale(1), troca de destaque por setas/arraste, favoritos e detalhes sincronizados, filtros e central de sistemas. Nenhum erro de página ou overflow horizontal nos cenários testados.
+
+
+## Loop infinito e enquadramento dos drinks
+
+A versão `loop-14` mantém três sequências visuais da mesma carta para permitir rolagem contínua em ambas as direções. Ao terminar o gesto ou a animação, a posição passa para a sequência central equivalente sem movimento visível. A seleção e os sete pontos continuam representando apenas os drinks originais; apenas a instância central ativa fica colorida e acessível. O comportamento também funciona nos filtros de duas receitas.
+
+As fotos agora ocupam uma área exclusiva acima do texto, com recorte alinhado embaixo, zoom moderado e deslocamento para cima. Nome, perfil e ação ficam em uma faixa separada, sem sobrepor o copo. Testes em desktop e celular verificaram várias voltas, passagem 7→1 e 1→7, arraste por toque entre extremidades, centralização, filtros, favoritos e detalhes; nenhuma sobreposição de texto sobre a foto ou erro de página foi encontrado.
