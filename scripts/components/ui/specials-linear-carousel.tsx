@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { flushSync } from 'react-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export type LinearCarouselItem = { id: string | number; title: string; description?: string; imageSrc?: string; tag?: string };
 type Navigation = { prev: () => void; next: () => void };
@@ -25,7 +25,8 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
   const container = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState(0);
   const [active, setActive] = React.useState(items.length + Math.min(initialIndex, items.length - 1));
-  const [paused, setPaused] = React.useState(false);
+  const [moving, setMoving] = React.useState(false);
+  const [interacting, setInteracting] = React.useState(false);
   const [hovering, setHovering] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
@@ -38,6 +39,7 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
   const count = items.length;
   const wrap = (index: number) => count ? ((index % count) + count) % count : 0;
   const current = wrap(active);
+  const paused = hovering || focused || interacting || hidden || !!reduceMotion;
   const activeRef = React.useRef(active);
   activeRef.current = active;
   const copies = React.useMemo(() => Array.from({ length: items.length * 3 }, (_, index) => ({ item: items[index % items.length], index })), [items]);
@@ -65,17 +67,21 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
     const viewport = scroll.current;
     if (!viewport || dragging.current || !count) return;
     const index = Math.round(viewport.scrollLeft / step);
-    if (index >= count && index < count * 2) return;
+    if (index >= count && index < count * 2) { setMoving(false); return; }
     const target = count + wrap(index);
     viewport.dataset.rebasing = 'true';
     flushSync(() => setActive(target));
     viewport.scrollTo({ left: target * step, behavior: 'instant' });
     requestAnimationFrame(() => requestAnimationFrame(() => { delete viewport.dataset.rebasing; }));
+    setMoving(false);
   };
 
   const selectPhysical = React.useCallback((index: number, user = true) => {
-    if (user) setPaused(true);
-    scroll.current?.scrollTo({ left: index * step, behavior: reduceMotion ? 'instant' : 'smooth' });
+    const viewport = scroll.current;
+    if (!viewport) return;
+    if (Math.abs(viewport.scrollLeft - index * step) < 1) { setMoving(false); return; }
+    setMoving(true);
+    viewport.scrollTo({ left: index * step, behavior: reduceMotion ? 'instant' : 'smooth' });
   }, [step, reduceMotion]);
 
   const select = React.useCallback((index: number, user = true) => {
@@ -87,12 +93,14 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
   const next = React.useCallback(() => selectPhysical(activeRef.current + 1), [selectPhysical]);
   React.useImperativeHandle(navigationRef, () => ({ prev, next }), [prev, next]);
   React.useEffect(() => {
-    if (!autoAdvance || reduceMotion || paused || hovering || focused || hidden || !visible || count < 2) return;
+    if (!autoAdvance || paused || moving || !visible || count < 2) return;
+    // The full dwell starts only after scrolling and invisible rebasing settle.
+    // Manual navigation never permanently disables the continuous loop.
     const timer = setInterval(() => {
-      if (!dragging.current && !document.querySelector('dialog[open]')) select(activeRef.current + 1, false);
+      if (!dragging.current && !document.querySelector('dialog[open]')) selectPhysical(activeRef.current + 1, false);
     }, intervalMs);
     return () => clearInterval(timer);
-  }, [autoAdvance, reduceMotion, paused, hovering, focused, hidden, visible, count, select, intervalMs]);
+  }, [autoAdvance, paused, moving, visible, count, selectPhysical, intervalMs]);
 
   const finishDrag = () => {
     if (!dragging.current) return;
@@ -106,16 +114,21 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
 
   if (!count) return null;
   return <div ref={container} className="specials-linear-carousel" role="region" aria-roledescription="carrossel" aria-label={label}
-    data-active-id={items[current].id} data-count={count} data-paused={paused || !!reduceMotion}
-    onMouseEnter={() => setHovering(true)} onMouseLeave={() => { setHovering(false); finishDrag(); }}
-    onFocusCapture={event => setFocused(!(event.target as HTMLElement).closest('.linear-play'))} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
-    <div ref={scroll} className="linear-scroll" tabIndex={0} aria-label="Arraste ou use as setas para escolher o drink em destaque"
+    data-active-id={items[current].id} data-count={count} data-paused={paused} data-moving={moving}
+    onMouseLeave={() => { setHovering(false); finishDrag(); }}
+    onPointerDownCapture={() => setFocused(false)}
+    onFocusCapture={event => setFocused((event.target as HTMLElement).matches(':focus-visible'))}
+    onKeyDownCapture={() => setFocused(true)}
+    onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+    <div ref={scroll} className="linear-scroll" tabIndex={0} aria-label="Arraste ou use as setas para escolher o drink em destaque. Passe o mouse sobre um drink ou use o foco do teclado para pausar a troca automática."
       onScroll={event => {
+        if (event.currentTarget.dataset.rebasing) return;
+        setMoving(true);
         setActive(Math.max(0, Math.min(count * 3 - 1, Math.round(event.currentTarget.scrollLeft / step))));
         clearTimeout(settleTimer.current);
         settleTimer.current = setTimeout(recenter, 180);
       }}
-      onWheel={() => setPaused(true)} onTouchStart={() => setPaused(true)}
+      onTouchStart={() => setInteracting(true)} onTouchEnd={() => setInteracting(false)} onTouchCancel={() => setInteracting(false)}
       onKeyDown={event => {
         if (event.key === 'ArrowLeft') { event.preventDefault(); prev(); }
         if (event.key === 'ArrowRight') { event.preventDefault(); next(); }
@@ -124,7 +137,7 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
       }}
       onPointerDown={event => {
         if (event.pointerType !== 'mouse' || (event.target as HTMLElement).closest('button,a')) return;
-        dragging.current = true; dragged.current = false; setPaused(true);
+        dragging.current = true; dragged.current = false;
         pointer.current = { x: event.clientX, scroll: event.currentTarget.scrollLeft };
         event.currentTarget.dataset.dragging = 'true';
       }}
@@ -145,6 +158,7 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
             style={{ width: cardWidth, height: cardHeight }}
             initial={reduceMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduceMotion ? 0 : .5, delay: reduceMotion ? 0 : Math.min(wrap(index), 3) * .08, ease: 'easeOut' }}
+            onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}
             onClickCapture={event => { if (dragged.current) { event.preventDefault(); event.stopPropagation(); } }}
             onClick={() => { if (!isActive && !dragged.current) selectPhysical(index); }}>
             <div className="linear-card-surface" inert={!isActive ? true : undefined}>{renderCard(item, { active: isActive })}</div>
@@ -158,7 +172,6 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
         <button key={item.id} className="linear-dot" aria-label={`Ver ${item.title}`} aria-pressed={index === current} onClick={() => select(index)}><span /></button>
       )}</div>
       <button className="linear-arrow" onClick={next} disabled={count < 2} aria-label="Próximo drink"><ChevronRight size={21} /></button>
-      {autoAdvance && !reduceMotion && <button className="linear-play" aria-label={paused ? 'Ativar troca automática de drinks' : 'Pausar troca automática de drinks'} aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? <Play size={15} /> : <Pause size={15} />}</button>}
     </div>
     <p className="linear-caption" aria-live={paused || focused ? 'polite' : 'off'}><span>{String(current + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}</span> {items[current].title} <span>Arraste para explorar</span></p>
   </div>;
