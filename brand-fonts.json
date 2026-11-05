@@ -14,5 +14,5 @@
     "Brixton Sans"
   ],
   "bodySource": "https://github.com/google/fonts/tree/main/ofl/anekdevanagari",
-  "instructions": "Place the brand webfont files in dist/assets/fonts and run python scripts/build-brand-fonts.py. Existing heading fonts are preserved until those files are supplied."
+  "instructions": "Place the brand webfont files in dist/assets/fonts and run python scripts/build-brand-fonts.py. Only Anek Devanagari is used until Hatton and Brixton Sans are supplied; no outside brand fonts are retained."
 }
