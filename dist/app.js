@@ -401,7 +401,7 @@ async function loadDrinkStack() {
   if (stackLoading) return;
   stackLoading = true;
   try {
-    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=loop-14');
+    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=auto-18');
     drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, selected: [...favorites], onFavorite: toggleFavorite, onDetails: showDrinkDetails });
     drinkStack.filter(activeDrinkFilter);
     $('#drinks').dataset.stackActive = 'true';

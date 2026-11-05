@@ -89,10 +89,10 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
   React.useEffect(() => {
     if (!autoAdvance || reduceMotion || paused || hovering || focused || hidden || !visible || count < 2) return;
     const timer = setInterval(() => {
-      if (!document.querySelector('dialog[open]')) select((current + 1) % count, false);
+      if (!dragging.current && !document.querySelector('dialog[open]')) select(activeRef.current + 1, false);
     }, intervalMs);
     return () => clearInterval(timer);
-  }, [autoAdvance, reduceMotion, paused, hovering, focused, hidden, visible, count, current, select, intervalMs]);
+  }, [autoAdvance, reduceMotion, paused, hovering, focused, hidden, visible, count, select, intervalMs]);
 
   const finishDrag = () => {
     if (!dragging.current) return;
@@ -108,7 +108,7 @@ export function SpecialsLinearCarousel<T extends LinearCarouselItem>({
   return <div ref={container} className="specials-linear-carousel" role="region" aria-roledescription="carrossel" aria-label={label}
     data-active-id={items[current].id} data-count={count} data-paused={paused || !!reduceMotion}
     onMouseEnter={() => setHovering(true)} onMouseLeave={() => { setHovering(false); finishDrag(); }}
-    onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+    onFocusCapture={event => setFocused(!(event.target as HTMLElement).closest('.linear-play'))} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
     <div ref={scroll} className="linear-scroll" tabIndex={0} aria-label="Arraste ou use as setas para escolher o drink em destaque"
       onScroll={event => {
         setActive(Math.max(0, Math.min(count * 3 - 1, Math.round(event.currentTarget.scrollLeft / step))));

@@ -49,7 +49,7 @@ export function mountDrinksCarousel(host: HTMLElement, options: Options) {
       </div>;
     }, [current.selected, reduceMotion]);
     return <SpecialsLinearCarousel key={current.filter} items={items} label="Carta de drinks Quick GO" cardWidth={cardWidth} cardHeight={cardHeight}
-      initialIndex={current.filter === 'all' ? 1 : 0} navigationRef={navigation} autoAdvance={false} renderCard={renderCard} />;
+      initialIndex={current.filter === 'all' ? 1 : 0} navigationRef={navigation} autoAdvance intervalMs={1000} renderCard={renderCard} />;
   }
   host.removeAttribute('tabindex');
   host.classList.add('has-linear-carousel');
