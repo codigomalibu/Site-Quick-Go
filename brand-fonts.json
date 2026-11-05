@@ -1,0 +1,18 @@
+{
+  "manual": {
+    "titles": "Hatton",
+    "subtitles": "Brixton Sans",
+    "body": "Anek Devanagari"
+  },
+  "installed": {
+    "Anek Devanagari": [
+      "anek-devanagari-latin.woff2"
+    ]
+  },
+  "pending": [
+    "Hatton",
+    "Brixton Sans"
+  ],
+  "bodySource": "https://github.com/google/fonts/tree/main/ofl/anekdevanagari",
+  "instructions": "Place the brand webfont files in dist/assets/fonts and run python scripts/build-brand-fonts.py. Existing heading fonts are preserved until those files are supplied."
+}

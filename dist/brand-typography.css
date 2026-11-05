@@ -1,0 +1,4 @@
+@font-face{font-family:'Anek Devanagari';src:url('/assets/fonts/anek-devanagari-latin.woff2');font-style:normal;font-weight:100 800;font-display:swap}
+:root{--brand-body:'Anek Devanagari',Arial,sans-serif;font-family:var(--brand-body)}
+body,input,select,textarea,button{font-family:var(--brand-body)}
+h1,h2,h3,h4,.hero-signature,.footer-top>p,.story-film-intro>p{font-family:DM,Arial,sans-serif}
