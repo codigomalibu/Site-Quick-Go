@@ -101,9 +101,7 @@ for sign,label in [(1,'front'),(-1,'rear')]:
         t=math.sin(a);lip.append((hole*(1-t)+tunnel*t,sign*(.24-.014*(1-math.cos(a)))))
     connect('Rounded '+label+' opening lip',lip,trim,reverse=sign<0,smooth=True)
 connect('Open serving compartment tunnel',[(tunnel,.226),(tunnel,-.226)],black,smooth=True)
-rounded('Low inset base',.61,.025,.44,.06,[0,-.761,0],bezel)
-for x in [-.23,.23]:
-    for z in [-.14,.14]:rounded('Recessed rubber foot',.06,.012,.05,.006,[x,-.778,z],bezel)
+# Confirmed closed product: the case rests flat; no projecting plinth or feet.
 
 logo=Image.open(OUT/'logo.webp').convert('RGBA')
 screen=Image.new('RGB',(600,1040),'#e1eced')
@@ -147,21 +145,24 @@ def screw(name,center,rotation=np.eye(3)):
     for size in [[.007,.001,.0014],[.0014,.001,.007]]:
         box(name+' cross recess',size,[0,.0041,0],bezel);transform_last(rotation,center)
 
+# Confirmed rear photograph: one four-screw hatch, rocker switch and rear-only
+# ventilation. The two side walls are continuous, with no access covers.
 back_rotation=np.array([[1,0,0],[0,0,1],[0,-1,0]])
-for x in [-.245,.245]:
-    for y in [.667,.08,-.689]:screw('Rear panel fastener',[x,y,-.242],back_rotation)
-# Service doors and vents are on the upper part of the side panels only.
-for sign in [-1,1]:
-    rotation=np.array([[0,0,sign],[0,1,0],[-sign,0,0]])
-    rounded('Inset side service door',.282,.66,.003,.022,[0,0,0],trim);transform_last(rotation,[sign*.318,.22,-.006])
-    rounded('Matte side access panel',.273,.65,.003,.019,[0,0,0],black);transform_last(rotation,[sign*.320,.22,-.006])
-    for z in [-.109,.109]:
-        for y in [-.075,.515]:
-            rot=np.array([[0,sign,0],[1,0,0],[0,0,-sign]])
-            screw('Service door fastener',[sign*.323,y,z],rot)
-    if sign<0:
-        for y in np.linspace(-.047,.025,4):
-            rounded('Inset side cooling vent',.092,.006,.002,.003,[0,0,0],bezel);transform_last(rotation,[sign*.323,float(y),-.012])
+rear_facing=np.diag([-1,1,-1])
+rounded('Rear access hatch seam',.512,.714,.003,.032,[0,.291,-.242],trim)
+rounded('Rear access hatch',.500,.702,.003,.027,[0,.291,-.244],black)
+for x in [-.220,.220]:
+    for y in [-.024,.606]:screw('Rear hatch fastener',[x,y,-.247],back_rotation)
+plane('Rear Quick GO logo',.308,.065,[0,0,0],logomat)
+transform_last(rear_facing,[0,.477,-.247])
+rounded('Rear power switch bezel',.046,.065,.007,.003,[0,-.003,-.249],trim)
+rounded('Rear power rocker',.034,.051,.004,.002,[0,-.003,-.254],bezel)
+# Switch glyphs are geometry, not an extra typeface.
+lathe('Rear power off symbol',[(.0045,0),(.0055,0),(.0055,.0005),(.0045,.0005)],[0,0,0],white,32)
+transform_last(back_rotation,[0,.009,-.257])
+box('Rear power on symbol',[.0014,.007,.0005],[0,-.014,-.257],white)
+for y in np.linspace(.144,.188,5):
+    rounded('Rear cooling vent',.146,.005,.002,.002,[0,float(y),-.247],bezel)
 
 lathe('Dispenser mount',[(0,0),(.087,0),(.087,.009),(0,.009)],[0,-.086,.025],steel)
 lathe('White ceramic dispenser',[(0,-.034),(.053,-.034),(.057,-.029),(.057,0),(0,0)],[0,-.091,.025],white)
@@ -254,9 +255,9 @@ for i in range(9):
     droplets('Splash droplet '+str(i),[(0,0,0,.0015+(i%3)*.0004)],liquid)
     nodes[-1]['translation']=[.01*math.cos(i*2.4),-.405,.025+.01*math.sin(i*2.4)]
 
-gltf={'asset':{'version':'2.0','generator':'Quick GO eight-view reconstruction, 2026-11-03'},'extensionsUsed':['KHR_materials_unlit','KHR_materials_transmission','KHR_materials_ior','KHR_materials_volume'],'scene':0,'scenes':[{'nodes':[len(nodes)]}],'nodes':nodes+[{'name':'Quick GO complete dispensing machine','children':list(range(len(nodes)))}],'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
+gltf={'asset':{'version':'2.0','generator':'Quick GO closed product with rear hatch and flush base, 2026-11-09'},'extensionsUsed':['KHR_materials_unlit','KHR_materials_transmission','KHR_materials_ior','KHR_materials_volume'],'scene':0,'scenes':[{'nodes':[len(nodes)]}],'nodes':nodes+[{'name':'Quick GO complete dispensing machine','children':list(range(len(nodes)))}],'meshes':meshes,'materials':materials,'textures':textures,'images':images,'samplers':[{'magFilter':9729,'minFilter':9987,'wrapS':33071,'wrapT':33071}],'buffers':[{'byteLength':len(blob)}],'bufferViews':views,'accessors':accessors}
 j=json.dumps(gltf,separators=(',',':')).encode();j+=b' '*((-len(j))%4);blob+=b'\x00'*((-len(blob))%4)
 glb=struct.pack('<4sII',b'glTF',2,12+8+len(j)+8+len(blob))+struct.pack('<I4s',len(j),b'JSON')+j+struct.pack('<I4s',len(blob),b'BIN\x00')+blob
-(OUT/'quickgo-machine-complete.glb').write_bytes(glb)
+(OUT/'quickgo-machine-closed.glb').write_bytes(glb)
 print('Complete machine:',len(meshes),'meshes;',len(glb),'bytes')
 

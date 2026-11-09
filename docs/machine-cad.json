@@ -28,5 +28,6 @@
     "Foam",
     "Animated stream"
   ],
-  "notes": "STL is exploded and has no materials. Original shell is preserved at uniform scale. Detached internal pumps/electronics are omitted from the closed product presentation."
+  "notes": "Archived engineering reference only. User confirmed the STL is an open/exploded design and must not define the closed product silhouette.",
+  "activeInHero": false
 }

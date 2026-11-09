@@ -56,11 +56,11 @@ async function start() {
   gradient.addColorStop(0, '#00000088'); gradient.addColorStop(1, '#00000000');
   contact.fillStyle = gradient; contact.fillRect(0, 0, 128, 128);
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .85), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(contactCanvas),transparent:true,depthWrite:false}));
-  ground.rotation.x = -Math.PI / 2; ground.position.y = -.787; scene.add(ground);
+  ground.rotation.x = -Math.PI / 2; ground.position.y = -.753; scene.add(ground);
 
-  const gltf = await new GLTFLoader().loadAsync('/assets/quickgo-machine-cad.glb?v=cad-22');
+  const gltf = await new GLTFLoader().loadAsync('/assets/quickgo-machine-closed.glb?v=closed-23');
   machine = gltf.scene;
-  machine.name = 'Original STL Quick GO machine with integrated presentation accessories';
+  machine.name = 'Integrated Quick GO machine, cup and dispensing flow';
   machine.rotation.y = -.29;
   scene.add(machine);
   const splashes = [];
@@ -114,7 +114,7 @@ async function start() {
         shader.fragmentShader = 'varying vec3 liquidPosition;\n' + shader.fragmentShader;
         shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `
           #include <color_fragment>
-          float depthTint = smoothstep(-.616, -.399, liquidPosition.y);
+          float depthTint = smoothstep(-.63, -.413, liquidPosition.y);
           float glassCaustic = .94 + .06 * sin(atan(liquidPosition.z - .025, liquidPosition.x) * 24.);
           diffuseColor.rgb *= mix(vec3(.62,.43,.38),vec3(1.04,.96,.87),depthTint) * glassCaustic;
         `);
@@ -129,7 +129,7 @@ async function start() {
         shader.vertexShader = 'uniform float flowTime;\n' + shader.vertexShader;
         shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
           #include <begin_vertex>
-          float along = clamp((-position.y - .06) / .339, 0., 1.);
+          float along = clamp((-position.y - .137) / .276, 0., 1.);
           float traveling = sin(along * 46. - flowTime * 15.);
           transformed.x *= 1. + .11 * traveling;
           transformed.z = .025 + (transformed.z - .025) * (1. + .11 * traveling);
@@ -141,7 +141,7 @@ async function start() {
   });
   // A small local light picks out the glass and orange liquid below the head.
   const dispenserLight = new THREE.PointLight(0xffd8b3, .08, .8, 2);
-  dispenserLight.position.set(0, -.045, .14); machine.add(dispenserLight);
+  dispenserLight.position.set(0, -.15, .14); machine.add(dispenserLight);
 
   function resize() {
     const { width, height } = host.getBoundingClientRect();
@@ -214,7 +214,7 @@ async function start() {
     for (let i = 0; i < splashes.length; i++) {
       const t = (clock.value * 1.4 + i / splashes.length) % 1;
       const a = i * 2.4;
-      splashes[i].position.set(Math.cos(a) * (.007 + .035*t), -.399 + .065*Math.sin(t*Math.PI) - .012*t, .025 + Math.sin(a) * (.007 + .035*t));
+      splashes[i].position.set(Math.cos(a) * (.007 + .035*t), -.413 + .065*Math.sin(t*Math.PI) - .012*t, .025 + Math.sin(a) * (.007 + .035*t));
       splashes[i].scale.setScalar(.3 + .7*Math.sin(t*Math.PI));
     }
     // Diagnostics are numeric state, useful for accessible keyboard QA too.

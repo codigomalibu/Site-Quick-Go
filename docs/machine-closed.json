@@ -1,0 +1,19 @@
+{
+  "activeModel": "assets/quickgo-machine-closed.glb",
+  "reference": "User-approved closed machine appearance and rear photograph supplied 2026-11-09",
+  "corrections": [
+    "Restored closed rounded housing",
+    "Removed projecting base and separate feet",
+    "Removed all lateral access covers and vents",
+    "Rear access hatch with four fasteners",
+    "Rear rocker power switch",
+    "Rear-only cooling vents"
+  ],
+  "preserved": [
+    "Front screen and logo",
+    "Open front-to-back serving bay",
+    "Integrated glass, drink, ice and dispensing flow",
+    "360 degree manual and automatic rotation"
+  ],
+  "engineeringReference": "source-assets/qg_3d.stl is archived as an exploded internal design, not the exterior silhouette"
+}
