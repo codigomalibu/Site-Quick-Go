@@ -1,6 +1,5 @@
 import { icons, animateCatalogueIcon } from './icons.js';
-import { config } from './config.js?v=structure-24';
-import { drinks, categoryNames, validFavorites, contactUrl } from './data.js';
+import { drinks, categoryNames } from './data.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -8,21 +7,11 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const hero = $('.hero');
 const machineViewer = $('#machine-viewer');
 const toastElement = $('#toast');
-const favorites = new Set();
-let savedSelection = false;
 let motionPaused = reduceMotion.matches || Boolean(navigator.connection?.saveData);
 let toastTimer;
 let previousDialogFocus;
 let drinkStack = null;
 let activeDrinkFilter = 'all';
-
-try {
-  const saved = localStorage.getItem(config.storageKey);
-  if (saved) {
-    validFavorites(JSON.parse(saved)).forEach(id => favorites.add(id));
-    savedSelection = true;
-  }
-} catch { /* The experience works when browser storage is unavailable. */ }
 
 function track(action, detail = {}) {
   window.dispatchEvent(new CustomEvent('quickgo:conversion', { detail: { action, ...detail } }));
@@ -62,85 +51,6 @@ $$('dialog').forEach(dialog => {
   });
 });
 
-function syncFavorites() {
-  $$('.favorite-count').forEach(el => el.textContent = favorites.size);
-  $$('[data-favorite]').forEach(button => {
-    const selected = favorites.has(button.dataset.favorite);
-    const name = drinks[button.dataset.favorite].name;
-    button.setAttribute('aria-pressed', String(selected));
-    button.setAttribute('aria-label', `${selected ? 'Remover' : 'Adicionar'} ${name} ${selected ? 'dos' : 'aos'} favoritos`);
-    button.textContent = selected ? '♥' : '♡';
-  });
-  $('#form-favorites').textContent = favorites.size ? `Sua seleção: ${[...favorites].map(id => drinks[id].name).join(', ')}` : '';
-  const selection = [...favorites].map(id => drinks[id].name).join(', ');
-  $('#quote-whatsapp').href = contactUrl(config.whatsappNumber, `Olá! Quero um orçamento para meu evento.${selection ? `\nDrinks que gostei: ${selection}` : ''}`, config.currentQuoteUrl);
-
-  if (savedSelection) {
-    try { localStorage.setItem(config.storageKey, JSON.stringify([...favorites])); } catch { /* Selection remains available in memory. */ }
-  }
-  drinkStack?.favorites([...favorites]);
-  renderPlan();
-}
-
-function toggleFavorite(id) {
-  if (!Object.hasOwn(drinks, id)) return;
-  if (favorites.has(id)) {
-    favorites.delete(id);
-    toast(`${drinks[id].name} removido da sua seleção.`);
-  } else {
-    favorites.add(id);
-    toast(`${drinks[id].name} entrou na sua carta.`);
-    track('favorite_drink', { drink: id });
-  }
-  syncFavorites();
-}
-
-$$('[data-favorite]').forEach(button => button.addEventListener('click', () => toggleFavorite(button.dataset.favorite)));
-
-function renderPlan() {
-  const target = $('#plan-favorites');
-  target.replaceChildren();
-  if (!favorites.size) {
-    const empty = document.createElement('div');
-    empty.className = 'plan-empty';
-    const text = document.createElement('p');
-    text.textContent = 'Sua carta ainda está em branco. Os melhores encontros começam com uma boa escolha.';
-    const link = document.createElement('a');
-    link.href = '#drinks';
-    link.textContent = 'Explorar os drinks ↗';
-    link.addEventListener('click', () => closeDialog($('#plan-dialog')));
-    empty.append(text, link);
-    target.append(empty);
-    return;
-  }
-  for (const id of favorites) {
-    const drink = drinks[id];
-    const row = document.createElement('div');
-    row.className = 'plan-drink';
-    const image = document.createElement('img');
-    image.src = `/assets/${drink.image}.webp`; image.alt = drink.name; image.width = 52; image.height = 63;
-    const info = document.createElement('div');
-    const name = document.createElement('h3'); name.textContent = drink.name;
-    const profile = document.createElement('p'); profile.textContent = drink.profile;
-    info.append(name, profile);
-    const remove = document.createElement('button'); remove.textContent = '×'; remove.setAttribute('aria-label', `Remover ${drink.name}`);
-    remove.addEventListener('click', () => toggleFavorite(id));
-    row.append(image, info, remove); target.append(row);
-  }
-}
-
-$$('[data-open-plan]').forEach(button => button.addEventListener('click', () => openDialog($('#plan-dialog'))));
-$('#plan-book').addEventListener('click', () => { closeDialog($('#plan-dialog')); $('#orcamento').scrollIntoView({ behavior: motionPaused ? 'instant' : 'smooth' }); });
-$('#save-plan').addEventListener('click', () => {
-  try { localStorage.setItem(config.storageKey, JSON.stringify([...favorites])); savedSelection = true; toast('Sua seleção foi salva neste dispositivo.'); }
-  catch { toast('O navegador não permitiu salvar. Sua seleção continua disponível nesta visita.'); }
-});
-$('#clear-plan').addEventListener('click', () => {
-  savedSelection = false;
-  try { localStorage.removeItem(config.storageKey); } catch { /* No saved data to remove. */ }
-  favorites.clear(); syncFavorites(); toast('Seleção removida deste dispositivo.');
-});
-
 const drinkDialog = $('#drink-dialog');
 drinkDialog.setAttribute('aria-labelledby', 'detail-name');
 function showDrinkDetails(id) {
@@ -150,10 +60,6 @@ function showDrinkDetails(id) {
   $('#detail-category').textContent = categoryNames[drink.category];
   $('#detail-name').textContent = drink.name;
   $('#detail-copy').textContent = drink.description;
-  const favorite = $('#detail-favorite');
-  const updateLabel = () => favorite.textContent = favorites.has(id) ? 'Remover da minha carta ♥' : 'Adicionar à minha carta ♡';
-  updateLabel();
-  favorite.onclick = () => { toggleFavorite(id); updateLabel(); };
   openDialog(drinkDialog);
 }
 $$('[data-details]').forEach(button => button.addEventListener('click', () => showDrinkDetails(button.dataset.details)));
@@ -283,18 +189,15 @@ const sections = new IntersectionObserver(entries => entries.forEach(entry => {
 }), { rootMargin: '-20% 0px -50% 0px' });
 ['experiencia', 'drinks', 'momentos'].forEach(id => sections.observe(document.getElementById(id)));
 $('#year').textContent = new Date().getFullYear();
-syncFavorites();
 
 // SVG geometry retrieved from the icon collection in the supplied catalogue.
 const icon = name => `<span class="ui-icon">${icons[name] || icons.sparkles}</span>`;
 function mountIcons() {
-  document.querySelectorAll('.favorite').forEach(el => { el.innerHTML = icons.heart; el.dataset.animatedIcon = 'heart'; });
   document.querySelectorAll('.play-small,.round-play,.live-play').forEach(el => { el.innerHTML = icons.play; el.dataset.animatedIcon = 'play'; });
   document.querySelectorAll('.step-drawing').forEach((el,index) => { const name=['sparkles','zap','heart'][index]; el.innerHTML = icons[name]; el.dataset.animatedIcon = name; });
   document.querySelectorAll('.spark').forEach(el => { el.innerHTML = icon('sparkles'); el.dataset.animatedIcon = 'sparkles'; });
 }
 mountIcons();
-new MutationObserver(mount => { mount.forEach(record => { if(record.target.matches?.('.favorite') && !record.target.querySelector('svg')) { record.target.innerHTML = icons.heart; animateCatalogueIcon(record.target.querySelector('svg'),'heart'); } }); }).observe(document.querySelector('#drinks-track'), {childList:true,subtree:true});
 
 if (matchMedia('(pointer:fine)').matches) {
   document.querySelectorAll('.drink-card').forEach(card => {
@@ -333,8 +236,8 @@ async function loadDrinkStack() {
   if (stackLoading) return;
   stackLoading = true;
   try {
-    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=dwell-20');
-    drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, selected: [...favorites], onFavorite: toggleFavorite, onDetails: showDrinkDetails });
+    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=simple-27');
+    drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, onDetails: showDrinkDetails });
     drinkStack.filter(activeDrinkFilter);
     $('#drinks').dataset.stackActive = 'true';
     trackElement.setAttribute('aria-label', 'Carta de drinks Quick GO com navegação por cards');
@@ -344,3 +247,5 @@ const stackLoader = new IntersectionObserver(entries => { if (entries[0].isInter
 stackLoader.observe(trackElement);
 
 // System access now lives at /sistemas/.
+
+$('#detail-quote').addEventListener('click', () => closeDialog(drinkDialog));
