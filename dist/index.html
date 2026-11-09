@@ -34,7 +34,7 @@
   <script type="module" src="/story-media.js?v=story-15"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.quickgodrinks.com.br/#organization","name":"Quick GO Drinks","url":"https://www.quickgodrinks.com.br/","description":"Bar expresso e compacto para eventos sociais, corporativos e ativações de marca."},{"@type":"WebSite","@id":"https://quickgo-drinks.vercel.app/#website","name":"Quick GO","url":"https://quickgo-drinks.vercel.app/","inLanguage":"pt-BR","publisher":{"@id":"https://www.quickgodrinks.com.br/#organization"}}]}</script>
   <script type="module" src="/machine-scene.js?v=closed-23"></script>
-  <script type="module" src="/app.js?v=simple-27"></script>
+  <script type="module" src="/app.js?v=menu-28"></script>
 </head>
 <body>
   <noscript><p style="padding:16px;background:#f1ede4;color:#22343b">Para montar seu pedido e explorar os filtros, ative o JavaScript. <a href="https://wa.me/5567991973749?text=Quero%20um%20or%C3%A7amento%20para%20meu%20evento.">Conversar no WhatsApp</a>.</p></noscript>
@@ -42,12 +42,10 @@
   <div class="reading-progress" aria-hidden="true"></div>
   <header class="header" id="header">
     <a class="brand" href="#inicio" aria-label="Quick GO, início"><img src="/assets/logo.webp" width="190" height="39" alt="Quick GO"></a>
-    <nav class="desktop-nav" aria-label="Navegação principal">
-      <a href="/" aria-current="page">Home</a><a href="#experiencia">A experiência</a><a href="/franquias/">Franquias</a>
-    </nav>
-    <div class="header-actions"><a class="nav-systems" href="/sistemas/">Acessar os sistemas <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="nav-cta" href="#orcamento">Pedir orçamento <span aria-hidden="true">↗</span></a><button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button></div>
+    <nav class="desktop-nav" aria-label="Navegação principal"><a href="/" aria-current="page">Home</a><a href="/franquias/">Franquias</a><a href="/sistemas/">Sistemas</a></nav>
+    <div class="header-actions"><a class="nav-cta" href="#orcamento">Pedir orçamento <span aria-hidden="true">↗</span></a><button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button></div>
   </header>
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação móvel" hidden><a href="/">Home <span>01</span></a><a href="#experiencia">A experiência <span>01</span></a><a href="#drinks">Os drinks <span>02</span></a><a href="#momentos">Seus momentos <span>03</span></a><a href="#orcamento">Monte seu evento <span>↗</span></a><a class="mobile-systems" href="/sistemas/">Sistemas <span aria-hidden="true">↗</span></a><a href="/franquias/">Seja franqueado <span aria-hidden="true">↗</span></a></nav>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação móvel" hidden><a href="/" aria-current="page">Home</a><a href="/franquias/">Franquias</a><a href="/sistemas/">Sistemas</a></nav>
 
   <main id="conteudo">
     <section class="hero" id="inicio" aria-labelledby="hero-title">
@@ -130,7 +128,7 @@
   <footer class="network-footer" data-theme="dark" aria-label="Quick GO: navegação e canais oficiais"><div class="container">
     <div class="network-footer-grid">
       <div class="network-footer-lead"><h2>Seu próximo brinde<br>começa aqui.</h2><p>Bar expresso, preparo automático e uma carta de drinks para o seu evento.</p><a class="footer-quote" href="#orcamento">Pedir meu orçamento <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
-      <div><h3>Explore a Quick GO</h3><nav aria-label="Explore a Quick GO"><a href="#inicio">Início</a><a href="#experiencia">A experiência</a><a href="#drinks">Carta de drinks</a><a href="#como-funciona">Como funciona</a><a href="#momentos">Para o seu evento</a></nav></div>
+      <div><h3>Explore a Quick GO</h3><nav aria-label="Explore a Quick GO"><a href="/">Home</a><a href="/franquias/">Franquias</a><a href="/sistemas/">Sistemas</a></nav></div>
       <div><h3>Faça parte da rede</h3><nav aria-label="Rede Quick GO"><a href="/franquias/#rede">Conheça a marca <span aria-hidden="true">↗</span></a><a href="/franquias/#conversa">Quero ser franqueado <span aria-hidden="true">↗</span></a><a href="/sistemas/">Acessar os sistemas <span aria-hidden="true">↗</span></a><a href="#orcamento">Atendimento para eventos</a></nav></div>
       <div class="network-footer-social"><h3>Acompanhe a Quick GO</h3><a class="footer-instagram" href="https://www.instagram.com/quickgodrinks/" target="_blank" rel="noopener" aria-label="Instagram oficial da Quick GO (abre em nova aba)" title="Instagram oficial da Quick GO"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a class="footer-handle" href="https://www.instagram.com/quickgodrinks/" target="_blank" rel="noopener">@quickgodrinks</a><p class="footer-social-note">Drinks, encontros e novidades da marca no perfil oficial.</p><div class="footer-appearance-wrap"><div class="footer-appearance"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" stroke="currentColor" stroke-width="1.5"/></svg><button id="footer-theme" class="footer-theme-toggle" role="switch" aria-checked="true" aria-label="Rodapé em modo escuro"><span aria-hidden="true"></span></button><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><span class="footer-appearance-caption">Aparência do rodapé</span></div></div>
     </div>

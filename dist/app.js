@@ -184,10 +184,6 @@ if (!reduceMotion.matches && 'IntersectionObserver' in window) {
   }), { threshold: .08 });
   $$('.reveal').forEach(element => reveal.observe(element));
 }
-const sections = new IntersectionObserver(entries => entries.forEach(entry => {
-  if (entry.isIntersecting) $$('.desktop-nav a').forEach(link => link.classList.toggle('active', link.hash === `#${entry.target.id}`));
-}), { rootMargin: '-20% 0px -50% 0px' });
-['experiencia', 'drinks', 'momentos'].forEach(id => sections.observe(document.getElementById(id)));
 $('#year').textContent = new Date().getFullYear();
 
 // SVG geometry retrieved from the icon collection in the supplied catalogue.
@@ -236,7 +232,7 @@ async function loadDrinkStack() {
   if (stackLoading) return;
   stackLoading = true;
   try {
-    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=simple-27');
+    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=menu-28');
     drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, onDetails: showDrinkDetails });
     drinkStack.filter(activeDrinkFilter);
     $('#drinks').dataset.stackActive = 'true';

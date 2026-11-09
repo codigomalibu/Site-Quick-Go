@@ -11,3 +11,5 @@
 - Source facts: official Quick GO home/about pages. No earnings guarantees, franchise prices, coverage or purchase terms are invented.
 
 - Drink favourites, saved selections and the My Event panel were removed at the user's request. Drink details link directly to the quote section; autoplay and filters remain.
+
+- Desktop and mobile primary menus contain only Home, Franquias and Sistemas. Home content sections are not presented as separate pages.
