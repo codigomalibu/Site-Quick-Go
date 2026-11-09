@@ -14,4 +14,4 @@
 
 - Desktop and mobile primary menus contain only Home, Franquias and Sistemas. Home content sections are not presented as separate pages.
 
-- Shared GSAP Scroll Reveal adapts the supplied word-by-word unblur effect to semantic text on all three pages. Existing markup, links, inputs, iframe and 3D/card controls remain intact. Reduced-motion users receive readable, unanimated content. The old IntersectionObserver fade is removed to avoid stacking animations.
+- The rejected word-by-word ScrollTrigger effect was removed. Text blocks now enter once using a 600ms native fade and a 12px rise. No content is hidden before intersection, the opening viewport is untouched, and reduced-motion users receive no added animation. No scroll handlers, word splitting, blur or rotation are used.
