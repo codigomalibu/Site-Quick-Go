@@ -60,7 +60,7 @@ test('Integrated Three.js machine has one root, volumetric glass and an open ser
   assert.ok(!html.includes('<model-viewer'));
   assert.ok(!html.includes('id="toggle-cup"'));
   for (const id of ['machine-viewer','machine-status']) assert.ok(html.includes(`id="${id}"`));
-  const bytes = await readFile(path.join(root, 'assets/quickgo-machine-complete.glb'));
+  const bytes = await readFile(path.join(root, 'assets/quickgo-machine-cad.glb'));
   assert.equal(bytes.subarray(0,4).toString(), 'glTF');
   assert.equal(bytes.readUInt32LE(4), 2);
   assert.equal(bytes.readUInt32LE(8), bytes.length);
@@ -73,9 +73,19 @@ test('Integrated Three.js machine has one root, volumetric glass and an open ser
   const assembly = gltf.nodes[gltf.scenes[0].nodes[0]];
   assert.equal(assembly.name, 'Quick GO complete dispensing machine');
   assert.equal(assembly.children.length, gltf.meshes.length);
-  for (const name of ['Fluted crystal tumbler','Ice left','Flowing coral stream','Front touchscreen','Solid rear face with through opening']) assert.ok(gltf.nodes.some(node=>node.name === name));
+  for (const name of ['Fluted crystal tumbler','Ice left','Flowing coral stream','Front touchscreen','Original STL Quick GO housing']) assert.ok(gltf.nodes.some(node=>node.name === name));
   assert.ok(gltf.materials.some(m=>m.extensions?.KHR_materials_transmission));
   assert.ok(!gltf.nodes.some(node=>node.name.startsWith('Reference cocktail')));
+  assert.ok(!gltf.nodes.some(node=>node.name === 'Rounded powder coated housing'));
+  const shell = gltf.nodes.find(node=>node.name === 'Original STL Quick GO housing');
+  assert.equal(shell.extras.source, 'qg_3d.stl');
+  assert.equal(shell.extras.sourceTriangles, 7846);
+  assert.equal(shell.extras.uniformScaleOnly, true);
+  const shellMesh = gltf.meshes[shell.mesh].primitives[0];
+  assert.equal(gltf.accessors[shellMesh.indices].count, 7846 * 3);
+  const shellBounds = gltf.accessors[shellMesh.attributes.POSITION];
+  assert.ok(Math.abs(shellBounds.max[1] - shellBounds.min[1] - 1.5) < .0001);
+  assert.ok(Math.abs((shellBounds.max[0] - shellBounds.min[0]) / 1.5 - 160 / 450) < .0001);
   // Rays through the empty serving bay must not hit any housing triangles.
   // Check the actual exported geometry, rather than only mesh names.
   const binStart = 28 + length;
@@ -85,8 +95,11 @@ test('Integrated Three.js machine has one root, volumetric glass and an open ser
       const accessor = gltf.accessors[primitive.attributes.POSITION];
       const view = gltf.bufferViews[accessor.bufferView];
       const start = binStart + (view.byteOffset || 0) + (accessor.byteOffset || 0);
-      for (let i=0;i<accessor.count;i+=3) {
-        const p = [0,1,2].map(n => [bytes.readFloatLE(start+(i+n)*12),bytes.readFloatLE(start+(i+n)*12+4)]);
+      const indices = gltf.accessors[primitive.indices];
+      const indexView = gltf.bufferViews[indices.bufferView];
+      const indexStart = binStart + (indexView.byteOffset || 0) + (indices.byteOffset || 0);
+      for (let i=0;i<indices.count;i+=3) {
+        const p = [0,1,2].map(n => { const vertex = bytes.readUInt32LE(indexStart+(i+n)*4); return [bytes.readFloatLE(start+vertex*12),bytes.readFloatLE(start+vertex*12+4)]; });
         const [a,b,c]=p;
         const den=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1]);
         if (Math.abs(den)<1e-9) continue;

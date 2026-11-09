@@ -1,0 +1,32 @@
+{
+  "source": "qg_3d.stl",
+  "sha256": "f748db9035316b3983ba5403e626e3095c87b965c618d4bc563a47c7e6ed5103",
+  "scale": 0.0033333333333333335,
+  "sourceBounds": [
+    [
+      -66.9496841430664,
+      -139.06016540527344,
+      143.4010009765625
+    ],
+    [
+      73.0503158569336,
+      20.939836502075195,
+      593.4010009765625
+    ]
+  ],
+  "sourceTriangles": 7846,
+  "uniformScaleOnly": true,
+  "sourceFileBytes": 25186784,
+  "sourceFileTriangles": 503734,
+  "outputBytes": 3901164,
+  "outputMeshes": 28,
+  "presentationAccessories": [
+    "Branded display",
+    "Glass",
+    "Coral drink",
+    "Ice",
+    "Foam",
+    "Animated stream"
+  ],
+  "notes": "STL is exploded and has no materials. Original shell is preserved at uniform scale. Detached internal pumps/electronics are omitted from the closed product presentation."
+}
