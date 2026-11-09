@@ -77,3 +77,6 @@
 @media(max-width:600px){.linear-dots{flex-basis:220px}.linear-dot{width:18px;height:23px}.linear-navigation{gap:9px}.linear-drink-copy h3{font-size:22px}}
 
 .linear-drink-copy{flex-basis:152px}.linear-drink-copy h3{min-height:50px}
+
+/* Preserve the full glass in the labelled Marinho source crop. */
+.linear-drink-photo>img[src*="/marinho.webp"] { object-fit: contain; object-position: center; transform: none; background: #092b2f; }

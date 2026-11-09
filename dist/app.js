@@ -1,5 +1,5 @@
 import { icons, animateCatalogueIcon } from './icons.js';
-import { drinks, categoryNames } from './data.js?v=catalogue-32';
+import { drinks, categoryNames } from './data.js?v=photos-33';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -226,7 +226,7 @@ async function loadDrinkStack() {
   if (stackLoading) return;
   stackLoading = true;
   try {
-    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=catalogue-32');
+    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=photos-33');
     drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, onDetails: showDrinkDetails });
     drinkStack.filter(activeDrinkFilter);
     $('#drinks').dataset.stackActive = 'true';

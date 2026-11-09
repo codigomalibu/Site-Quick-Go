@@ -12,182 +12,234 @@
       "name": "Capadócia",
       "category": "classico",
       "sourceAssetId": 81,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781628660/CARDAPIO_DRINKS/drink_2f5e80911af2_425f4fba.png",
+      "catalogueDrinkId": "drink_2f5e80911af2"
     },
     {
       "id": "daiquiri",
       "name": "Daiquiri",
       "category": "classico",
       "sourceAssetId": 51,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1783723008/CARDAPIO_DRINKS/drink_8fa14da61b7f_6bb646aa.png",
+      "catalogueDrinkId": "drink_8fa14da61b7f"
     },
     {
       "id": "fitzgerald",
       "name": "Fitzgerald",
       "category": "classico",
       "sourceAssetId": 55,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780663124/CARDAPIO_DRINKS/drink_7ffada82adb3_227cb193.png",
+      "catalogueDrinkId": "drink_7ffada82adb3"
     },
     {
       "id": "london-mule",
       "name": "London Mule",
       "category": "classico",
       "sourceAssetId": 75,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781628731/CARDAPIO_DRINKS/drink_59be2ec881c8_4cf28fbc.png",
+      "catalogueDrinkId": "drink_59be2ec881c8"
     },
     {
       "id": "londres",
       "name": "Londres",
       "category": "classico",
       "sourceAssetId": 281,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1783722980/CARDAPIO_DRINKS/drink_db2debd8f953_3bbcc121.png",
+      "catalogueDrinkId": "drink_db2debd8f953"
     },
     {
       "id": "maracuja-pepper",
       "name": "Maracujá Pepper",
       "category": "classico",
       "sourceAssetId": 341,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781628100/CARDAPIO_DRINKS/drink_791bdec041fc_3b891a0d.png",
+      "catalogueDrinkId": "drink_791bdec041fc"
     },
     {
       "id": "moscow-mule",
       "name": "Moscow Mule",
       "category": "classico",
       "sourceAssetId": 310,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780663106/CARDAPIO_DRINKS/drink_d63fd4761eb8_9326628a.png",
+      "catalogueDrinkId": "drink_d63fd4761eb8"
     },
     {
       "id": "oceanic",
       "name": "Oceanic",
       "category": "classico",
       "sourceAssetId": 47,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780330542/CARDAPIO_DRINKS/drink_60a1f246bd3b_1c75c99e.png",
+      "catalogueDrinkId": "drink_60a1f246bd3b"
     },
     {
       "id": "pelourinho",
       "name": "Pelourinho",
       "category": "classico",
       "sourceAssetId": 77,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780330052/CARDAPIO_DRINKS/drink_ee410e317f19_884bb243.png",
+      "catalogueDrinkId": "drink_ee410e317f19"
     },
     {
       "id": "sand",
       "name": "Sand",
       "category": "classico",
       "sourceAssetId": 283,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780330556/CARDAPIO_DRINKS/drink_fa9fa1205d25_60e052e1.png",
+      "catalogueDrinkId": "drink_fa9fa1205d25"
     },
     {
       "id": "zuma",
       "name": "Zuma",
       "category": "classico",
       "sourceAssetId": 67,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1783722990/CARDAPIO_DRINKS/drink_a8df5ea52c2b_49904c8d.png",
+      "catalogueDrinkId": "drink_a8df5ea52c2b"
     },
     {
       "id": "amazonico",
       "name": "Amazônico",
       "category": "premium",
       "sourceAssetId": 271,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780331093/CARDAPIO_DRINKS/drink_f56c097647ab_fbb1ebaa.png",
+      "catalogueDrinkId": "drink_f56c097647ab"
     },
     {
       "id": "golden",
       "name": "Golden",
       "category": "premium",
       "sourceAssetId": 298,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780330573/CARDAPIO_DRINKS/drink_b2ada39a3c90_e9a9fa74.png",
+      "catalogueDrinkId": "drink_b2ada39a3c90"
     },
     {
       "id": "ibiza",
       "name": "Ibiza",
       "category": "premium",
       "sourceAssetId": 53,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780330071/CARDAPIO_DRINKS/drink_27d75536aee3_99408ec4.png",
+      "catalogueDrinkId": "drink_27d75536aee3"
     },
     {
       "id": "o-lobo-de-wall-street",
       "name": "O Lobo de Wall Street",
       "category": "premium",
       "sourceAssetId": 277,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780663152/CARDAPIO_DRINKS/drink_15a77249d654_fdacd3e6.png",
+      "catalogueDrinkId": "drink_15a77249d654"
     },
     {
       "id": "parintins",
       "name": "Parintins",
       "category": "premium",
       "sourceAssetId": 287,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781648729/CARDAPIO_DRINKS/drink_d5052576f51b_dc61a512.png",
+      "catalogueDrinkId": "drink_d5052576f51b"
     },
     {
       "id": "penicillin",
       "name": "Penicillin",
       "category": "premium",
       "sourceAssetId": 71,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781648721/CARDAPIO_DRINKS/drink_fc566b6a237c_adb78a19.png",
+      "catalogueDrinkId": "drink_fc566b6a237c"
     },
     {
       "id": "whisky-sour",
       "name": "Whisky Sour",
       "category": "premium",
       "sourceAssetId": 279,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781648635/CARDAPIO_DRINKS/drink_c9e3dddb17fe_ac284352.png",
+      "catalogueDrinkId": "drink_c9e3dddb17fe"
     },
     {
       "id": "boulevardier",
       "name": "Boulevardier",
       "category": "ultra",
       "sourceAssetId": 58,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781627985/CARDAPIO_DRINKS/drink_a9f5c514a78f_ed14e7bb.png",
+      "catalogueDrinkId": "drink_a9f5c514a78f"
     },
     {
       "id": "garibaldi",
       "name": "Garibaldi",
       "category": "ultra",
       "sourceAssetId": null,
-      "hasPhoto": false
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1791330763/CARDAPIO_DRINKS/drink_c37108056723_f397da7a.png",
+      "catalogueDrinkId": "drink_c37108056723"
     },
     {
       "id": "negroni",
       "name": "Negroni",
       "category": "ultra",
       "sourceAssetId": 292,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781627952/CARDAPIO_DRINKS/drink_41456afadcbf_a5799be7.png",
+      "catalogueDrinkId": "drink_41456afadcbf"
     },
     {
       "id": "sweet-negroni",
       "name": "Sweet Negroni",
       "category": "ultra",
       "sourceAssetId": 78,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1780331513/CARDAPIO_DRINKS/drink_5b79be428066_6ed6f231.png",
+      "catalogueDrinkId": "drink_5b79be428066"
     },
     {
       "id": "aquarela",
       "name": "Aquarela",
       "category": "zero-alcool",
       "sourceAssetId": 297,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1786473463/CARDAPIO_DRINKS/drink_1a721cf69c70_dfa55fda.png",
+      "catalogueDrinkId": "drink_1a721cf69c70"
     },
     {
       "id": "bali",
       "name": "Bali",
       "category": "zero-alcool",
       "sourceAssetId": 45,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781036918/CARDAPIO_DRINKS/drink_e42f2c43a410_2eeea094.png",
+      "catalogueDrinkId": "drink_e42f2c43a410"
     },
     {
       "id": "barbie-mule",
       "name": "Barbie Mule",
       "category": "zero-alcool",
       "sourceAssetId": 63,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1786473149/CARDAPIO_DRINKS/drink_ba3676cbd7fe_6723ddfc.jpg",
+      "catalogueDrinkId": "drink_ba3676cbd7fe"
     },
     {
       "id": "capri",
       "name": "Capri",
       "category": "zero-alcool",
       "sourceAssetId": 43,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781629110/CARDAPIO_DRINKS/drink_9ff2ae8a21bf_602f00b3.png",
+      "catalogueDrinkId": "drink_9ff2ae8a21bf"
     },
     {
       "id": "drink-da-aniversariante",
@@ -201,35 +253,45 @@
       "name": "Hileia",
       "category": "zero-alcool",
       "sourceAssetId": 269,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781629114/CARDAPIO_DRINKS/drink_2ab75342c143_c46dc91b.png",
+      "catalogueDrinkId": "drink_2ab75342c143"
     },
     {
       "id": "maldivas",
       "name": "Maldivas",
       "category": "zero-alcool",
       "sourceAssetId": 46,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781628027/CARDAPIO_DRINKS/drink_82a515202ad9_00766be9.png",
+      "catalogueDrinkId": "drink_82a515202ad9"
     },
     {
       "id": "marinho",
       "name": "Marinho",
       "category": "zero-alcool",
-      "sourceAssetId": null,
-      "hasPhoto": false
+      "sourceAssetId": 177,
+      "hasPhoto": true,
+      "photoNotes": "Crop of the blue glass explicitly labelled MARINHO in the supplied social post."
     },
     {
       "id": "matte-mule",
       "name": "Matte Mule",
       "category": "zero-alcool",
       "sourceAssetId": 295,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781036912/CARDAPIO_DRINKS/drink_edf7a928c7d0_6feaaf0d.png",
+      "catalogueDrinkId": "drink_edf7a928c7d0"
     },
     {
       "id": "tropical",
       "name": "Tropical",
       "category": "zero-alcool",
       "sourceAssetId": 280,
-      "hasPhoto": true
+      "hasPhoto": true,
+      "sourceUrl": "https://res.cloudinary.com/dgvbph6ez/image/upload/v1781647347/CARDAPIO_DRINKS/drink_b78e729404fa_1f3bc6ca.png",
+      "catalogueDrinkId": "drink_b78e729404fa"
     }
-  ]
+  ],
+  "photoSource": "https://quickgoorcamentos.com/catalogo"
 }

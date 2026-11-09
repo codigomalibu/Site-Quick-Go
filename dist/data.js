@@ -129,7 +129,7 @@ export const drinks = Object.freeze({
     "name": "O Lobo de Wall Street",
     "category": "premium",
     "profile": "Premium",
-    "image": "lobo",
+    "image": "o-lobo-de-wall-street",
     "imageAvailable": true,
     "imageAlt": "O Lobo de Wall Street, drink da carta Quick GO",
     "description": "O Lobo de Wall Street faz parte da categoria Premium da carta Quick GO. A composição e a disponibilidade para o seu evento são confirmadas com a equipe."
@@ -174,9 +174,9 @@ export const drinks = Object.freeze({
     "name": "Garibaldi",
     "category": "ultra",
     "profile": "Ultra",
-    "image": "logo",
-    "imageAvailable": false,
-    "imageAlt": "Quick GO Drinks",
+    "image": "garibaldi",
+    "imageAvailable": true,
+    "imageAlt": "Garibaldi, drink da carta Quick GO",
     "description": "Garibaldi faz parte da categoria Ultra da carta Quick GO. A composição e a disponibilidade para o seu evento são confirmadas com a equipe."
   },
   "negroni": {
@@ -264,9 +264,9 @@ export const drinks = Object.freeze({
     "name": "Marinho",
     "category": "zero-alcool",
     "profile": "Zero Álcool",
-    "image": "logo",
-    "imageAvailable": false,
-    "imageAlt": "Quick GO Drinks",
+    "image": "marinho",
+    "imageAvailable": true,
+    "imageAlt": "Marinho, drink azul sem álcool da carta Quick GO",
     "description": "Marinho faz parte da categoria Zero Álcool da carta Quick GO. A composição e a disponibilidade para o seu evento são confirmadas com a equipe."
   },
   "matte-mule": {
