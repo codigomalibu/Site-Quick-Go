@@ -15,3 +15,5 @@
 - Desktop and mobile primary menus contain only Home, Franquias and Sistemas. Home content sections are not presented as separate pages.
 
 - The rejected word-by-word ScrollTrigger effect was removed. Text blocks now enter once using a 600ms native fade and a 12px rise. No content is hidden before intersection, the opening viewport is untouched, and reduced-motion users receive no added animation. No scroll handlers, word splitting, blur or rotation are used.
+
+- Full 32-drink catalogue uses the user-provided classifications: Clássico (11), Premium (7), Ultra (4), Zero Álcool (10). Twenty-nine identified photos come from the supplied archive. Garibaldi, Drink da Aniversariante and Marinho use branded artwork rather than another drink's photo until their identified images are supplied. Infinite autoplay retains the 2.35-second dwell.

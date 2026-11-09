@@ -1,5 +1,5 @@
 import { icons, animateCatalogueIcon } from './icons.js';
-import { drinks, categoryNames } from './data.js';
+import { drinks, categoryNames } from './data.js?v=catalogue-32';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -56,7 +56,8 @@ drinkDialog.setAttribute('aria-labelledby', 'detail-name');
 function showDrinkDetails(id) {
   const drink = drinks[id];
   $('#detail-image').src = `/assets/${drink.image}.webp`;
-  $('#detail-image').alt = drink.name;
+  $('#detail-image').alt = drink.imageAlt || drink.name;
+  drinkDialog.dataset.photo = String(drink.imageAvailable !== false);
   $('#detail-category').textContent = categoryNames[drink.category];
   $('#detail-name').textContent = drink.name;
   $('#detail-copy').textContent = drink.description;
@@ -66,7 +67,7 @@ $$('[data-details]').forEach(button => button.addEventListener('click', () => sh
 
 const trackElement = $('#drinks-track');
 function filterDrinks(filter) {
-  if (!['all', 'classicos', 'tropicais', 'sem-alcool'].includes(filter)) return;
+  if (!['all', ...Object.keys(categoryNames)].includes(filter)) return;
   $$('.filter').forEach(button => {
     const active = button.dataset.filter === filter;
     button.classList.toggle('active', active);
@@ -76,7 +77,7 @@ function filterDrinks(filter) {
   if (drinkStack) {
     drinkStack.filter(filter);
     const count = Object.values(drinks).filter(drink => filter === 'all' || drink.category === filter).length;
-    $('#drink-results').textContent = `${count} drinks na seleção ${filter === 'all' ? 'Todos os sabores' : categoryNames[filter].toLowerCase()}.`;
+    $('#drink-results').textContent = `${count} drinks na seleção ${filter === 'all' ? 'Todos os drinks' : categoryNames[filter].toLowerCase()}.`;
     track('filter_drinks', { category: filter });
     return;
   }
@@ -86,7 +87,7 @@ function filterDrinks(filter) {
     if (!card.hidden) count++;
   });
   trackElement.scrollTo({ left: 0, behavior: 'instant' });
-  $('#drink-results').textContent = `${count} drinks na seleção ${filter === 'all' ? 'Todos os sabores' : categoryNames[filter].toLowerCase()}.`;
+  $('#drink-results').textContent = `${count} drinks na seleção ${filter === 'all' ? 'Todos os drinks' : categoryNames[filter].toLowerCase()}.`;
   updateCarousel();
   track('filter_drinks', { category: filter });
 }
@@ -218,14 +219,14 @@ window.addEventListener('quickgo:motion',event=>document.querySelectorAll('[data
 const stackItems = $$('.drink-card', trackElement).map(card => {
   const id = card.dataset.drink;
   return { id, title: drinks[id].name, description: drinks[id].profile, category: drinks[id].category,
-    imageSrc: `/assets/${drinks[id].image}.webp`, imageAlt: $('img', card).alt, tag: $('.drink-tag', card).textContent };
+    imageSrc: `/assets/${drinks[id].image}.webp`, imageAvailable: drinks[id].imageAvailable, imageAlt: $('img', card).alt, tag: $('.drink-tag', card).textContent };
 });
 let stackLoading = false;
 async function loadDrinkStack() {
   if (stackLoading) return;
   stackLoading = true;
   try {
-    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=menu-28');
+    const { mountDrinksCarousel } = await import('./drinks-carousel.js?v=catalogue-32');
     drinkStack = mountDrinksCarousel(trackElement, { items: stackItems, onDetails: showDrinkDetails });
     drinkStack.filter(activeDrinkFilter);
     $('#drinks').dataset.stackActive = 'true';

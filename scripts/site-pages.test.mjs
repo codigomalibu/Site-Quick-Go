@@ -87,3 +87,25 @@ test('Every page has working local links, one heading and distinct navigation', 
   assert.ok(!system.includes('Área exclusiva'));
   assert.ok(!system.includes('/machine-scene.js'));
 });
+
+
+test('The complete user-approved menu has 32 correctly categorised drinks', async () => {
+  const { drinks, categoryNames } = await import('../dist/data.js');
+  assert.deepEqual(Object.values(categoryNames), ['Clássico', 'Premium', 'Ultra', 'Zero Álcool']);
+  const catalogue = JSON.parse(await readFile(path.join(root,'../docs/drinks-catalogue.json'),'utf8'));
+  assert.equal(catalogue.drinks.length,32);
+  assert.equal(Object.keys(drinks).length,32);
+  for (const [category,count] of Object.entries({'classico':11,'premium':7,'ultra':4,'zero-alcool':10})) {
+    assert.equal(Object.values(drinks).filter(item=>item.category===category).length,count);
+  }
+  const home = await readFile(path.join(root,'index.html'),'utf8');
+  for (const item of catalogue.drinks) {
+    assert.equal(drinks[item.id].category,item.category,item.name);
+    assert.ok(home.includes(`data-drink="${item.id}" data-category="${item.category}"`));
+  }
+  assert.equal(drinks.negroni.category,'ultra');
+  assert.equal(drinks.capadocia.category,'classico');
+  assert.equal(drinks['whisky-sour'].category,'premium');
+  assert.equal(drinks['barbie-mule'].category,'zero-alcool');
+  assert.ok(!home.includes('data-filter="tropicais"'));
+});

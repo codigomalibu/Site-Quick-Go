@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { ArrowUpRight } from 'lucide-react';
 import { SpecialsLinearCarousel, type LinearCarouselItem } from './components/ui/specials-linear-carousel';
 
-type DrinkItem = LinearCarouselItem & { category: string; imageAlt: string };
+type DrinkItem = LinearCarouselItem & { category: string; imageAlt: string; imageAvailable?: boolean };
 type State = { filter: string };
 type Options = { items: DrinkItem[]; onDetails: (id: string) => void };
 
@@ -25,11 +25,11 @@ export function mountDrinksCarousel(host: HTMLElement, options: Options) {
     }, []);
     const items = React.useMemo(() => options.items.filter(item => current.filter === 'all' || item.category === current.filter), [current.filter]);
     const cardWidth = width < 600 ? Math.min(280, width * .72) : Math.min(330, width * .31);
-    const cardHeight = Math.round(cardWidth * .9 + 136);
+    const cardHeight = Math.round(cardWidth * .9 + 152);
     const renderCard = React.useCallback((item: DrinkItem, { active }: { active: boolean }) => {
       return <div className="linear-drink">
-        <div className="linear-drink-photo">
-        <img src={item.imageSrc} alt={item.imageAlt} width="800" height="1000" draggable={false} decoding="async" />
+        <div className={`linear-drink-photo${item.imageAvailable === false ? ' is-no-photo' : ''}`}>
+        <img src={item.imageSrc} alt={item.imageAlt} width="800" height="1000" draggable={false} decoding="async" loading="lazy" />
         <div className="linear-drink-shade" aria-hidden="true" />
         <span className="linear-drink-tag">{item.tag}</span>
         </div>
@@ -41,7 +41,7 @@ export function mountDrinksCarousel(host: HTMLElement, options: Options) {
       </div>;
     }, []);
     return <SpecialsLinearCarousel key={current.filter} items={items} label="Carta de drinks Quick GO" cardWidth={cardWidth} cardHeight={cardHeight}
-      initialIndex={current.filter === 'all' ? 1 : 0} navigationRef={navigation} autoAdvance intervalMs={2350} renderCard={renderCard} />;
+      initialIndex={0} navigationRef={navigation} autoAdvance intervalMs={2350} renderCard={renderCard} />;
   }
   host.removeAttribute('tabindex');
   host.classList.add('has-linear-carousel');

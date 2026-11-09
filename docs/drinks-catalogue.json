@@ -1,0 +1,235 @@
+{
+  "source": "Official category and drink list supplied by user on 2026-11-09",
+  "categories": {
+    "classico": "Clássico",
+    "premium": "Premium",
+    "ultra": "Ultra",
+    "zero-alcool": "Zero Álcool"
+  },
+  "drinks": [
+    {
+      "id": "capadocia",
+      "name": "Capadócia",
+      "category": "classico",
+      "sourceAssetId": 81,
+      "hasPhoto": true
+    },
+    {
+      "id": "daiquiri",
+      "name": "Daiquiri",
+      "category": "classico",
+      "sourceAssetId": 51,
+      "hasPhoto": true
+    },
+    {
+      "id": "fitzgerald",
+      "name": "Fitzgerald",
+      "category": "classico",
+      "sourceAssetId": 55,
+      "hasPhoto": true
+    },
+    {
+      "id": "london-mule",
+      "name": "London Mule",
+      "category": "classico",
+      "sourceAssetId": 75,
+      "hasPhoto": true
+    },
+    {
+      "id": "londres",
+      "name": "Londres",
+      "category": "classico",
+      "sourceAssetId": 281,
+      "hasPhoto": true
+    },
+    {
+      "id": "maracuja-pepper",
+      "name": "Maracujá Pepper",
+      "category": "classico",
+      "sourceAssetId": 341,
+      "hasPhoto": true
+    },
+    {
+      "id": "moscow-mule",
+      "name": "Moscow Mule",
+      "category": "classico",
+      "sourceAssetId": 310,
+      "hasPhoto": true
+    },
+    {
+      "id": "oceanic",
+      "name": "Oceanic",
+      "category": "classico",
+      "sourceAssetId": 47,
+      "hasPhoto": true
+    },
+    {
+      "id": "pelourinho",
+      "name": "Pelourinho",
+      "category": "classico",
+      "sourceAssetId": 77,
+      "hasPhoto": true
+    },
+    {
+      "id": "sand",
+      "name": "Sand",
+      "category": "classico",
+      "sourceAssetId": 283,
+      "hasPhoto": true
+    },
+    {
+      "id": "zuma",
+      "name": "Zuma",
+      "category": "classico",
+      "sourceAssetId": 67,
+      "hasPhoto": true
+    },
+    {
+      "id": "amazonico",
+      "name": "Amazônico",
+      "category": "premium",
+      "sourceAssetId": 271,
+      "hasPhoto": true
+    },
+    {
+      "id": "golden",
+      "name": "Golden",
+      "category": "premium",
+      "sourceAssetId": 298,
+      "hasPhoto": true
+    },
+    {
+      "id": "ibiza",
+      "name": "Ibiza",
+      "category": "premium",
+      "sourceAssetId": 53,
+      "hasPhoto": true
+    },
+    {
+      "id": "o-lobo-de-wall-street",
+      "name": "O Lobo de Wall Street",
+      "category": "premium",
+      "sourceAssetId": 277,
+      "hasPhoto": true
+    },
+    {
+      "id": "parintins",
+      "name": "Parintins",
+      "category": "premium",
+      "sourceAssetId": 287,
+      "hasPhoto": true
+    },
+    {
+      "id": "penicillin",
+      "name": "Penicillin",
+      "category": "premium",
+      "sourceAssetId": 71,
+      "hasPhoto": true
+    },
+    {
+      "id": "whisky-sour",
+      "name": "Whisky Sour",
+      "category": "premium",
+      "sourceAssetId": 279,
+      "hasPhoto": true
+    },
+    {
+      "id": "boulevardier",
+      "name": "Boulevardier",
+      "category": "ultra",
+      "sourceAssetId": 58,
+      "hasPhoto": true
+    },
+    {
+      "id": "garibaldi",
+      "name": "Garibaldi",
+      "category": "ultra",
+      "sourceAssetId": null,
+      "hasPhoto": false
+    },
+    {
+      "id": "negroni",
+      "name": "Negroni",
+      "category": "ultra",
+      "sourceAssetId": 292,
+      "hasPhoto": true
+    },
+    {
+      "id": "sweet-negroni",
+      "name": "Sweet Negroni",
+      "category": "ultra",
+      "sourceAssetId": 78,
+      "hasPhoto": true
+    },
+    {
+      "id": "aquarela",
+      "name": "Aquarela",
+      "category": "zero-alcool",
+      "sourceAssetId": 297,
+      "hasPhoto": true
+    },
+    {
+      "id": "bali",
+      "name": "Bali",
+      "category": "zero-alcool",
+      "sourceAssetId": 45,
+      "hasPhoto": true
+    },
+    {
+      "id": "barbie-mule",
+      "name": "Barbie Mule",
+      "category": "zero-alcool",
+      "sourceAssetId": 63,
+      "hasPhoto": true
+    },
+    {
+      "id": "capri",
+      "name": "Capri",
+      "category": "zero-alcool",
+      "sourceAssetId": 43,
+      "hasPhoto": true
+    },
+    {
+      "id": "drink-da-aniversariante",
+      "name": "Drink da Aniversariante",
+      "category": "zero-alcool",
+      "sourceAssetId": null,
+      "hasPhoto": false
+    },
+    {
+      "id": "hileia",
+      "name": "Hileia",
+      "category": "zero-alcool",
+      "sourceAssetId": 269,
+      "hasPhoto": true
+    },
+    {
+      "id": "maldivas",
+      "name": "Maldivas",
+      "category": "zero-alcool",
+      "sourceAssetId": 46,
+      "hasPhoto": true
+    },
+    {
+      "id": "marinho",
+      "name": "Marinho",
+      "category": "zero-alcool",
+      "sourceAssetId": null,
+      "hasPhoto": false
+    },
+    {
+      "id": "matte-mule",
+      "name": "Matte Mule",
+      "category": "zero-alcool",
+      "sourceAssetId": 295,
+      "hasPhoto": true
+    },
+    {
+      "id": "tropical",
+      "name": "Tropical",
+      "category": "zero-alcool",
+      "sourceAssetId": 280,
+      "hasPhoto": true
+    }
+  ]
+}

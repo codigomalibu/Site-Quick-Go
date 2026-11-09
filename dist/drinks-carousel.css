@@ -66,3 +66,14 @@
 @media(prefers-reduced-motion:reduce){.card-stack-card,.stack-dot>span{will-change:auto;transition:none}}
 
 .linear-scroll[data-rebasing=true]{scroll-snap-type:none}.linear-scroll[data-rebasing=true] .linear-card-surface{transition:none}
+
+/* Full catalogue: keep all category markers reachable without horizontal overflow. */
+.linear-dots{display:flex;flex-wrap:wrap;justify-content:center;flex:0 1 420px;min-width:0;gap:0}
+.linear-dot{width:20px;height:24px}.linear-arrow{flex-shrink:0}
+.linear-drink-copy h3{font-size:24px;line-height:1.05;min-height:26px}
+.linear-drink-photo.is-no-photo,.drink-image.is-no-photo{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#245158,#062b30 75%)}
+.linear-drink-photo.is-no-photo>img,.drink-image.is-no-photo>img{object-fit:contain;transform:none;width:60%;height:auto;max-height:90px;opacity:.8}
+.drink-dialog[data-photo=false]>img{object-fit:contain;padding:50px;background:#0b3035}
+@media(max-width:600px){.linear-dots{flex-basis:220px}.linear-dot{width:18px;height:23px}.linear-navigation{gap:9px}.linear-drink-copy h3{font-size:22px}}
+
+.linear-drink-copy{flex-basis:152px}.linear-drink-copy h3{min-height:50px}
