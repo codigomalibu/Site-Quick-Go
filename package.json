@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "check": "node --check dist/app.js && node --check dist/data.js && node --check dist/effects.js && node --test scripts/flows.test.mjs",
+    "check": "node --check dist/app.js && node --check dist/data.js && node --check dist/effects.js && node --test scripts/flows.test.mjs scripts/site-pages.test.mjs",
     "build:machine": "python scripts/build-machine-premium.py && esbuild scripts/machine-scene.js --bundle --format=esm --minify --outfile=dist/machine-scene.js --legal-comments=eof",
     "build:cards": "esbuild scripts/drinks-carousel.tsx --bundle --format=esm --minify --jsx=automatic --outfile=dist/drinks-carousel.js --legal-comments=eof"
   },

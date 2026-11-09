@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(fileURLToPath(new URL('../dist/', import.meta.url)));
 const port = Number(process.env.PORT || 4173);
-const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.glb': 'model/gltf-binary', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.mp4': 'video/mp4', '.ttf': 'font/ttf', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml; charset=utf-8' };
+const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.glb': 'model/gltf-binary', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.mp4': 'video/mp4', '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml; charset=utf-8' };
 const server = http.createServer(async (req, res) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
@@ -14,9 +14,13 @@ const server = http.createServer(async (req, res) => {
   if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405, { Allow: 'GET, HEAD' }); res.end(); return; }
   try {
     const urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-    const file = path.resolve(root, `.${urlPath === '/' ? '/index.html' : urlPath}`);
+    let file = path.resolve(root, `.${urlPath === '/' ? '/index.html' : urlPath}`);
     if (file !== root && !file.startsWith(root + path.sep)) throw new Error('Invalid path');
-    const info = await stat(file);
+    let info = await stat(file);
+    if (info.isDirectory()) {
+      file = path.join(file, 'index.html');
+      info = await stat(file);
+    }
     if (!info.isFile()) throw new Error('Not a file');
     const headers = { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-cache' };
     const range = req.headers.range?.match(/^bytes=(\d*)-(\d*)$/);

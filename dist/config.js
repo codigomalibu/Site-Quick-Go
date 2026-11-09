@@ -1,6 +1,6 @@
 export const config = Object.freeze({
   businessName: 'Quick GO Drinks',
-  whatsappNumber: null,
+  whatsappNumber: '5567991973749',
   systems: [], // Validated entries: { label, description, url: 'https://...' }
 
   currentQuoteUrl: 'https://quickgoorcamentos.com/',

@@ -44,12 +44,16 @@ test('Every local HTML asset, module import, CSS asset and anchor resolves', asy
   for (const match of html.matchAll(/(?:src|href|poster)="([^"]+)"/g)) {
     const url = match[1].split('?')[0];
     if (url.startsWith('#')) assert.ok(ids.includes(url.slice(1)), `Missing anchor ${url}`);
-    if (url.startsWith('/')) assert.ok((await stat(path.join(root, url))).isFile(), `Missing asset ${url}`);
+    if (url.startsWith('/')) {
+      const target = path.join(root, url.split('#')[0]);
+      const info = await stat(target);
+      assert.ok(info.isFile() || (info.isDirectory() && (await stat(path.join(target, 'index.html'))).isFile()), `Missing asset or route ${url}`);
+    }
   }
   for (const file of ['product-design.css', 'app.js', 'effects.js']) {
     const content = await readFile(path.join(root, file), 'utf8');
     const refs = file.endsWith('.css') ? [...content.matchAll(/url\(['"]?(\/[^'")]+)['"]?\)/g)].map(m => m[1]) : [...content.matchAll(/from ['"]\.\/([^'"]+)['"]/g)].map(m => m[1]);
-    for (const ref of refs) assert.ok((await stat(path.join(root, ref))).isFile(), `Missing dependency ${ref}`);
+    for (const ref of refs) assert.ok((await stat(path.join(root, ref.split('?')[0]))).isFile(), `Missing dependency ${ref}`);
   }
   for (const drink of Object.values(drinks)) assert.ok((await stat(path.join(root, 'assets', `${drink.image}.webp`))).isFile());
 });
@@ -145,5 +149,12 @@ test('The actual HTTP server serves the page, video ranges, HEAD and real 404 re
     assert.ok(range.headers.get('content-range').startsWith('bytes 0-1023/'));
     assert.equal((await fetch(`${origin}/not-found`)).status, 404);
     assert.equal((await fetch(`${origin}/?value=ok`, { method: 'POST' })).status, 405);
+    for (const route of ['franquias', 'sistemas']) {
+      const response = await fetch(`${origin}/${route}/`);
+      assert.equal(response.status, 200);
+      assert.ok((await response.text()).includes(`href="/${route}/" aria-current="page"`));
+    }
+    const font = await fetch(`${origin}/assets/fonts/anek-devanagari-latin.woff2`, { method:'HEAD' });
+    assert.equal(font.headers.get('content-type'), 'font/woff2');
   } finally { child.kill(); }
 });

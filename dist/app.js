@@ -1,5 +1,5 @@
 import { icons, animateCatalogueIcon } from './icons.js';
-import { config } from './config.js';
+import { config } from './config.js?v=structure-24';
 import { drinks, categoryNames, validFavorites, buildBrief, contactUrl } from './data.js';
 import { startAurora } from './effects.js';
 
@@ -411,26 +411,4 @@ async function loadDrinkStack() {
 const stackLoader = new IntersectionObserver(entries => { if (entries[0].isIntersecting) { loadDrinkStack(); stackLoader.disconnect(); } }, { rootMargin: '600px' });
 stackLoader.observe(trackElement);
 
-// System URLs are supplied and validated by Quick GO before being made public.
-const systemList = $('#systems-list');
-for (const system of config.systems || []) {
-  if (!system || typeof system.label !== 'string' || typeof system.url !== 'string') continue;
-  let url;
-  try { url = new URL(system.url); } catch { continue; }
-  if (url.protocol !== 'https:' || url.username || url.password) continue;
-  const link = document.createElement('a'); link.className = 'system-link'; link.href = url.href;
-  const title = document.createElement('strong'); title.textContent = system.label;
-  const description = document.createElement('small'); description.textContent = system.description || 'Continuar para o sistema';
-  const arrow = document.createElement('span'); arrow.textContent = '↗'; arrow.setAttribute('aria-hidden', 'true');
-  link.append(title, description, arrow); systemList.append(link);
-}
-const hasSystems = systemList.children.length > 0;
-$('#systems-empty').hidden = hasSystems;
-$('#systems-description').textContent = hasSystems ? 'Escolha a plataforma para continuar no seu acesso.' : 'Uma central para os acessos da rede Quick GO.';
-$$('[data-open-systems]').forEach(button => button.addEventListener('click', () => {
-  closeMenu();
-  if (button.closest('#mobile-nav')) $('.header [data-open-systems]').focus({ preventScroll: true });
-  openDialog($('#systems-dialog'));
-}));
-
-$('#systems-quote').addEventListener('click', () => closeDialog($('#systems-dialog')));
+// System access now lives at /sistemas/.

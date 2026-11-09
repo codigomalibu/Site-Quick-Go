@@ -16,7 +16,7 @@ Quick GO is a microfranchise network using automated cocktail preparation. The o
 ## Decisions for this site
 
 - Keep this landing page focused on customers planning events.
-- Route franchise enquiries to the official website's existing contact section, rather than inventing a separate franchise form.
+- A dedicated /franquias/ page now prepares business enquiries for the user-confirmed WhatsApp. The official website is the source of the model and support descriptions.
 - Use the official Instagram supplied by the user. Do not invent other social accounts, addresses, email addresses, nationwide service coverage or unit phone numbers.
 - Do not repeat investment or profitability promises, response-time guarantees or unverified price figures.
 - The newly supplied footer reference is adapted into four columns, with working event, network and social links. Replace its example newsletter with the real event quote entry point; there is no newsletter service configured.
