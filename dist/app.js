@@ -1,7 +1,6 @@
 import { icons, animateCatalogueIcon } from './icons.js';
 import { config } from './config.js?v=structure-24';
-import { drinks, categoryNames, validFavorites, buildBrief, contactUrl } from './data.js';
-import { startAurora } from './effects.js';
+import { drinks, categoryNames, validFavorites, contactUrl } from './data.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -14,7 +13,6 @@ let savedSelection = false;
 let motionPaused = reduceMotion.matches || Boolean(navigator.connection?.saveData);
 let toastTimer;
 let previousDialogFocus;
-let brief = '';
 let drinkStack = null;
 let activeDrinkFilter = 'all';
 
@@ -74,6 +72,9 @@ function syncFavorites() {
     button.textContent = selected ? '♥' : '♡';
   });
   $('#form-favorites').textContent = favorites.size ? `Sua seleção: ${[...favorites].map(id => drinks[id].name).join(', ')}` : '';
+  const selection = [...favorites].map(id => drinks[id].name).join(', ');
+  $('#quote-whatsapp').href = contactUrl(config.whatsappNumber, `Olá! Quero um orçamento para meu evento.${selection ? `\nDrinks que gostei: ${selection}` : ''}`, config.currentQuoteUrl);
+
   if (savedSelection) {
     try { localStorage.setItem(config.storageKey, JSON.stringify([...favorites])); } catch { /* Selection remains available in memory. */ }
   }
@@ -253,76 +254,8 @@ menuButton.addEventListener('click', () => {
 $$('a', mobileNav).forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && !mobileNav.hidden) { closeMenu(); menuButton.focus(); } });
 
-const form = $('#booking-form');
-form.noValidate = true;
-const dateInput = $('#event-date');
-const flexibleInput = $('#date-flexible');
-const today = new Date();
-dateInput.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-flexibleInput.addEventListener('change', () => {
-  dateInput.disabled = flexibleInput.checked;
-  if (flexibleInput.checked) { dateInput.value = ''; dateInput.setCustomValidity(''); }
-});
-dateInput.addEventListener('input', () => { if (dateInput.value) flexibleInput.checked = false; dateInput.setCustomValidity(''); });
-
-function validateStep(step) {
-  const fieldset = $(`[data-step="${step}"]`);
-  $('.form-error', fieldset).textContent = '';
-  if (step === 1) {
-    dateInput.setCustomValidity(!flexibleInput.checked && !dateInput.value ? 'Escolha uma data ou marque “Ainda sem data”.' : '');
-  }
-  for (const input of $$('input, select, textarea', fieldset)) {
-    if (!input.checkValidity()) {
-      const message = input.validity.rangeUnderflow ? 'Informe pelo menos 5 convidados.' : input.validity.rangeOverflow ? 'Para mais de 10.000 convidados, consulte a equipe pelo canal de orçamentos.' : input.validationMessage;
-      $('.form-error', fieldset).textContent = message;
-      input.focus(); input.reportValidity(); return false;
-    }
-  }
-  return true;
-}
-
-function setStep(step) {
-  $$('.form-step').forEach(fieldset => { fieldset.hidden = Number(fieldset.dataset.step) !== step; });
-  $('#form-step-label').textContent = `0${step} / 02`;
-  $('.form-progress > span').style.width = `${step * 50}%`;
-  const fieldset = $(`[data-step="${step}"]`);
-  $('select, input', fieldset)?.focus({ preventScroll: true });
-}
-$('.form-next').addEventListener('click', () => { if (validateStep(1)) { setStep(2); track('brief_step_1'); } });
-$('.form-back', form).addEventListener('click', () => setStep(1));
-$$('[data-event]').forEach(link => link.addEventListener('click', () => { $('#event-type').value = link.dataset.event; }));
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  if (!$('[data-step="1"]').hidden) { if (validateStep(1)) setStep(2); return; }
-  if (!validateStep(1)) { setStep(1); return; }
-  if (!validateStep(2)) return;
-  const values = Object.fromEntries(new FormData(form));
-  values.dateFlexible = flexibleInput.checked;
-  try { brief = buildBrief(values, [...favorites]); }
-  catch (error) { $('.form-error', $('[data-step="2"]')).textContent = error.message; return; }
-  $('#booking-summary').textContent = brief;
-  const action = $('#contact-action');
-  action.href = contactUrl(config.whatsappNumber, brief, config.currentQuoteUrl);
-  if (config.whatsappNumber) {
-    action.textContent = 'Continuar no WhatsApp ↗';
-    $('#contact-note').textContent = 'O WhatsApp será aberto com o resumo. Você escolhe quando enviar. A equipe confirma disponibilidade, valores e reserva.';
-  }
-  form.hidden = true;
-  $('#booking-result').hidden = false;
-  $('#booking-result h3').setAttribute('tabindex', '-1');
-  $('#booking-result h3').focus({ preventScroll: true });
-  track('brief_prepared', { event: values.event });
-});
-$('#copy-summary').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText(brief); toast('Pedido copiado. Agora é só continuar no atendimento.'); track('copy_brief'); }
-  catch {
-    const selection = window.getSelection(); const range = document.createRange(); range.selectNodeContents($('#booking-summary')); selection.removeAllRanges(); selection.addRange(range);
-    toast('Selecione e copie o resumo exibido.');
-  }
-});
-$('#contact-action').addEventListener('click', () => track('contact_click', { channel: config.whatsappNumber ? 'whatsapp' : 'current_quote' }));
-$('#edit-brief').addEventListener('click', () => { $('#booking-result').hidden = true; form.hidden = false; setStep(2); });
+// The official quote form is embedded in the home quote section.
+$$('[data-event]').forEach(link => link.addEventListener('click', () => track('event_interest', { event: link.dataset.event })));
 $('#privacy-open').addEventListener('click', () => openDialog($('#privacy-dialog')));
 $$('a[href="#orcamento"]').forEach(link => link.addEventListener('click', () => track('quote_cta', { position: link.className || 'content' })));
 
@@ -351,7 +284,6 @@ const sections = new IntersectionObserver(entries => entries.forEach(entry => {
 ['experiencia', 'drinks', 'momentos'].forEach(id => sections.observe(document.getElementById(id)));
 $('#year').textContent = new Date().getFullYear();
 syncFavorites();
-startAurora($('#aurora'), { paused: motionPaused });
 
 // SVG geometry retrieved from the icon collection in the supplied catalogue.
 const icon = name => `<span class="ui-icon">${icons[name] || icons.sparkles}</span>`;

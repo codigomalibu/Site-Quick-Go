@@ -75,7 +75,15 @@ test('Every page has working local links, one heading and distinct navigation', 
     assert.ok(html.includes('href="/sistemas/"'));
   }
   const system = await readFile(path.join(root,'sistemas/index.html'),'utf8');
-  assert.ok(system.includes('id="quickgo-orcamento"'));
+  assert.ok(!system.includes('<iframe'));
+  assert.ok(system.includes('área dos franqueados está em preparação'));
+  const home = await readFile(path.join(root,'index.html'),'utf8');
+  assert.ok(home.includes('id="quickgo-orcamento"'));
+  assert.ok(home.includes('/quote-embed.js?v=quote-25'));
+  assert.ok(!home.includes('id="booking-form"'));
+  assert.ok(home.includes('id="quote-whatsapp"'));
+  const app = await readFile(path.join(root,'app.js'),'utf8');
+  assert.ok(!app.includes("$('#booking-form')"));
   assert.ok(!system.includes('Área exclusiva'));
   assert.ok(!system.includes('/machine-scene.js'));
 });
