@@ -1,0 +1,5 @@
+.scroll-reveal-word,.scroll-reveal-piece{display:inline-block}
+.scroll-reveal-word{vertical-align:baseline}
+.scroll-reveal-piece{transform-origin:50% 50%}
+/* No hidden-content class: without JS, all content stays visible and readable. */
+@media(prefers-reduced-motion:reduce){[data-scroll-reveal],.scroll-reveal-piece{opacity:1!important;filter:none!important;transform:none!important}}

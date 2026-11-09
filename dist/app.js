@@ -177,13 +177,6 @@ function onScroll() {
 addEventListener('scroll', () => { if (!scrollScheduled) { scrollScheduled = true; requestAnimationFrame(onScroll); } }, { passive: true });
 addEventListener('resize', onScroll, { passive: true });
 onScroll();
-if (!reduceMotion.matches && 'IntersectionObserver' in window) {
-  document.documentElement.classList.add('js-motion');
-  const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.classList.add('visible'); reveal.unobserve(entry.target); }
-  }), { threshold: .08 });
-  $$('.reveal').forEach(element => reveal.observe(element));
-}
 $('#year').textContent = new Date().getFullYear();
 
 // SVG geometry retrieved from the icon collection in the supplied catalogue.

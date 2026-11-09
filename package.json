@@ -7,10 +7,12 @@
     "dev": "node scripts/serve.mjs",
     "check": "node --check dist/app.js && node --check dist/data.js && node --check dist/effects.js && node --test scripts/flows.test.mjs scripts/site-pages.test.mjs",
     "build:machine": "python scripts/build-machine-premium.py && esbuild scripts/machine-scene.js --bundle --format=esm --minify --outfile=dist/machine-scene.js --legal-comments=eof",
-    "build:cards": "esbuild scripts/drinks-carousel.tsx --bundle --format=esm --minify --jsx=automatic --outfile=dist/drinks-carousel.js --legal-comments=eof"
+    "build:cards": "esbuild scripts/drinks-carousel.tsx --bundle --format=esm --minify --jsx=automatic --outfile=dist/drinks-carousel.js --legal-comments=eof",
+    "build:reveal": "esbuild scripts/scroll-reveal.js --bundle --format=esm --minify --outfile=dist/scroll-reveal.js --legal-comments=eof"
   },
   "dependencies": {
     "framer-motion": "14.9.1",
+    "gsap": "^3.15.1",
     "lucide-react": "1.68.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",

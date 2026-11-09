@@ -13,3 +13,5 @@
 - Drink favourites, saved selections and the My Event panel were removed at the user's request. Drink details link directly to the quote section; autoplay and filters remain.
 
 - Desktop and mobile primary menus contain only Home, Franquias and Sistemas. Home content sections are not presented as separate pages.
+
+- Shared GSAP Scroll Reveal adapts the supplied word-by-word unblur effect to semantic text on all three pages. Existing markup, links, inputs, iframe and 3D/card controls remain intact. Reduced-motion users receive readable, unanimated content. The old IntersectionObserver fade is removed to avoid stacking animations.
