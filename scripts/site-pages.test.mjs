@@ -81,7 +81,7 @@ test('Every page has working local links, one heading and distinct navigation', 
   assert.ok(home.includes('id="quickgo-orcamento"'));
   assert.ok(home.includes('/quote-embed.js?v=quote-25'));
   assert.ok(!home.includes('id="booking-form"'));
-  assert.ok(home.includes('id="quote-whatsapp"'));
+  assert.ok(!home.includes('id="quote-whatsapp"'));
   const app = await readFile(path.join(root,'app.js'),'utf8');
   assert.ok(!app.includes("$('#booking-form')"));
   assert.ok(!system.includes('Área exclusiva'));

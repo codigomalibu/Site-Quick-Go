@@ -140,7 +140,7 @@ document.addEventListener('visibilitychange', () => {
 setMotion(motionPaused);
 
 $$('[data-film]').forEach(button => button.addEventListener('click', () => {
-  const allowed = ['filme', 'evento-musica', 'evento-aniversario'];
+  const allowed = ['filme', 'evento-musica', 'evento-aniversario', 'instagram-hileia-sp'];
   if (!allowed.includes(button.dataset.film)) return;
   window.dispatchEvent(new CustomEvent('quickgo:machine-motion', { detail: { paused: true } }));
   $('#film-title').textContent = button.dataset.filmTitle;
