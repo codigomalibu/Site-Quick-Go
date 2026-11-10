@@ -8,5 +8,20 @@
     "story-guests.webp": 263,
     "story-event-bar.webp": 268,
     "story-last-toast.webp": 314
-  }
+  },
+  "replacedBy": [
+    {
+      "url": "https://www.instagram.com/quickgocg/reel/Da6aMu4phJE/",
+      "poster": "/assets/instagram-cg-chabar.webp",
+      "placement": "former left photo",
+      "playback": "Instagram original: embed reports copyright_blocked"
+    },
+    {
+      "url": "https://www.instagram.com/quickgocg/reel/DY0uIhUyp2A/",
+      "poster": "/assets/instagram-cg-evento.webp",
+      "placement": "former Sao Paulo video",
+      "playback": "Instagram original: embed reports copyright_blocked"
+    }
+  ],
+  "pending": "Original MP4 files with cleared audio required for native on-site playback."
 }
