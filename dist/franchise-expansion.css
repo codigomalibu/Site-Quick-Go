@@ -1,0 +1,78 @@
+/* Expansion 2026: franchise content, scoped to the secondary sales page. */
+.expansion-places { background:#e9e5dc; }
+.expansion-place-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px; }
+.expansion-place-grid article { border-top:1px solid #22343b40;padding-top:22px; }
+.expansion-place-grid article>span { font-size:11px;color:#7c694c; }
+.expansion-place-grid h3 { font-size:29px;line-height:1.15;margin:22px 0 15px; }
+.expansion-place-grid p { font-size:15px;line-height:1.7;color:#5d6d65;max-width:310px; }
+.expansion-delivery { background:#102f34;color:#f1ede4; }
+.expansion-delivery .franchise-section-heading>p { color:#c0ccc7; }
+.expansion-delivery-list { display:grid;grid-template-columns:1fr 1fr;gap:0 60px;list-style:none;padding:0;margin:0; }
+.expansion-delivery-list li { display:flex;align-items:baseline;gap:24px;border-top:1px solid #ffffff30;padding:23px 0;font-size:23px;line-height:1.3; }
+.expansion-delivery-list span { color:#d5b88b;font-size:11px;flex:0 0 20px; }
+.expansion-split { display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:9%; }
+.expansion-split figure { margin:0;min-width:0; }
+.expansion-split img { display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center; }
+.expansion-split h2 { margin-bottom:30px; }
+.expansion-split p:not(.eyebrow) { font-size:16px;line-height:1.8;color:#5d6d65;margin-block:22px; }
+.expansion-recipe-counts { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-block:28px;border-block:1px solid #22343b30;margin-top:35px; }
+.expansion-recipe-counts strong { display:block;font-size:64px;line-height:1;font-weight:400;letter-spacing:-.05em; }
+.expansion-recipe-counts span { font-size:12px;color:#5d6d65; }
+.expansion-recipes .underlined-link { margin-top:20px;font-size:14px; }
+.expansion-business { background:#d9d4c6; }
+.expansion-business-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:45px; }
+.expansion-business-grid article { border-top:1px solid #22343b50;padding-top:25px; }
+.expansion-business-grid article>span { font-size:10px;letter-spacing:.1em; }
+.expansion-business-grid h3 { font-size:32px;line-height:1.1;margin:30px 0 18px; }
+.expansion-business-grid p,.expansion-strategy p { color:#4f6059;font-size:15px;line-height:1.8; }
+.expansion-strategy { display:grid;grid-template-columns:1fr 1fr;gap:9%;border-top:1px solid #22343b40;margin-top:60px;padding-top:40px; }
+.expansion-strategy h3 { font-size:36px;line-height:1.1; }
+.expansion-strategy p { margin-bottom:18px; }
+.franchise-model img.franchise-model-scene { mix-blend-mode:normal;object-fit:cover;border-radius:6px;object-position:30% center; }
+.expansion-market { background:#e9e5dc; }
+.expansion-source { font-size:11px;line-height:1.7;display:inline-block;color:#53655d;text-decoration:underline;text-underline-offset:4px; }
+.expansion-network { display:grid;grid-template-columns:.95fr 1.05fr;gap:8%;align-items:center; }
+.expansion-network figure { margin:0; }
+.expansion-network img { display:block;width:100%;height:auto; }
+.expansion-region-grid { display:grid;grid-template-columns:1fr 1fr;gap:38px 30px; }
+.expansion-region-grid h3 { font-size:29px;line-height:1.2;padding-bottom:14px;border-bottom:1px solid #22343b30;margin-bottom:17px; }
+.expansion-region-grid h4 { font-size:12px;font-weight:500;color:#7a684d;margin:16px 0 5px; }
+.expansion-region-grid ul { list-style:none;padding:0;margin:0; }
+.expansion-region-grid li { font-size:14px;line-height:1.8;color:#53655d; }
+.expansion-journey { background:#102f34;color:#f1ede4; }
+.expansion-journey .franchise-section-heading>p { color:#c0ccc7; }
+.expansion-journey-list { display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:26px;list-style:none;padding:0;margin:0; }
+.expansion-journey-list li { border-top:1px solid #ffffff50;padding-top:25px; }
+.expansion-journey-list span { display:block;color:#d5b88b;font-size:38px;margin-bottom:35px; }
+.expansion-journey-list h3 { font-size:26px;line-height:1.15;margin-bottom:15px; }
+.expansion-journey-list p { color:#c0ccc7;font-size:14px;line-height:1.7; }
+.franchise-expansion a:focus-visible { outline:2px solid #d5b88b;outline-offset:5px; }
+@media(max-width:1000px) {
+ .expansion-place-grid { gap:30px; }
+ .expansion-business-grid { gap:25px; }
+ .expansion-split { gap:6%; }
+ .expansion-recipe-counts { gap:10px; }
+ .expansion-recipe-counts strong { font-size:52px; }
+ .expansion-journey-list { grid-template-columns:repeat(3,minmax(0,1fr));gap:30px; }
+ .expansion-network { gap:5%; }
+}
+@media(max-width:700px) {
+ .expansion-place-grid { grid-template-columns:1fr 1fr;gap:28px 22px; }
+ .expansion-place-grid h3 { font-size:26px; }
+ .expansion-place-grid p { font-size:14px; }
+ .expansion-delivery-list { grid-template-columns:1fr; }
+ .expansion-delivery-list li { font-size:23px; }
+ .expansion-split,.expansion-network { grid-template-columns:1fr;gap:35px; }
+ .expansion-split img { max-height:520px; }
+ .expansion-split p:not(.eyebrow) { font-size:15px; }
+ .expansion-recipe-counts strong { font-size:59px; }
+ .expansion-business-grid { grid-template-columns:1fr;gap:35px; }
+ .expansion-business-grid h3 { margin-top:20px; }
+ .expansion-strategy { grid-template-columns:1fr;gap:24px;margin-top:40px; }
+ .expansion-strategy h3 { font-size:32px; }
+ .expansion-journey-list { grid-template-columns:1fr;gap:22px; }
+ .expansion-journey-list li { display:grid;grid-template-columns:50px 1fr;column-gap:16px;padding-top:22px; }
+ .expansion-journey-list span { grid-row:span 2;margin:0; }
+ .expansion-journey-list h3 { margin-bottom:10px; }
+ .expansion-network figure { max-width:480px;margin:auto; }
+}

@@ -1,0 +1,27 @@
+{
+  "sourcePdf": "Expansão 2026 Quick GO Microfranquia.pdf",
+  "sourceCanva": "https://canva.link/xppqiuihg9ryh0w",
+  "includedPages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    13
+  ],
+  "excludedPages": {
+    "11": "Números da operação: faturamento, payback, lucro e markup",
+    "12": "Investimento e taxas"
+  },
+  "marketNotes": "Panorama atualizado com dados primários ABRAPE de março de 2026; não reproduz o crescimento de 12% sem fonte no material original.",
+  "techPhoto": {
+    "sourceAssetId": 50,
+    "image": "/assets/franchise-tech-scene.webp"
+  },
+  "unitsSource": "Relação fornecida no material Expansão 2026"
+}
