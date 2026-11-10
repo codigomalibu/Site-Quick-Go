@@ -23,5 +23,14 @@
       "playback": "Instagram original: embed reports copyright_blocked"
     }
   ],
-  "pending": "Original MP4 files with cleared audio required for native on-site playback."
+  "pending": "Original MP4 files with cleared audio required for native on-site playback.",
+  "activeHomePlayback": {
+    "mode": "native muted autoplay, visible-only, no overlay buttons",
+    "videos": [
+      "/assets/evento-aniversario.mp4",
+      "/assets/evento-musica.mp4",
+      "/assets/filme.mp4"
+    ],
+    "source": "Previously supplied Quick GO archive; temporary replacement for copyright-blocked Reels."
+  }
 }

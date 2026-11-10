@@ -1,31 +1,30 @@
-// Lazy previews play only while visible; every preview has an explicit pause control.
+// Native muted previews start on entry and stop offscreen. No overlay controls.
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const previews = [...document.querySelectorAll('.story-video')];
 const states = new Map();
 function sync(video) {
   const state = states.get(video);
-  const shouldPlay = state.visible && !document.hidden && !document.querySelector('dialog[open]') && (state.manual === true || (state.manual !== false && !reduced.matches && !navigator.connection?.saveData));
-  const button = video.parentElement.querySelector('.story-motion');
+  const shouldPlay = state.visible && !state.hovering && !state.focused && !state.paused && !document.hidden && !document.querySelector('dialog[open]') && !reduced.matches && !navigator.connection?.saveData;
   if (!shouldPlay) { video.pause(); return; }
   const source = video.querySelector('source');
-  if (!source.src) { source.src = source.dataset.src; video.load(); }
+  if (source && !source.getAttribute('src')) { source.src = source.dataset.src; video.load(); }
   video.muted = true;
-  video.play().catch(() => { button.setAttribute('aria-label', 'Reproduzir prévia'); });
+  video.play().catch(() => { /* Keep the poster if the browser blocks automatic playback. */ });
 }
 const observer = new IntersectionObserver(entries => entries.forEach(({target,isIntersecting}) => {
   states.get(target).visible = isIntersecting;
   sync(target);
 }), {threshold: .15});
 for (const video of previews) {
-  states.set(video, {visible:false,manual:null});
-  const button = video.parentElement.querySelector('.story-motion');
-  button.addEventListener('click', () => { states.get(video).manual = video.paused; sync(video); });
-  for (const event of ['play','pause']) video.addEventListener(event, () => {
-    button.setAttribute('aria-label', video.paused ? 'Reproduzir prévia' : 'Pausar prévia');
-    button.setAttribute('aria-pressed', String(!video.paused));
-    button.firstElementChild.textContent = video.paused ? '▶' : 'Ⅱ';
-  });
-  video.addEventListener('error', () => { video.parentElement.dataset.error = 'true'; button.hidden = true; });
+  states.set(video, {visible:false,hovering:false,focused:false,paused:false});
+  video.muted = true;
+  video.defaultMuted = true;
+  video.addEventListener('pointerenter', event => {if(event.pointerType==='mouse'){states.get(video).hovering=true;sync(video);}});
+  video.addEventListener('pointerleave', () => {states.get(video).hovering=false;sync(video);});
+  video.addEventListener('focus', () => {states.get(video).focused=true;sync(video);});
+  video.addEventListener('blur', () => {states.get(video).focused=false;sync(video);});
+  video.addEventListener('keydown', event => {if(event.key===' '){event.preventDefault();states.get(video).paused=!states.get(video).paused;states.get(video).focused=false;sync(video);}});
+  video.addEventListener('click', () => {states.get(video).paused=!states.get(video).paused;states.get(video).focused=false;sync(video);});
   observer.observe(video);
 }
 function syncAll() { previews.forEach(sync); }
