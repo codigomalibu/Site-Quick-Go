@@ -13,7 +13,7 @@ const clock = { value: 0 };
 async function start() {
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.65 : 2));
-  renderer.setClearColor(0x04272c, 0);
+  renderer.setClearColor(0x22343b, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
@@ -24,7 +24,8 @@ async function start() {
   host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#04272c');
+  // Let the shared brand-blue CSS show through without tone-mapping mismatch.
+  scene.background = null;
   const camera = new THREE.PerspectiveCamera(31, 1, .05, 30);
   camera.position.set(0, .17, 3.1);
   camera.lookAt(0, -.035, 0);
@@ -63,6 +64,26 @@ async function start() {
   machine.name = 'Integrated Quick GO machine, cup and dispensing flow';
   machine.rotation.y = -.29;
   scene.add(machine);
+  // Use the supplied artwork directly rather than approximating the logotype.
+  const officialLogo = await new THREE.ImageLoader().loadAsync('/assets/QG-LOGO2.png');
+  const badgeCanvas = document.createElement('canvas');
+  badgeCanvas.width = 1200; badgeCanvas.height = 251;
+  badgeCanvas.getContext('2d').drawImage(officialLogo,117,478,2794,584,0,0,1200,251);
+  const badgeTexture = new THREE.CanvasTexture(badgeCanvas);
+  badgeTexture.colorSpace = THREE.SRGBColorSpace; badgeTexture.flipY = false;
+  const screenCanvas = document.createElement('canvas');
+  screenCanvas.width = 600; screenCanvas.height = 1040;
+  const screenContext = screenCanvas.getContext('2d');
+  screenContext.fillStyle = '#e1eced'; screenContext.fillRect(0,0,600,1040);
+  const blackLogo = document.createElement('canvas');
+  blackLogo.width = 1200; blackLogo.height = 251;
+  const blackContext = blackLogo.getContext('2d');
+  blackContext.drawImage(badgeCanvas,0,0);
+  blackContext.globalCompositeOperation = 'source-in';
+  blackContext.fillStyle = '#111111'; blackContext.fillRect(0,0,1200,251);
+  screenContext.drawImage(blackLogo,85,475,430,90);
+  const screenTexture = new THREE.CanvasTexture(screenCanvas);
+  screenTexture.colorSpace = THREE.SRGBColorSpace; screenTexture.flipY = false;
   const splashes = [];
   const grainCanvas = document.createElement('canvas');
   grainCanvas.width = grainCanvas.height = 128;
@@ -81,6 +102,12 @@ async function start() {
   machine.traverse(object => {
     if (!object.isMesh) return;
     const material = object.material;
+    if (material.name === 'Luminous branded display') {
+      material.map = screenTexture; material.needsUpdate = true;
+    }
+    if (material.name === 'Metallic Quick GO logotype') {
+      material.map = badgeTexture; material.needsUpdate = true;
+    }
     object.castShadow = !['Crystal tumbler', 'Clear melting ice', 'Glass condensation'].includes(material.name);
     object.receiveShadow = material.name.includes('black') || material.name.includes('graphite');
     if (!object.geometry.getAttribute('uv')) {

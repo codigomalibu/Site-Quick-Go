@@ -1,6 +1,6 @@
 .franchise-premium .franchise-hero-grid { grid-template-columns: .95fr 1.15fr;gap:2%; }
 .techgo-orbit { position:relative;width:100%;height:680px;isolation:isolate;align-self:center; }
-.techgo-orbit:before { content:'';position:absolute;inset:18% 15%;border-radius:50%;background:radial-gradient(ellipse,#25616660,transparent 70%);pointer-events:none; }
+.techgo-orbit:before { content:'';position:absolute;inset:18% 15%;border-radius:50%;background:radial-gradient(ellipse,#22343b60,transparent 70%);pointer-events:none; }
 .techgo-viewer { position:absolute;left:24%;top:16%;width:52%;height:68%;z-index:2;cursor:grab;touch-action:pan-y;outline-offset:5px; }
 .techgo-viewer:active { cursor:grabbing; }
 .techgo-viewer canvas { display:block;width:100%;height:100%; }
@@ -8,8 +8,8 @@
 .techgo-connections ellipse { fill:none;stroke:#d5b88b20;stroke-width:.12;stroke-dasharray:.5 1; }
 .techgo-link { fill:none;stroke:#d5b88b38;stroke-width:.15;transition:stroke .6s; }
 .techgo-link.is-active { stroke:#e0c293;stroke-dasharray:1 1;animation:techgo-flow 6s linear infinite; }
-.techgo-event-node { position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:100px;height:100px;padding:9px;border:1px solid #d5b88b55;border-radius:50%;background:#0a272cf5;color:#c5d1ca;font:400 12px/1.2 'Anek Devanagari',sans-serif;text-align:center;z-index:3;transition:color .6s,background .6s,box-shadow .6s,border-color .6s; }
-.techgo-event-node.is-active { background:#ddc098;color:#09272c;border-color:#f3d5a9;box-shadow:0 0 0 9px #d5b88b0b,0 0 45px #d5b88b24; }
+.techgo-event-node { position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:100px;height:100px;padding:9px;border:1px solid #d5b88b55;border-radius:50%;background:#22343bf5;color:#c5d1ca;font:400 12px/1.2 'Anek Devanagari',sans-serif;text-align:center;z-index:3;transition:color .6s,background .6s,box-shadow .6s,border-color .6s; }
+.techgo-event-node.is-active { background:#ddc098;color:#22343b;border-color:#f3d5a9;box-shadow:0 0 0 9px #d5b88b0b,0 0 45px #d5b88b24; }
 .techgo-event-node:focus-visible,.techgo-viewer:focus-visible { outline:2px solid #f3d5a9; }
 /* Intrinsic height removes the contain-fit letterbox bars without cropping. */
 .franchise-premium .franchise-network-photo { display:block;height:auto;aspect-ratio:auto;object-fit:initial;background:transparent; }

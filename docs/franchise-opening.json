@@ -1,6 +1,6 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-trio-refined.webp",
+  "asset": "/assets/franchise-trio-official.svg",
   "width": 1254,
   "height": 1254,
   "display": "Stationary transparent product cutout derived from the reference. Tech GO centered, Mini GO cyan left and pink right. All three dispenser compartments have transparent open backs.",
@@ -16,5 +16,7 @@
     "Fine controlled drink streams into glasses; no exaggerated splash crowns or overflowing liquid",
     "Glasses reduced about 15%, each supported by a circular black shallow cup holder with low rim and front finger notch, following user photo",
     "Circular cup holders reduced further in diameter and rim height, fully within bays"
-  ]
+  ],
+  "brandBlue": "#22343B",
+  "logoSource": "QG-LOGO2.png supplied by user; embedded exact image via native SVG composition"
 }

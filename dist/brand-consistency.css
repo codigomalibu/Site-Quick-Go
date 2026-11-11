@@ -1,0 +1,5 @@
+/* Approved brand blue, shared across pages and transparent 3D canvas. */
+:root{--petrol:#22343B;--deep:#22343B;--dark:#22343B;--ink:#22343B}
+.hero,.franchise-reference-opening{background:#22343B!important}
+.header.is-fixed,.site-secondary .header,.mobile-nav{background:#22343B!important}
+.machine-halo{display:none}
