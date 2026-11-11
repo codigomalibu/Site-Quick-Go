@@ -2,14 +2,19 @@
 .contact-form-shortcut{position:fixed;right:max(24px,env(safe-area-inset-right));bottom:max(24px,env(safe-area-inset-bottom));z-index:110;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;box-shadow:0 7px 25px #0004;transition:transform .22s ease,box-shadow .22s ease;text-decoration:none}
 .contact-form-shortcut img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}
 .contact-form-shortcut:hover{transform:translateY(-4px);box-shadow:0 10px 30px #0005}
-.contact-form-shortcut:focus-visible{outline:3px solid #d5b88b;outline-offset:5px}
-.contact-shortcut-caption{position:absolute;right:calc(100% + 13px);white-space:nowrap;padding:9px 15px;border-radius:9px;background:#22343B;color:#f1ede4;border:1px solid #f1ede433;font-size:13px;font-weight:500;opacity:0;visibility:hidden;transform:translateX(5px);transition:opacity .2s,transform .2s,visibility .2s;pointer-events:none}
+.contact-form-shortcut:focus-visible{outline:3px solid #FEBA01;outline-offset:5px}
+.contact-shortcut-caption{position:absolute;right:calc(100% + 13px);white-space:nowrap;padding:9px 15px;border-radius:9px;background:#22343B;color:#FFFFFF;border:1px solid #f1ede433;font-size:13px;font-weight:500;opacity:0;visibility:hidden;transform:translateX(5px);transition:opacity .2s,transform .2s,visibility .2s;pointer-events:none}
 .contact-form-shortcut:hover .contact-shortcut-caption,.contact-form-shortcut:focus-visible .contact-shortcut-caption{opacity:1;visibility:visible;transform:none}
-.header .nav-cta,.hero-product-copy .button,.franchise-reference-cta,.franchise-form button[type=submit],.franchise-result .button,.mobile-booking{background:linear-gradient(120deg,#ffe3ad,#e9bd81);color:#22343B;border:1px solid #f9dcaa;box-shadow:0 6px 22px #0002;font-weight:600;transition:transform .22s ease,box-shadow .22s ease,background .22s ease}
+.header .nav-cta,.hero-product-copy .button,.franchise-reference-cta,.franchise-form button[type=submit],.franchise-result .button,.mobile-booking{background:#FEBA01;color:#22343B;border:1px solid #FEBA01;box-shadow:0 6px 22px #0002;font-weight:600;transition:transform .22s ease,box-shadow .22s ease,background .22s ease}
 .header .nav-cta{border-radius:10px;padding:15px 22px}
-.header .nav-cta:hover,.hero-product-copy .button:hover,.franchise-reference-cta:hover,.franchise-form button[type=submit]:hover,.franchise-result .button:hover{background:#ffe5b7;box-shadow:0 9px 28px #0003;transform:translateY(-2px)}
-a.underlined-link[href="#conversa"],a.underlined-link[href="#orcamento"],a.underlined-link[href="/#orcamento"]{padding:14px 20px;border:1px solid #d5b88b;border-radius:9px;background:#edcf9e;color:#22343B;font-weight:600;text-decoration:none;box-shadow:0 4px 16px #0001}
-a.underlined-link[href="#conversa"]:hover,a.underlined-link[href="#orcamento"]:hover,a.underlined-link[href="/#orcamento"]:hover{background:#ffe3ad;opacity:1}
+.header .nav-cta:hover,.hero-product-copy .button:hover,.franchise-reference-cta:hover,.franchise-form button[type=submit]:hover,.franchise-result .button:hover{background:#FEBA01;box-shadow:0 9px 28px #0003;transform:translateY(-2px)}
+a.underlined-link[href="#conversa"],a.underlined-link[href="#orcamento"],a.underlined-link[href="/#orcamento"]{padding:14px 20px;border:1px solid #FEBA01;border-radius:9px;background:#FEBA01;color:#22343B;font-weight:600;text-decoration:none;box-shadow:0 4px 16px #0001}
+a.underlined-link[href="#conversa"]:hover,a.underlined-link[href="#orcamento"]:hover,a.underlined-link[href="/#orcamento"]:hover{background:#FEBA01;opacity:1}
 #orcamento,#conversa{scroll-margin-top:110px}
 @media(max-width:800px){.contact-form-shortcut{width:56px;height:56px;right:18px;bottom:calc(88px + env(safe-area-inset-bottom))}.contact-shortcut-caption{display:none}.header .nav-cta{padding:13px 17px}.reference-opening:not(.reference-opening-passed) .contact-form-shortcut{bottom:calc(22px + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.contact-form-shortcut,.contact-shortcut-caption,.header .nav-cta,.hero-product-copy .button,.franchise-reference-cta,.franchise-form button[type=submit]{transition:none}.contact-form-shortcut:hover{transform:none}}
+
+/* Approved saturated yellow; compact reference button treatment. */
+.header .nav-cta,.hero-product-copy .button,.franchise-reference-cta,.franchise-form button[type=submit],.franchise-result .button,.mobile-booking{background:#FEBA01;border-color:#FEBA01;color:#22343B}
+.header .nav-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:22px;min-height:48px;padding:14px 22px;line-height:1.25;border-radius:10px;font-weight:700;box-shadow:0 6px 22px #0002}
+.header .nav-cta:hover,.hero-product-copy .button:hover,.franchise-reference-cta:hover,.franchise-form button[type=submit]:hover,.franchise-result .button:hover{background:#FEBA01;filter:brightness(1.04)}

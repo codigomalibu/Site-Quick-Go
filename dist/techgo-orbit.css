@@ -5,12 +5,12 @@
 .techgo-viewer:active { cursor:grabbing; }
 .techgo-viewer canvas { display:block;width:100%;height:100%; }
 .techgo-connections { position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:1;pointer-events:none; }
-.techgo-connections ellipse { fill:none;stroke:#d5b88b20;stroke-width:.12;stroke-dasharray:.5 1; }
-.techgo-link { fill:none;stroke:#d5b88b38;stroke-width:.15;transition:stroke .6s; }
-.techgo-link.is-active { stroke:#e0c293;stroke-dasharray:1 1;animation:techgo-flow 6s linear infinite; }
-.techgo-event-node { position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:100px;height:100px;padding:9px;border:1px solid #d5b88b55;border-radius:50%;background:#22343bf5;color:#c5d1ca;font:400 12px/1.2 'Anek Devanagari',sans-serif;text-align:center;z-index:3;transition:color .6s,background .6s,box-shadow .6s,border-color .6s; }
-.techgo-event-node.is-active { background:#ddc098;color:#22343b;border-color:#f3d5a9;box-shadow:0 0 0 9px #d5b88b0b,0 0 45px #d5b88b24; }
-.techgo-event-node:focus-visible,.techgo-viewer:focus-visible { outline:2px solid #f3d5a9; }
+.techgo-connections ellipse { fill:none;stroke:#FEBA0120;stroke-width:.12;stroke-dasharray:.5 1; }
+.techgo-link { fill:none;stroke:#FEBA0138;stroke-width:.15;transition:stroke .6s; }
+.techgo-link.is-active { stroke:#FEBA01;stroke-dasharray:1 1;animation:techgo-flow 6s linear infinite; }
+.techgo-event-node { position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:100px;height:100px;padding:9px;border:1px solid #FEBA0155;border-radius:50%;background:#22343bf5;color:#FFFFFF;font:400 12px/1.2 'Anek Devanagari',sans-serif;text-align:center;z-index:3;transition:color .6s,background .6s,box-shadow .6s,border-color .6s; }
+.techgo-event-node.is-active { background:#FEBA01;color:#22343b;border-color:#FEBA01;box-shadow:0 0 0 9px #FEBA010b,0 0 45px #FEBA0124; }
+.techgo-event-node:focus-visible,.techgo-viewer:focus-visible { outline:2px solid #FEBA01; }
 /* Intrinsic height removes the contain-fit letterbox bars without cropping. */
 .franchise-premium .franchise-network-photo { display:block;height:auto;aspect-ratio:auto;object-fit:initial;background:transparent; }
 @keyframes techgo-flow { to { stroke-dashoffset:-12; } }

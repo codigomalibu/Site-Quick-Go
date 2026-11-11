@@ -2,6 +2,8 @@
   "blue": "#22343B",
   "logoSource": "QG-LOGO2.png",
   "logoTreatment": "Original supplied PNG embedded unchanged in SVG with cropped viewport; no regenerated letterforms. Screen version uses black alpha-mask filter. Home 3D uses original PNG as CanvasTexture.",
-  "franchiseProduct": "/assets/franchise-trio-official.svg",
-  "home3D": "Transparent renderer background reveals shared brand CSS; official logo on display and badges."
+  "franchiseProduct": "/assets/franchise-trio-thin.svg",
+  "home3D": "Transparent renderer background reveals shared brand CSS; official logo on display and badges.",
+  "yellow": "#FEBA01",
+  "whiteText": "#FFFFFF"
 }

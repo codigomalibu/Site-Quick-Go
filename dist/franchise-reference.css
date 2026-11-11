@@ -1,23 +1,23 @@
 /* Real responsive copy and a separate product cutout with open dispensing bays. */
-.franchise-reference-opening { position:relative;isolation:isolate;overflow:hidden;color:#f8f5ed;background:radial-gradient(ellipse at 76% 47%,#22343b 0%,#22343b 33%,#22343b 62%,#22343b 100%); }
+.franchise-reference-opening { position:relative;isolation:isolate;overflow:hidden;color:#FFFFFF;background:radial-gradient(ellipse at 76% 47%,#22343b 0%,#22343b 33%,#22343b 62%,#22343b 100%); }
 .franchise-reference-opening:before { content:'';position:absolute;z-index:-1;width:100%;height:140%;right:-46%;top:-65%;border:2px solid #17adba55;border-radius:50%;box-shadow:0 0 35px #13a6b455,inset 0 0 30px #13a6b433;transform:rotate(25deg);pointer-events:none; }
 .franchise-opening-inner { width:min(100%,1660px);min-height:min(940px,100svh);margin:0 auto;padding:clamp(24px,3.1vw,52px) clamp(24px,5.5vw,92px) 24px;display:grid;grid-template-rows:auto 1fr; }
 .franchise-opening-brand { display:block;width:clamp(170px,17vw,265px);position:relative;z-index:2; }
 .franchise-opening-brand img { display:block;width:100%;height:auto; }
 .franchise-opening-grid { display:grid;grid-template-columns:.97fr 1.03fr;gap:12px;align-items:center;min-height:0; }
 .franchise-opening-copy { position:relative;z-index:2;padding:35px 0 45px; }
-.franchise-opening-eyebrow { color:#f2d39d;font-size:clamp(11px,1.05vw,17px);font-weight:600;letter-spacing:.17em;display:flex;align-items:center;gap:28px;margin:0 0 25px;line-height:1.5; }
-.franchise-opening-eyebrow span { width:70px;height:1px;background:#dfc18a; }
+.franchise-opening-eyebrow { color:#FEBA01;font-size:clamp(11px,1.05vw,17px);font-weight:600;letter-spacing:.17em;display:flex;align-items:center;gap:28px;margin:0 0 25px;line-height:1.5; }
+.franchise-opening-eyebrow span { width:70px;height:1px;background:#FEBA01; }
 .site-secondary .franchise-reference-opening h1 { font-size:clamp(47px,4.65vw,79px);font-weight:400;line-height:1.08;letter-spacing:-.045em;margin:0; }
 .franchise-reference-opening h1>span,.franchise-reference-opening h1>strong { display:block; }
 .franchise-reference-opening h1>span { white-space:nowrap; }
-.franchise-reference-opening h1>strong { color:#f4cc8f;font-weight:650; }
+.franchise-reference-opening h1>strong { color:#FEBA01;font-weight:650; }
 .franchise-opening-description { font-size:clamp(16px,1.35vw,22px);line-height:1.55;max-width:520px;margin:32px 0 36px;letter-spacing:-.015em; }
-.franchise-reference-cta { display:inline-flex;align-items:center;justify-content:space-between;gap:25px;min-height:58px;padding:17px 28px;border-radius:15px;background:linear-gradient(120deg,#ffe5b3,#f1c28a);color:#22343b;font-size:clamp(15px,1.25vw,20px);font-weight:600;line-height:1.35;text-decoration:none; }
+.franchise-reference-cta { display:inline-flex;align-items:center;justify-content:space-between;gap:25px;min-height:58px;padding:17px 28px;border-radius:15px;background:#FEBA01;color:#22343b;font-size:clamp(15px,1.25vw,20px);font-weight:600;line-height:1.35;text-decoration:none; }
 .franchise-reference-cta svg { width:25px;height:25px;flex-shrink:0; }
 .franchise-reference-cta:focus-visible,.franchise-opening-brand:focus-visible { outline:3px solid white;outline-offset:5px; }
 .franchise-opening-art { position:relative;margin:-45px -18px 0 0;min-width:0;align-self:center; }
-.franchise-opening-art:before { content:'';position:absolute;inset:9% 3% 21%;border:2px solid #ffe4b4;border-radius:50%;box-shadow:0 0 10px #ffdc9f,0 0 26px #d1ac6b88;z-index:-1; }
+.franchise-opening-art:before { content:'';position:absolute;inset:9% 3% 21%;border:2px solid #FEBA01;border-radius:50%;box-shadow:0 0 10px #FEBA01,0 0 26px #FEBA0188;z-index:-1; }
 .franchise-opening-art:after { content:none; }
 .franchise-opening-art img { display:block;width:100%;height:auto;max-height:calc(100svh - 100px);object-fit:contain;filter:none; }
 .site-secondary.reference-opening>.header { position:fixed;top:0;left:0;right:0;z-index:100; }
