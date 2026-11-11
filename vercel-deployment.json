@@ -4,11 +4,11 @@
   "account": "novonormalcg@gmail.com",
   "projectId": "prj_GxHE3KQdkDqd8WpLNY6FxD1PZbly",
   "projectName": "quickgo-drinks",
-  "deploymentId": "dpl_Hyw8wkLXNRMELtqT1v3oJEHe6Cvz",
+  "deploymentId": "dpl_36AgctBeHmKxz6yTDh2hsTUCDxWh",
   "url": "https://quickgo-drinks.vercel.app",
   "target": "production",
-  "sourceCommit": "9757c9afe14b2a3bf6540cc393efaa691acf1e3c",
+  "sourceCommit": "b30177a51ebfc190038693cf6f7fa8bc66d3cc29",
   "releaseDirectory": "vercel-release",
   "authentication": "Vercel application connector; local CLI uses another account",
-  "release": "responsive-42"
+  "release": "product-43"
 }
