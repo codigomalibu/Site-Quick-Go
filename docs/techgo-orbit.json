@@ -1,0 +1,18 @@
+{
+  "source": "source-assets/qg_techgo.stl",
+  "sha256": "dc9e1b6644bfc3ad6ef478c2843207ccd7e7e9b9511d8ff3bd730c09d32b1332",
+  "model": "dist/assets/quickgo-techgo.glb",
+  "cadTriangles": 16372,
+  "assembly": "Original assembled STL housing, original rear ventilation and base, integrated glass and drink with branded screen.",
+  "events": [
+    "Casamentos",
+    "Corporativos",
+    "Ativações",
+    "Inaugurações",
+    "Hotéis",
+    "Celebrações"
+  ],
+  "highlightIntervalMs": 2600,
+  "interaction": "Mouse/touch horizontal drag, keyboard arrows, smooth vertical rotation.",
+  "photoFix": "Network photo uses intrinsic image aspect ratio with transparent background; no letterboxing."
+}
