@@ -1,0 +1,13 @@
+{
+  "release": "balanced-51",
+  "labels": [
+    "Tech GO",
+    "Mini GO",
+    "Mini GO"
+  ],
+  "font": "Anek Devanagari Thin, weight 100",
+  "size": "40px Tech / 27px Mini at 1254px source",
+  "legibility": "Dark ink plus small optical outline for downscaled readability",
+  "spacing": "Model names closer to logo; original logo unchanged",
+  "halo": "Single translucent yellow outline with reduced glow"
+}
