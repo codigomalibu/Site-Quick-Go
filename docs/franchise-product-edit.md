@@ -9,3 +9,5 @@ Asset: dist/assets/franchise-trio-corrected.webp
 Revision labels-44: built-in image_gen edit. Keep only screen QuickGO DRINKS logos and body model names, as circled by user. Remove screen model names and body logos; preserve all geometry, transparency and colors. Asset: dist/assets/franchise-trio-labels.webp
 
 Revision pour-45: built-in image_gen edit. Replace thick pouring and huge splash crowns with thin controlled streams, calm drinks with ice below rim. Preserve machines, labels, colors and transparency. Asset: dist/assets/franchise-trio-pour.webp
+
+Revision trays-46: built-in image_gen edit using user annotated screen layout and real cup-holder photo. Move model labels below logos on screens, remove body labels, reduce glasses around 15%, replace grilles with black circular shallow trays with low raised rim and front notch. Preserve fine streams and open bays. Asset: dist/assets/franchise-trio-trays.webp

@@ -1,6 +1,6 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-trio-pour.webp",
+  "asset": "/assets/franchise-trio-trays.webp",
   "width": 1254,
   "height": 1254,
   "display": "Stationary transparent product cutout derived from the reference. Tech GO centered, Mini GO cyan left and pink right. All three dispenser compartments have transparent open backs.",
@@ -9,10 +9,11 @@
   "cta": "Visible HTML link to #conversa.",
   "navigation": "Hidden over opening; shown after scrolling past the opening.",
   "corrections": [
-    "Quick GO Drinks logo only on screens; model names only on black bodies, matching user red-circled selection",
+    "Quick GO Drinks logo and model label on screen, clean unlabelled black body",
     "Discreet recessed dark polymer outlets",
     "Taller central Tech GO cup opening",
     "No LED base strips or CSS underglow",
-    "Fine controlled drink streams into glasses; no exaggerated splash crowns or overflowing liquid"
+    "Fine controlled drink streams into glasses; no exaggerated splash crowns or overflowing liquid",
+    "Glasses reduced about 15%, each supported by a circular black shallow cup holder with low rim and front finger notch, following user photo"
   ]
 }
