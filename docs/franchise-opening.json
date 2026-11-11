@@ -1,0 +1,10 @@
+{
+  "source": "a6a35199-540e-4862-955c-3921484756d5.png",
+  "asset": "/assets/franchise-opening-reference.png",
+  "sha256": "ad9624a966c70fc66659d7928c9f0f093b9a63c2ef079e28c16a5e0b6d59a4d3",
+  "width": 1670,
+  "height": 941,
+  "display": "Original PNG, full width with native aspect ratio. No crop, filters, 3D reconstruction or visual overlays.",
+  "cta": "Transparent accessible hit area aligned with the image button, linking to #conversa.",
+  "navigation": "Hidden over the reference opening; shown after scrolling past the image."
+}

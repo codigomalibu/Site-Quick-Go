@@ -1,0 +1,10 @@
+/* User supplied opening, displayed intact at its original aspect ratio. */
+.franchise-reference-opening { position:relative;width:100%;margin:0;padding:0;line-height:0;background:#00272b; }
+.franchise-reference-image { display:block;width:100%;height:auto;aspect-ratio:1670/941;margin:0;padding:0;border:0;border-radius:0;filter:none;transform:none; }
+.franchise-reference-cta { position:absolute;left:5.69%;top:77.36%;width:24.13%;height:7.65%;border-radius:20px;background:transparent; }
+.franchise-reference-cta:focus-visible { outline:3px solid white;outline-offset:5px; }
+.site-secondary.reference-opening>.header { position:fixed;top:0;left:0;right:0;z-index:100; }
+.site-secondary.reference-opening>.header[hidden] { display:none; }
+.reference-opening .mobile-booking { display:none; }
+.reference-opening.reference-opening-passed .mobile-booking { display:flex; }
+@media(prefers-reduced-motion:reduce) { .franchise-reference-cta { scroll-behavior:auto; } }
