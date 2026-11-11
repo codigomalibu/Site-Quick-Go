@@ -129,3 +129,27 @@
  .franchise-premium .franchise-product { height:600px; }
  .franchise-premium .franchise-product img { min-height:0;mask-image:linear-gradient(0deg,transparent,#000 8%,#000 90%,transparent); }
 }
+
+/* Photo frames follow the source image. No fixed canvas, fill bands or crop. */
+.story-editorial>.story-gallery-photo,
+.story-step-photo:has(>img),
+.story-occasion-grid>.story-occasion,
+.story-investment-photo,
+.quote-home-story>figure,
+.franchise-premium .expansion-split>figure,
+.franchise-premium .franchise-model {
+ height:auto;min-height:0;max-height:none;aspect-ratio:auto;
+ align-self:start;background:transparent;
+}
+.story-editorial>.story-gallery-photo>img,
+.story-step-photo>img,
+.story-occasion>img,
+.story-investment-photo>img,
+.quote-home-story>figure>img,
+.franchise-premium .franchise-network-photo,
+.franchise-premium .expansion-split img,
+.franchise-premium .franchise-model img.franchise-model-scene {
+ display:block;width:100%;height:auto;min-height:0;max-height:none;
+ aspect-ratio:var(--photo-ratio,auto);object-fit:initial;background:transparent;
+}
+.franchise-premium .franchise-network-photo { align-self:center; }
