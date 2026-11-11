@@ -76,3 +76,7 @@ for route,content,title,description in [('franquias',franchise,'Franquias Quick 
     directory=DIST/route;directory.mkdir(exist_ok=True)
     (directory/'index.html').write_text(shell(route,title,description,content),encoding='utf-8')
 print('Home, Franquias and Sistemas generated.')
+
+# Reapply page-specific floating contact shortcuts after regeneration.
+import runpy
+runpy.run_path(str(ROOT/'scripts/build-contact-actions.py'))
