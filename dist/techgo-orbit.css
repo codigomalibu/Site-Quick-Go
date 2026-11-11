@@ -28,3 +28,8 @@
 @media(prefers-reduced-motion:reduce) { .techgo-link.is-active { animation:none; }.techgo-event-node,.techgo-link { transition:none; } }
 
 @media(min-width:1001px) { .franchise-premium .franchise-hero h1 { font-size:clamp(55px,5.1vw,82px); } }
+
+/* Three fixed machines: Tech centered, two smaller Minis beside it. */
+.techgo-viewer { left:9%;top:17%;width:82%;height:66%;cursor:default;touch-action:pan-y; }
+.techgo-viewer:active { cursor:default; }
+@media(max-width:650px) { .techgo-viewer { left:4%;width:92%;top:19%;height:62%; } }

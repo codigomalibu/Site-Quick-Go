@@ -13,6 +13,12 @@
     "Celebrações"
   ],
   "highlightIntervalMs": 2600,
-  "interaction": "Mouse/touch horizontal drag, keyboard arrows, smooth vertical rotation.",
-  "photoFix": "Network photo uses intrinsic image aspect ratio with transparent background; no letterboxing."
+  "interaction": "Stationary product display. No automatic rotation, no drag rotation, no animation loop.",
+  "photoFix": "Network photo uses intrinsic image aspect ratio with transparent background; no letterboxing.",
+  "composition": [
+    "Mini GO left, scale 0.52",
+    "Tech GO center, scale 1",
+    "Mini GO right, scale 0.52"
+  ],
+  "geometry": "Tech GO retains the supplied STL vertex positions and face normals; former smooth vertex normals removed."
 }

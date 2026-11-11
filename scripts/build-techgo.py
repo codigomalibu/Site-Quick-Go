@@ -14,7 +14,9 @@ def buffer(values,kind,component=5126):
  a={'bufferView':vi,'componentType':component,'count':len(values),'type':kind}
  if kind=='VEC3':a.update(min=values.min(axis=0).tolist(),max=values.max(axis=0).tolist())
  ai=len(doc['accessors']);doc['accessors'].append(a);return ai
-primitive={'attributes':{'POSITION':buffer(m.vertices,'VEC3'),'NORMAL':buffer(m.vertex_normals,'VEC3')},'indices':buffer(m.faces.flatten(),'SCALAR',5125),'material':black}
+# Keep planar STL surfaces planar: flat source face normals avoid inflated edges.
+points=m.vertices[m.faces].reshape(-1,3);normals=np.repeat(m.face_normals,3,axis=0)
+primitive={'attributes':{'POSITION':buffer(points,'VEC3'),'NORMAL':buffer(normals,'VEC3')},'indices':buffer(np.arange(len(points)),'SCALAR',5125),'material':black}
 idx=len(doc['meshes']);doc['meshes'].append({'name':'Tech GO assembled supplied CAD housing','primitives':[primitive]})
 children=[8,9,10]+list(range(35,39))+list(range(40,61))
 # Match the CAD's lower tray height. All drink meshes stay rigidly integrated.
