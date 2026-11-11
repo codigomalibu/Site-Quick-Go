@@ -18,7 +18,7 @@
 .franchise-reference-cta:focus-visible,.franchise-opening-brand:focus-visible { outline:3px solid white;outline-offset:5px; }
 .franchise-opening-art { position:relative;margin:-45px -18px 0 0;min-width:0;align-self:center; }
 .franchise-opening-art:before { content:'';position:absolute;inset:9% 3% 21%;border:2px solid #ffe4b4;border-radius:50%;box-shadow:0 0 10px #ffdc9f,0 0 26px #d1ac6b88;z-index:-1; }
-.franchise-opening-art:after { content:'';position:absolute;left:-15%;right:-15%;bottom:-2%;height:16%;background:radial-gradient(ellipse at 24% 40%,#00c3e866,transparent 28%),radial-gradient(ellipse at 50% 40%,#eaa32d88,transparent 30%),radial-gradient(ellipse at 78% 40%,#f20d7866,transparent 28%);filter:blur(16px);z-index:-1; }
+.franchise-opening-art:after { content:none; }
 .franchise-opening-art img { display:block;width:100%;height:auto;max-height:calc(100svh - 100px);object-fit:contain;filter:none; }
 .site-secondary.reference-opening>.header { position:fixed;top:0;left:0;right:0;z-index:100; }
 .site-secondary.reference-opening>.header[hidden] { display:none; }

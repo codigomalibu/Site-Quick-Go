@@ -1,11 +1,17 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-open-trio.webp",
+  "asset": "/assets/franchise-trio-corrected.webp",
   "width": 1254,
   "height": 1254,
   "display": "Stationary transparent product cutout derived from the reference. Tech GO centered, Mini GO cyan left and pink right. All three dispenser compartments have transparent open backs.",
   "copy": "Live semantic HTML headline, description, logo link and CTA. Brand font Anek Devanagari.",
   "layout": "Two columns on desktop with viewport-aware sizing; stacked below 900px. No crop or horizontal overflow.",
   "cta": "Visible HTML link to #conversa.",
-  "navigation": "Hidden over opening; shown after scrolling past the opening."
+  "navigation": "Hidden over opening; shown after scrolling past the opening.",
+  "corrections": [
+    "Quick GO Drinks logo with model name below in matching lettering",
+    "Discreet recessed dark polymer outlets",
+    "Taller central Tech GO cup opening",
+    "No LED base strips or CSS underglow"
+  ]
 }
