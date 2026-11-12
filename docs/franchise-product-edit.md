@@ -25,3 +25,5 @@ Revision real-53: built-in image_gen reconstruction. Composition/drinks from pre
 Revision flat-54: built-in image_gen localized removal of Tech raised top cap/step only. Plain continuous flat matte front with modest rounded corners like Minis. Original logo and Anek Thin recomposed unchanged. Asset: dist/assets/franchise-flat-top.svg.
 
 Revision nozzle-55: built-in image_gen localized nozzle edit using user IMG_0875.HEIC converted losslessly to PNG for inspection. Shallow black mount, slim translucent lower edge and tiny center outlet. Flat Tech top retained. Home Three.js replaces former ceramic/chrome assembly with corresponding real nozzle geometry. Asset: dist/assets/franchise-photo-nozzle.svg.
+
+Revision nozzle-56: built-in image_gen localized three-layer nozzle correction from user close-up. Black rectangular mount, white/cyan acrylic strip, smaller blue lower disk, no metallic tip. Same shape implemented as native Three.js geometry on Home. Flat top retained. Asset: dist/assets/franchise-three-layer-nozzle.svg.

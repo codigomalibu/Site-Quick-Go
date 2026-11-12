@@ -178,13 +178,17 @@ async function start() {
     if (object.name.startsWith('Splash_droplet') || object.name.startsWith('Splash droplet')) splashes.push(object);
   });
   const realNozzle = new THREE.Group();
-  realNozzle.name = 'Photo referenced shallow black dispenser with translucent rim';
+  realNozzle.name = 'Real three layer dispenser black mount cyan band blue lower disk';
   const nozzleBlack = new THREE.MeshPhysicalMaterial({color:0x101416,metalness:0,roughness:.42});
-  const nozzleDiffuser = new THREE.MeshPhysicalMaterial({color:0xd8e4e7,metalness:0,roughness:.28,transparent:true,opacity:.72});
+  const nozzleDiffuser = new THREE.MeshPhysicalMaterial({color:0xd8f7ff,metalness:0,roughness:.28,transparent:true,opacity:.9,emissive:0x65c9ed,emissiveIntensity:.12});
+  const nozzleBlue = new THREE.MeshPhysicalMaterial({color:0x6664d5,metalness:0,roughness:.24,transparent:true,opacity:.8});
+  const nozzleMount = new THREE.Mesh(new THREE.BoxGeometry(.15,.02,.11),nozzleBlack);
+  nozzleMount.name = 'Shallow rectangular black mount';
+  nozzleMount.position.set(0,-.09,.025); nozzleMount.castShadow = true;
+  realNozzle.add(nozzleMount);
   for (const [name,radius,height,y,material] of [
-    ['Recessed black puck',.075,.014,-.09,nozzleBlack],
-    ['Thin translucent diffuser',.072,.005,-.10,nozzleDiffuser],
-    ['Small central outlet',.006,.01,-.108,nozzleBlack],
+    ['Thin white cyan acrylic band',.075,.005,-.1025,nozzleDiffuser],
+    ['Smaller translucent blue lower disk',.046,.008,-.109,nozzleBlue],
   ]) {
     const part = new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,height,48),material);
     part.name = name; part.position.set(0,y,.025); part.castShadow = true;

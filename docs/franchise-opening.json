@@ -1,6 +1,6 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-photo-nozzle.svg",
+  "asset": "/assets/franchise-three-layer-nozzle.svg",
   "width": 1254,
   "height": 1254,
   "display": "Stationary image reconstruction using real product references, two Mini GO sides and Tech GO center; no decorative rear arcs",
@@ -30,5 +30,5 @@
     "Tech GO": "source-assets/qg_techgo.stl, assembled housing, reviewed front/back and side projections"
   },
   "geometry": "Mini straight-sided flat matte case and large rectangular display/open bay from actual photo; Tech narrow assembled CAD proportions, no visible front ventilation or feet",
-  "nozzleReference": "IMG_0875.HEIC supplied by user, 2026-11-12; shallow black assembly with thin translucent edge and small central outlet"
+  "nozzleReference": "User close-up a7b68605: black rectangular mount, icy translucent band, smaller blue circular lower disk, no metal nipple"
 }
