@@ -1,7 +1,7 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-fluid-detail.svg",
-  "width": 1254,
+  "asset": "/assets/franchise-spaced.svg",
+  "width": 1362,
   "height": 1254,
   "display": "Stationary image reconstruction using real product references, two Mini GO sides and Tech GO center; no decorative rear arcs",
   "copy": "Live semantic HTML headline, description, logo link and CTA. Brand font Anek Devanagari.",
@@ -32,5 +32,6 @@
   "geometry": "Mini straight-sided flat matte case and large rectangular display/open bay from actual photo; Tech narrow assembled CAD proportions, no visible front ventilation or feet",
   "nozzleReference": "User close-up a7b68605: black rectangular mount, icy translucent band, smaller blue circular lower disk, no metal nipple",
   "glassRefinement": "Photographic clear ribbed glass, heavy base, detailed refractive melting ice, discrete condensation and bubbles, natural translucent drink colors",
-  "fluidRefinement": "Thin translucent organic pouring with realistic specular highlights and slight diameter variation, calm small contact ripples; enhanced crystal, wet ice refraction and condensation"
+  "fluidRefinement": "Thin translucent organic pouring with realistic specular highlights and slight diameter variation, calm small contact ripples; enhanced crystal, wet ice refraction and condensation",
+  "spacing": "Side machines moved outward by 54 source pixels using native SVG composition; original fluid/glass artwork retained"
 }

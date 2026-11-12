@@ -23,7 +23,7 @@
     "sourceAssetId": 50,
     "image": "/assets/franchise-tech-scene.webp"
   },
-  "unitsSource": "Relação fornecida no material Expansão 2026",
+  "unitsSource": "Material Expansão 2026 plus user update adding São José do Rio Preto / SP on 2026-11-12",
   "visualRevision": {
     "release": "polish-37",
     "heroPhotoSource": 259,
@@ -31,5 +31,6 @@
     "techSceneSource": 268,
     "networkSceneSource": 285,
     "motion": "WebGL ambient light, staggered hero title and image/card entrances. Native scroll; reduced-motion and visibility gating."
-  }
+  },
+  "unitsCount": 15
 }
