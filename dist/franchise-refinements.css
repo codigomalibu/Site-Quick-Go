@@ -1,0 +1,15 @@
+/* No decorative arcs behind the stationary product. */
+.franchise-reference-opening:before,.franchise-opening-art:before,.franchise-opening-art:after{content:none!important}
+.franchise-premium .franchise-principles{padding:27px 0;background:#22343B;border-block:1px solid #FEBA0155;overflow:hidden}
+.principles-motion{width:100%;overflow:hidden;outline-offset:-5px}
+.principles-track{display:flex;width:max-content;animation:principles-drift 34s linear infinite}
+.principles-group{display:flex;align-items:center;flex-shrink:0;gap:64px;padding-right:64px}
+.principles-group>span{display:inline-flex;align-items:center;gap:64px;white-space:nowrap;font-family:'Anek Devanagari',sans-serif;font-size:clamp(19px,1.7vw,27px);font-weight:500;line-height:1.25;letter-spacing:.025em;color:#FFFFFF}
+.principles-group>span:after{content:'';width:7px;height:7px;background:#FEBA01;border-radius:50%;flex:none}
+.principles-motion:hover .principles-track,.principles-motion:focus .principles-track{animation-play-state:paused}
+@keyframes principles-drift{to{transform:translateX(-50%)}}
+/* Yellow stays visible on pale surfaces with dark lettering on the yellow tag. */
+.franchise-premium .franchise-section:not(.expansion-delivery):not(.expansion-business):not(.franchise-support):not(.expansion-journey) .eyebrow{display:table;width:auto;max-width:100%;padding:7px 11px;border-radius:4px;background:#FEBA01;color:#22343B;font-size:11px;font-weight:600;line-height:1.35;letter-spacing:.11em}
+.franchise-premium .expansion-place-grid article>span{color:#22343B;border-bottom:2px solid #FEBA01;font-weight:600}
+@media(max-width:600px){.franchise-premium .franchise-principles{padding:23px 0}.principles-group{gap:38px;padding-right:38px}.principles-group>span{gap:38px;font-size:20px}.principles-track{animation-duration:30s}}
+@media(prefers-reduced-motion:reduce){.principles-track{animation:none;width:100%}.principles-group{flex-wrap:wrap;justify-content:center;gap:18px 28px;width:100%;padding:0 24px}.principles-group>span{white-space:normal;gap:20px;font-size:17px}.principles-group[aria-hidden=true]{display:none}}

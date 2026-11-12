@@ -1,0 +1,16 @@
+{
+  "release": "motion-52",
+  "principles": [
+    "Bar expresso",
+    "Receitas padronizadas",
+    "Operação compacta",
+    "Suporte da rede",
+    "Mini GO e Tech GO",
+    "Drinks em segundos"
+  ],
+  "loop": "Two identical six-item groups, CSS translateX(-50%), 34 seconds desktop/30 mobile",
+  "pause": "Hover and keyboard focus",
+  "reducedMotion": "No animation; messages wrap without duplicate group",
+  "eyebrows": "Dark text on approved yellow tag on pale surfaces",
+  "arcs": "Removed both rear halo and cyan curve"
+}

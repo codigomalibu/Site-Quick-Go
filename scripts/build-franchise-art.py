@@ -7,7 +7,7 @@ from fontTools.pens.svgPathPen import SVGPathPen
 
 ASSETS = Path(__file__).resolve().parents[1] / 'dist/assets'
 logo = base64.b64encode((ASSETS / 'QG-LOGO2.png').read_bytes()).decode()
-base = base64.b64encode((ASSETS / 'franchise-trio-grounded.webp').read_bytes()).decode()
+base = base64.b64encode((ASSETS / 'franchise-trio-portrait.webp').read_bytes()).decode()
 font = instantiateVariableFont(TTFont(ASSETS / 'fonts/anek-devanagari-latin.woff2'), {'wght':100}, inplace=False)
 glyphs = font.getGlyphSet()
 cmap = font.getBestCmap()
@@ -27,8 +27,8 @@ def label(text, center, baseline, size):
     return f'<g aria-label="{text}" data-font="Anek Devanagari Thin" data-weight="100" fill="#172126" stroke="#172126" stroke-width="14" stroke-linejoin="round" transform="translate({center-width*scale/2} {baseline}) scale({scale} {-scale})">'+''.join(paths)+'</g>'
 
 parts = [f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1254 1254" width="1254" height="1254"><defs><filter id="black" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"/></filter></defs><image width="1254" height="1254" xlink:href="data:image/webp;base64,{base}"/>']
-for x,y,w,h in [(506,226,242,68),(133,542,151,50),(971,542,151,50)]:
+for x,y,w,h in [(524,237,206,54),(146,555,124,34),(985,555,124,34)]:
     parts.append(f'<svg x="{x}" y="{y}" width="{w}" height="{h}" viewBox="117 478 2794 584" preserveAspectRatio="xMidYMid meet"><image width="3000" height="1500" filter="url(#black)" xlink:href="data:image/png;base64,{logo}"/></svg>')
-parts += [label('Tech GO',627,331,40),label('Mini GO',208,619,27),label('Mini GO',1047,619,27),'</svg>']
-(ASSETS / 'franchise-trio-balanced.svg').write_text(''.join(parts),encoding='utf-8')
+parts += [label('Tech GO',627,323,36),label('Mini GO',208,612,25),label('Mini GO',1047,612,25),'</svg>']
+(ASSETS / 'franchise-trio-proportions.svg').write_text(''.join(parts),encoding='utf-8')
 print('Original logo + Anek Devanagari weight 100 outlines composed.')

@@ -1,6 +1,6 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-trio-balanced.svg",
+  "asset": "/assets/franchise-trio-proportions.svg",
   "width": 1254,
   "height": 1254,
   "display": "Stationary transparent product cutout derived from the reference. Tech GO centered, Mini GO cyan left and pink right. All three dispenser compartments have transparent open backs.",
@@ -20,5 +20,8 @@
   ],
   "brandBlue": "#22343B",
   "logoSource": "QG-LOGO2.png supplied by user; embedded exact image via native SVG composition",
-  "modelFont": "Anek Devanagari Thin weight 100, title-case names, smaller scale, closer to logo and subtle outline for legibility"
+  "modelFont": "Anek Devanagari Thin weight 100, title-case names, smaller scale, closer to logo and subtle outline for legibility",
+  "screenRefinement": "Portrait screen ratios harmonized across Mini and Tech; original logo scaled to leave consistent margins",
+  "decoration": "No rear halo or arcs",
+  "principles": "Six larger messages in seamless CSS marquee, paused on hover/focus, static with reduced motion"
 }
