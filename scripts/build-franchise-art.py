@@ -7,7 +7,7 @@ from fontTools.pens.svgPathPen import SVGPathPen
 
 ASSETS = Path(__file__).resolve().parents[1] / 'dist/assets'
 logo = base64.b64encode((ASSETS / 'QG-LOGO2.png').read_bytes()).decode()
-base = base64.b64encode((ASSETS / 'franchise-flat-top.webp').read_bytes()).decode()
+base = base64.b64encode((ASSETS / 'franchise-photo-nozzle.webp').read_bytes()).decode()
 font = instantiateVariableFont(TTFont(ASSETS / 'fonts/anek-devanagari-latin.woff2'), {'wght':100}, inplace=False)
 glyphs = font.getGlyphSet()
 cmap = font.getBestCmap()
@@ -30,5 +30,5 @@ parts = [f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.or
 for x,y,w,h in [(522,270,210,55),(174,548,140,38),(941,548,140,38)]:
     parts.append(f'<svg x="{x}" y="{y}" width="{w}" height="{h}" viewBox="117 478 2794 584" preserveAspectRatio="xMidYMid meet"><image width="3000" height="1500" filter="url(#black)" xlink:href="data:image/png;base64,{logo}"/></svg>')
 parts += [label('Tech GO',627,360,36),label('Mini GO',244,615,25),label('Mini GO',1011,615,25),'</svg>']
-(ASSETS / 'franchise-flat-top.svg').write_text(''.join(parts),encoding='utf-8')
+(ASSETS / 'franchise-photo-nozzle.svg').write_text(''.join(parts),encoding='utf-8')
 print('Original logo + Anek Devanagari weight 100 outlines composed.')

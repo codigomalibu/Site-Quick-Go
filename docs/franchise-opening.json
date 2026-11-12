@@ -1,6 +1,6 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-flat-top.svg",
+  "asset": "/assets/franchise-photo-nozzle.svg",
   "width": 1254,
   "height": 1254,
   "display": "Stationary image reconstruction using real product references, two Mini GO sides and Tech GO center; no decorative rear arcs",
@@ -29,5 +29,6 @@
     "Mini GO": "dist/assets/official-mini-go.webp, original product photograph from supplied franchise material",
     "Tech GO": "source-assets/qg_techgo.stl, assembled housing, reviewed front/back and side projections"
   },
-  "geometry": "Mini straight-sided flat matte case and large rectangular display/open bay from actual photo; Tech narrow assembled CAD proportions, no visible front ventilation or feet"
+  "geometry": "Mini straight-sided flat matte case and large rectangular display/open bay from actual photo; Tech narrow assembled CAD proportions, no visible front ventilation or feet",
+  "nozzleReference": "IMG_0875.HEIC supplied by user, 2026-11-12; shallow black assembly with thin translucent edge and small central outlet"
 }

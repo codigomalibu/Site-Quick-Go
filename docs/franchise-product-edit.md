@@ -23,3 +23,5 @@ Revision motion-52: built-in image_gen adjusts blank portrait screen proportions
 Revision real-53: built-in image_gen reconstruction. Composition/drinks from previous art, actual Mini from official-mini-go.webp, actual Tech from front and 3/4 projections of user qg_techgo.stl. Replaced invented capsule shells with actual narrower, straighter cases, larger Mini screen/open bay, flush bases, rear-only ventilation. Blank screens receive unchanged user logo and Anek Thin vectors. Asset: dist/assets/franchise-real-machines.svg.
 
 Revision flat-54: built-in image_gen localized removal of Tech raised top cap/step only. Plain continuous flat matte front with modest rounded corners like Minis. Original logo and Anek Thin recomposed unchanged. Asset: dist/assets/franchise-flat-top.svg.
+
+Revision nozzle-55: built-in image_gen localized nozzle edit using user IMG_0875.HEIC converted losslessly to PNG for inspection. Shallow black mount, slim translucent lower edge and tiny center outlet. Flat Tech top retained. Home Three.js replaces former ceramic/chrome assembly with corresponding real nozzle geometry. Asset: dist/assets/franchise-photo-nozzle.svg.

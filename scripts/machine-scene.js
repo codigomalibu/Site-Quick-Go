@@ -102,6 +102,10 @@ async function start() {
   machine.traverse(object => {
     if (!object.isMesh) return;
     const material = object.material;
+    // Replace the former ceramic/chrome nozzle with the real shallow assembly.
+    if (['Dispenser mount','White ceramic dispenser','Warm under canopy light','Dispensing outlet'].includes(object.name.replaceAll('_',' '))) {
+      object.visible = false;
+    }
     if (material.name === 'Luminous branded display') {
       material.map = screenTexture; material.needsUpdate = true;
     }
@@ -148,6 +152,13 @@ async function start() {
       };
     }
     if (object.name === 'Flowing_coral_stream' || object.name === 'Flowing coral stream') {
+      const positions = object.geometry.getAttribute('position');
+      for (let i = 0; i < positions.count; i++) {
+        const t = (positions.getY(i) + .413) / .276;
+        positions.setY(i, -.413 + t * .300);
+      }
+      positions.needsUpdate = true;
+      object.geometry.computeVertexNormals();
       // Only the stream gets a traveling deformation; the whole assembly
       // remains inside the same machine root throughout manual/auto rotation.
       object.material = material.clone();
@@ -156,7 +167,7 @@ async function start() {
         shader.vertexShader = 'uniform float flowTime;\n' + shader.vertexShader;
         shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
           #include <begin_vertex>
-          float along = clamp((-position.y - .137) / .276, 0., 1.);
+          float along = clamp((-position.y - .113) / .300, 0., 1.);
           float traveling = sin(along * 46. - flowTime * 15.);
           transformed.x *= 1. + .11 * traveling;
           transformed.z = .025 + (transformed.z - .025) * (1. + .11 * traveling);
@@ -166,6 +177,20 @@ async function start() {
     }
     if (object.name.startsWith('Splash_droplet') || object.name.startsWith('Splash droplet')) splashes.push(object);
   });
+  const realNozzle = new THREE.Group();
+  realNozzle.name = 'Photo referenced shallow black dispenser with translucent rim';
+  const nozzleBlack = new THREE.MeshPhysicalMaterial({color:0x101416,metalness:0,roughness:.42});
+  const nozzleDiffuser = new THREE.MeshPhysicalMaterial({color:0xd8e4e7,metalness:0,roughness:.28,transparent:true,opacity:.72});
+  for (const [name,radius,height,y,material] of [
+    ['Recessed black puck',.075,.014,-.09,nozzleBlack],
+    ['Thin translucent diffuser',.072,.005,-.10,nozzleDiffuser],
+    ['Small central outlet',.006,.01,-.108,nozzleBlack],
+  ]) {
+    const part = new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,height,48),material);
+    part.name = name; part.position.set(0,y,.025); part.castShadow = true;
+    realNozzle.add(part);
+  }
+  machine.add(realNozzle);
   // A small local light picks out the glass and orange liquid below the head.
   const dispenserLight = new THREE.PointLight(0xffd8b3, .08, .8, 2);
   dispenserLight.position.set(0, -.15, .14); machine.add(dispenserLight);
