@@ -1,6 +1,6 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-real-machines.svg",
+  "asset": "/assets/franchise-flat-top.svg",
   "width": 1254,
   "height": 1254,
   "display": "Stationary image reconstruction using real product references, two Mini GO sides and Tech GO center; no decorative rear arcs",
@@ -16,7 +16,8 @@
     "Fine controlled drink streams into glasses; no exaggerated splash crowns or overflowing liquid",
     "Glasses reduced about 15%, each supported by a circular black shallow cup holder with low rim and front finger notch, following user photo",
     "Circular cup holders reduced further in diameter and rim height, fully within bays",
-    "Cup holders fully seated on bay floor with contact shadows, no visible air gap"
+    "Cup holders fully seated on bay floor with contact shadows, no visible air gap",
+    "Tech front top is flat and continuous, without raised cap or step, matching side machines"
   ],
   "brandBlue": "#22343B",
   "logoSource": "QG-LOGO2.png supplied by user; embedded exact image via native SVG composition",

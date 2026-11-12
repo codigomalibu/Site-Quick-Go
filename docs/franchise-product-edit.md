@@ -21,3 +21,5 @@ Revision palette-50: built-in image_gen erased all baked screen text and seated 
 Revision motion-52: built-in image_gen adjusts blank portrait screen proportions only. Original logo and Anek Thin outlines recomposed natively at smaller sizes with consistent screen margins. Final: dist/assets/franchise-trio-proportions.svg.
 
 Revision real-53: built-in image_gen reconstruction. Composition/drinks from previous art, actual Mini from official-mini-go.webp, actual Tech from front and 3/4 projections of user qg_techgo.stl. Replaced invented capsule shells with actual narrower, straighter cases, larger Mini screen/open bay, flush bases, rear-only ventilation. Blank screens receive unchanged user logo and Anek Thin vectors. Asset: dist/assets/franchise-real-machines.svg.
+
+Revision flat-54: built-in image_gen localized removal of Tech raised top cap/step only. Plain continuous flat matte front with modest rounded corners like Minis. Original logo and Anek Thin recomposed unchanged. Asset: dist/assets/franchise-flat-top.svg.
