@@ -1,9 +1,9 @@
 {
   "source": "a6a35199-540e-4862-955c-3921484756d5.png",
-  "asset": "/assets/franchise-trio-proportions.svg",
+  "asset": "/assets/franchise-real-machines.svg",
   "width": 1254,
   "height": 1254,
-  "display": "Stationary transparent product cutout derived from the reference. Tech GO centered, Mini GO cyan left and pink right. All three dispenser compartments have transparent open backs.",
+  "display": "Stationary image reconstruction using real product references, two Mini GO sides and Tech GO center; no decorative rear arcs",
   "copy": "Live semantic HTML headline, description, logo link and CTA. Brand font Anek Devanagari.",
   "layout": "Two columns on desktop with viewport-aware sizing; stacked below 900px. No crop or horizontal overflow.",
   "cta": "Visible HTML link to #conversa.",
@@ -23,5 +23,10 @@
   "modelFont": "Anek Devanagari Thin weight 100, title-case names, smaller scale, closer to logo and subtle outline for legibility",
   "screenRefinement": "Portrait screen ratios harmonized across Mini and Tech; original logo scaled to leave consistent margins",
   "decoration": "No rear halo or arcs",
-  "principles": "Six larger messages in seamless CSS marquee, paused on hover/focus, static with reduced motion"
+  "principles": "Six larger messages in seamless CSS marquee, paused on hover/focus, static with reduced motion",
+  "machineReferences": {
+    "Mini GO": "dist/assets/official-mini-go.webp, original product photograph from supplied franchise material",
+    "Tech GO": "source-assets/qg_techgo.stl, assembled housing, reviewed front/back and side projections"
+  },
+  "geometry": "Mini straight-sided flat matte case and large rectangular display/open bay from actual photo; Tech narrow assembled CAD proportions, no visible front ventilation or feet"
 }
