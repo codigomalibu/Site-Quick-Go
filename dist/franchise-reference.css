@@ -54,3 +54,5 @@
  .franchise-reference-cta { font-size:16px;min-height:57px;padding:17px 21px;border-radius:12px;gap:20px; }
  .franchise-opening-art { margin-top:25px; }
 }
+/* Keep navigation available from the first franchise viewport. */
+.site-secondary.reference-opening>.header{position:sticky;inset:0 0 auto}.reference-opening .franchise-opening-brand{display:none}.reference-opening .franchise-opening-inner{grid-template-rows:1fr;min-height:calc(100svh - 100px)}@media(max-width:900px){.reference-opening .franchise-opening-inner{min-height:0}.reference-opening .franchise-opening-copy{padding-top:20px}}

@@ -78,7 +78,7 @@ test('Every page has working local links, one heading and distinct navigation', 
   assert.ok(!system.includes('<iframe'));
   for (const url of ['https://quickgo.sults.com.br/login','https://painel.quickgodrinks.com.br','https://quickgoorcamentos.com/login']) assert.ok(system.includes(url));
   assert.ok(system.includes('id="factory-title"'));
-  assert.ok(!/<a\b[^>]*>[\s\S]*?system-factory/.test(system.split('class="systems-factory"')[1].split('</section>')[0])); 
+  assert.ok(system.includes('https://leopradominano8.wixstudio.com/fabricaquickgo'));
   const home = await readFile(path.join(root,'index.html'),'utf8');
   assert.ok(home.includes('id="quickgo-orcamento"'));
   assert.ok(home.includes('/quote-embed.js?v=systems-62'));
