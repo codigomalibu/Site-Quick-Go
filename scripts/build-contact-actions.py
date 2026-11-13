@@ -11,10 +11,10 @@ for route, target, label, caption in [
     html = page.read_text(encoding='utf-8')
     html = re.sub(r'<a\b[^>]*\bid="contact-form-shortcut"[\s\S]*?</a>', '', html)
     html = re.sub(r'<link rel="stylesheet" href="/contact-actions\.css[^\"]*">', '', html)
-    html = html.replace('</head>', '<link rel="stylesheet" href="/contact-actions.css?v=palette-50"></head>')
+    html = html.replace('</head>', '<link rel="stylesheet" href="/contact-actions.css?v=systems-62"></head>')
     button = (f'<a id="contact-form-shortcut" class="contact-form-shortcut" href="{target}" '
               f'aria-label="{label}"><span class="contact-shortcut-caption" aria-hidden="true">{caption}</span>'
-              '<img src="/assets/whatsapp-contact.png" width="512" height="512" alt="" decoding="async"></a>')
+              '<span class="contact-shortcut-arrow" aria-hidden="true">↗</span></a>')
     html = html.replace('</body>', button + '</body>')
     if route.startswith('franquias/'):
         html = re.sub(r'<a class="nav-cta"[^>]*>[\s\S]*?</a>',

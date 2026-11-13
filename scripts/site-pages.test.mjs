@@ -76,10 +76,11 @@ test('Every page has working local links, one heading and distinct navigation', 
   }
   const system = await readFile(path.join(root,'sistemas/index.html'),'utf8');
   assert.ok(!system.includes('<iframe'));
-  assert.ok(system.includes('área dos franqueados está em preparação'));
+  for (const url of ['https://quickgo.sults.com.br/login','https://painel.quickgodrinks.com.br','https://quickgoorcamentos.com/login']) assert.ok(system.includes(url));
+  assert.ok(!system.includes('Fábrica')); 
   const home = await readFile(path.join(root,'index.html'),'utf8');
   assert.ok(home.includes('id="quickgo-orcamento"'));
-  assert.ok(home.includes('/quote-embed.js?v=quote-25'));
+  assert.ok(home.includes('/quote-embed.js?v=systems-62'));
   assert.ok(!home.includes('id="booking-form"'));
   assert.ok(!home.includes('id="quote-whatsapp"'));
   const app = await readFile(path.join(root,'app.js'),'utf8');
@@ -108,4 +109,14 @@ test('The complete user-approved menu has 32 correctly categorised drinks', asyn
   assert.equal(drinks['whisky-sour'].category,'premium');
   assert.equal(drinks['barbie-mule'].category,'zero-alcool');
   assert.ok(!home.includes('data-filter="tropicais"'));
+});
+
+test('The modal form ignores resize and top messages that would move the host page', () => {
+  let onMessage;
+  const source = {};
+  const frame = { contentWindow:source, style:{}, scrollIntoView:()=>assert.fail('Modal must not move the host page') };
+  const browser = { location:{search:''}, document:{getElementById:id=>id==='quote-dialog'?{tagName:'DIALOG'}:null}, addEventListener:(_name,fn)=>{onMessage=fn;}, removeEventListener:()=>{} };
+  connectQuoteEmbed(frame,browser);
+  onMessage({origin:'https://quickgoorcamentos.com',source,data:{quickgoAltura:14000,quickgoTopo:true}});
+  assert.equal(frame.style.height,undefined);
 });

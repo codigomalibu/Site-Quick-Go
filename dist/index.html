@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="/brand-typography.css?v=manual-17">
   <link rel="stylesheet" href="/footer-section.css?v=network-21">
   <link rel="stylesheet" href="/site-pages.css?v=structure-24">
-  <link rel="stylesheet" href="/quote-section.css?v=quote-25">
-  <script type="module" src="/quote-embed.js?v=quote-25"></script>
+  <link rel="stylesheet" href="/quote-section.css?v=systems-62">
+  <script type="module" src="/quote-embed.js?v=systems-62"></script>
   <script type="module" src="/footer-section.js?v=network-21"></script>
   <script type="module" src="/story-media.js?v=polish-37"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.quickgodrinks.com.br/#organization","name":"Quick GO Drinks","url":"https://www.quickgodrinks.com.br/","description":"Bar expresso e compacto para eventos sociais, corporativos e ativações de marca."},{"@type":"WebSite","@id":"https://quickgo-drinks.vercel.app/#website","name":"Quick GO","url":"https://quickgo-drinks.vercel.app/","inLanguage":"pt-BR","publisher":{"@id":"https://www.quickgodrinks.com.br/#organization"}}]}</script>
@@ -37,7 +37,7 @@
   <script type="module" src="/app.js?v=media-34"></script>
 <link rel="stylesheet" href="/scroll-reveal.css?v=soft-30">
   <script type="module" src="/scroll-reveal.js?v=soft-30"></script>
-<link rel="stylesheet" href="/brand-polish.css?v=photo-39"><script type="module" src="/brand-motion.js?v=polish-37"></script><link rel="stylesheet" href="/brand-consistency.css?v=palette-50"><link rel="stylesheet" href="/contact-actions.css?v=palette-50"></head>
+<link rel="stylesheet" href="/brand-polish.css?v=photo-39"><script type="module" src="/brand-motion.js?v=polish-37"></script><link rel="stylesheet" href="/brand-consistency.css?v=palette-50"><link rel="stylesheet" href="/contact-actions.css?v=systems-62"></head>
 <body>
   <noscript><p style="padding:16px;background:#f1ede4;color:#22343b">Para montar seu pedido e explorar os filtros, ative o JavaScript. <a href="https://wa.me/5567991973749?text=Quero%20um%20or%C3%A7amento%20para%20meu%20evento.">Conversar no WhatsApp</a>.</p></noscript>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -137,12 +137,13 @@
       <p>Conte onde e quando vai acontecer. Escolha sua praça no formulário e comece a planejar o bar do seu evento.</p>
       <figure><img style="--photo-ratio:1100/1375" src="/assets/story-last-toast.webp" width="1100" height="1375" alt="Um drink Quick GO em um evento ao pôr do sol" loading="lazy"><figcaption>Mais tempo para o que faz a festa valer.</figcaption></figure>
     </div>
-    <div class="quote-home-form">
-      <div class="quote-home-form-heading"><div><span class="quote-home-label">ORÇAMENTO PARA EVENTOS</span><h3>Vamos preparar sua proposta.</h3></div><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 23 23 9M9 9h14v14" stroke="currentColor" stroke-width="1.3"/></svg></div>
+    <div class="quote-launch"><p class="quote-home-label">ORÇAMENTO PARA EVENTOS</p><h3>Vamos preparar sua proposta.</h3><p>Data, local e carta de drinks. Seu evento começa aqui.</p><a class="button" href="#orcamento" data-open-quote>Orçamento para seu evento <span aria-hidden="true">↗</span></a></div>
+      <dialog id="quote-dialog" class="quote-dialog" aria-labelledby="quote-dialog-title"><button type="button" class="quote-dialog-close" aria-label="Fechar orçamento">×</button><div class="quote-home-form">
+      <div class="quote-home-form-heading"><div><span class="quote-home-label">ORÇAMENTO PARA EVENTOS</span><h3 id="quote-dialog-title">Vamos preparar sua proposta.</h3></div><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 23 23 9M9 9h14v14" stroke="currentColor" stroke-width="1.3"/></svg></div>
       <div class="quote-home-frame"><iframe id="quickgo-orcamento" class="quote-frame" title="Pedido de orçamento QuickGO" style="width:100%;border:0;min-height:600px" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
       <div class="quote-home-form-bottom"><p>O atendimento confirma disponibilidade, valores e condições para o seu evento.</p></div>
       <noscript><p class="quote-home-noscript">Ative o JavaScript para preencher aqui ou <a href="https://quickgoorcamentos.com/embed/orcamento">abra o formulário de orçamento</a>.</p></noscript>
-    </div>
+    </div></dialog>
   </div>
 </section>
 
@@ -166,5 +167,5 @@
   <dialog id="quiz-dialog" class="quiz-dialog"><button class="dialog-close" data-close aria-label="Fechar curadoria">×</button><p class="eyebrow">ESCOLHA SUA CARTA</p><h2>Qual categoria<br><em>você quer conhecer?</em></h2><p>Escolha uma categoria para explorar a carta.</p><div class="quiz-options"><button data-taste="classico"><span>01</span><strong>Clássico</strong><small>Conheça os drinks desta categoria.</small></button><button data-taste="premium"><span>02</span><strong>Premium</strong><small>Conheça os drinks desta categoria.</small></button><button data-taste="ultra"><span>03</span><strong>Ultra</strong><small>Conheça os drinks desta categoria.</small></button><button data-taste="zero-alcool"><span>04</span><strong>Zero Álcool</strong><small>Conheça os drinks desta categoria.</small></button></div><p class="small-note">A carta final e a disponibilidade são definidas com a equipe.</p></dialog>
   <dialog id="privacy-dialog" class="privacy-dialog"><button class="dialog-close" data-close aria-label="Fechar privacidade">×</button><p class="eyebrow">PRIVACIDADE</p><h2>Sua privacidade.</h2><p>Este site não instala cookies de publicidade nem usa rastreadores de terceiros. As fontes, fotos e vídeos são carregados do próprio site.</p><p>O formulário de orçamento é fornecido pelo sistema externo quickgoorcamentos.com. Os dados preenchidos e enviados nele são tratados pelo próprio sistema, conforme as condições apresentadas por ele. Ao usar o atendimento pelo WhatsApp, você visita um serviço externo e decide quando enviar sua mensagem.</p><p>O atendimento comercial e a política do canal externo são de responsabilidade de seus operadores.</p></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<a id="contact-form-shortcut" class="contact-form-shortcut" href="#orcamento" aria-label="Ir ao formulário de orçamento para seu evento"><span class="contact-shortcut-caption" aria-hidden="true">Orçamento para seu evento</span><img src="/assets/whatsapp-contact.png" width="512" height="512" alt="" decoding="async"></a></body>
+<a id="contact-form-shortcut" class="contact-form-shortcut" href="#orcamento" aria-label="Ir ao formulário de orçamento para seu evento"><span class="contact-shortcut-caption" aria-hidden="true">Orçamento para seu evento</span><span class="contact-shortcut-arrow" aria-hidden="true">↗</span></a></body>
 </html>
